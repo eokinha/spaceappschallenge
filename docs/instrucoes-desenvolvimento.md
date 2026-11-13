@@ -30,6 +30,9 @@ pipeline Python  ──gera──▶  web/data/analogs.json  ──lido por─�
   escreve um único JSON.
 - **Front-end** é estático: um HTML que carrega Three.js e lê o JSON. Não há back-end.
 - O front-end não calcula semelhança. Se um número aparece na tela, ele veio do JSON.
+- **Deploy de testes:** Vercel, como site estático. O `vercel.json` publica só a pasta `web/`, sem build.
+  O pipeline não roda na Vercel: gere o `analogs.json` localmente e commite. Cada branch ou PR ganha uma
+  URL de preview (ver README).
 
 ### Estrutura de pastas
 
@@ -272,3 +275,4 @@ Dimensão ausente no JSON aparece como "sem dado", não como zero.
 - [ ] O painel mostra as 5 dimensões, os pontos fortes, os limites e as fontes.
 - [ ] Toda a interação funciona também pela lista de locais.
 - [ ] README cita todos os datasets e texturas usados.
+- [ ] O deploy na Vercel abre sem erros no console e mostra o mesmo que a versão local.

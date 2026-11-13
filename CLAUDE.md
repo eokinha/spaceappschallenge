@@ -8,5 +8,6 @@ contrato do `analogs.json`, regras do front-end e critérios de pronto.
 
 - Rodar o front-end: `cd web && python -m http.server 8000`
 - Gerar os dados: `python -m pipeline.export`
+- Deploy de testes: Vercel estática, publica só `web/` (`vercel.json`); o `analogs.json` precisa estar commitado.
 - O front-end não calcula semelhanças; todo número vem do JSON.
 - Mudanças no formato do JSON exigem atualizar `pipeline/schema.json` e o documento de instruções.

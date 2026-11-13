@@ -1,0 +1,8 @@
+.venv/
+data/
+docs/
+pipeline/
+**/__pycache__/
+*.tif
+*.tiff
+requirements.txt
