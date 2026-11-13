@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Análogos Terra · Lua · Marte</title>
+  <style>
+    :root {
+      --bg: #05070d;
+      --fg: #e6ebf5;
+      --muted: #8a94a8;
+      --panel: rgba(14, 18, 30, 0.92);
+      --border: #232a3d;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
+      font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; overflow: hidden; }
+    #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+    header { position: fixed; top: 0; left: 0; right: 0; padding: 12px 16px; pointer-events: none;
+      display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+    header h1 { margin: 0; font-size: 16px; font-weight: 600; }
+    #status { color: var(--muted); font-size: 12px; }
+    .labels { position: fixed; bottom: 16px; left: 0; right: 0; display: flex; justify-content: center;
+      gap: 16px; font-size: 12px; color: var(--muted); pointer-events: none; flex-wrap: wrap; padding: 0 16px; }
+    .labels span::before { content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 6px;
+      border-radius: 50%; background: var(--c); vertical-align: -1px; }
+    .labels .analog::before { border-radius: 0; transform: rotate(45deg); }
+    /* Placeholders das próximas fases: painel lateral, lista de locais e legenda dos arcos. */
+    #panel, #site-list, #legend { display: none; }
+  </style>
+  <script type="importmap">
+  { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  } }
+  </script>
+</head>
+<body>
+  <canvas id="scene" aria-label="Globos 3D da Lua, da Terra e de Marte"></canvas>
+  <header>
+    <h1>Análogos Terra · Lua · Marte</h1>
+    <span id="status">Carregando…</span>
+  </header>
+  <div class="labels" aria-hidden="true">
+    <span style="--c:#9fd3ff">Alvo na Lua</span>
+    <span class="analog" style="--c:#5dffa0">Análogo na Terra</span>
+    <span style="--c:#ff7a45">Alvo em Marte</span>
+  </div>
+  <aside id="panel" aria-live="polite"></aside>
+  <nav id="site-list" aria-label="Lista de locais"></nav>
+  <div id="legend"></div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

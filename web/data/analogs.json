@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-13T00:00:00Z",
+  "dimensions": [
+    { "id": "gelo",        "label": "Gelo / água" },
+    { "id": "temperatura", "label": "Temperatura" },
+    { "id": "regolito",    "label": "Regolito / materiais" },
+    { "id": "iluminacao",  "label": "Iluminação" },
+    { "id": "relevo",      "label": "Relevo" }
+  ],
+  "targets": [
+    {
+      "id": "moon-shackleton",
+      "body": "moon",
+      "name": "Borda da cratera Shackleton",
+      "lat": -89.67,
+      "lon": 129.78,
+      "description": "[EXEMPLO ILUSTRATIVO] Candidato a base no polo sul lunar, com iluminação quase contínua na borda."
+    },
+    {
+      "id": "moon-malapert",
+      "body": "moon",
+      "name": "Maciço Malapert",
+      "lat": -86.0,
+      "lon": 2.9,
+      "description": "[EXEMPLO ILUSTRATIVO] Montanha perto do polo sul, com visada para a Terra."
+    },
+    {
+      "id": "mars-jezero",
+      "body": "mars",
+      "name": "Cratera Jezero",
+      "lat": 18.38,
+      "lon": 77.58,
+      "description": "[EXEMPLO ILUSTRATIVO] Antigo lago com delta, explorado pelo Perseverance."
+    },
+    {
+      "id": "mars-arcadia",
+      "body": "mars",
+      "name": "Arcadia Planitia",
+      "lat": 45.0,
+      "lon": -170.0,
+      "description": "[EXEMPLO ILUSTRATIVO] Planície com gelo raso no subsolo, candidata a base tripulada."
+    }
+  ],
+  "analogs": [
+    {
+      "id": "earth-devon",
+      "name": "Ilha Devon (cratera Haughton)",
+      "lat": 75.38,
+      "lon": -89.68,
+      "description": "[EXEMPLO ILUSTRATIVO] Cratera de impacto no Ártico canadense, com permafrost."
+    },
+    {
+      "id": "earth-dry-valleys",
+      "name": "Vales Secos McMurdo",
+      "lat": -77.5,
+      "lon": 162.0,
+      "description": "[EXEMPLO ILUSTRATIVO] Deserto polar frio e seco na Antártida."
+    },
+    {
+      "id": "earth-atacama",
+      "name": "Deserto do Atacama",
+      "lat": -24.5,
+      "lon": -69.25,
+      "description": "[EXEMPLO ILUSTRATIVO] Um dos lugares mais secos da Terra."
+    },
+    {
+      "id": "earth-mauna-kea",
+      "name": "Mauna Kea (Havaí)",
+      "lat": 19.82,
+      "lon": -155.47,
+      "description": "[EXEMPLO ILUSTRATIVO] Vulcão basáltico usado em testes de ISRU."
+    }
+  ],
+  "links": [
+    {
+      "analog": "earth-devon",
+      "target": "moon-shackleton",
+      "score": 0.62,
+      "dimensions": {
+        "gelo":        { "score": 0.8, "earth": "permafrost contínuo", "target": "gelo em crateras sombreadas", "note": "Valor ilustrativo." },
+        "temperatura": { "score": 0.3, "earth": "-50 a 10 °C", "target": "-230 a 50 °C", "note": "Valor ilustrativo." },
+        "iluminacao":  { "score": 0.85, "earth": "sol baixo no horizonte", "target": "sol rasante quase contínuo", "note": "Valor ilustrativo." },
+        "relevo":      { "score": 0.6, "earth": "borda de cratera de impacto", "target": "borda de cratera de impacto", "note": "Valor ilustrativo." }
+      },
+      "strengths": ["Iluminação rasante", "Gelo no subsolo"],
+      "limits": ["Atmosfera e gravidade terrestres", "Faixa de temperatura muito menor"],
+      "exploration_use": "Testar rovers e perfuração em gelo sob luz rasante.",
+      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+    },
+    {
+      "analog": "earth-dry-valleys",
+      "target": "moon-shackleton",
+      "score": 0.55,
+      "dimensions": {
+        "gelo":        { "score": 0.7, "earth": "gelo enterrado", "target": "gelo em crateras sombreadas", "note": "Valor ilustrativo." },
+        "temperatura": { "score": 0.4, "earth": "-60 a 0 °C", "target": "-230 a 50 °C", "note": "Valor ilustrativo." },
+        "iluminacao":  { "score": 0.75, "earth": "dia e noite polares", "target": "sol rasante quase contínuo", "note": "Valor ilustrativo." }
+      },
+      "strengths": ["Frio extremo e seco"],
+      "limits": ["Não há regolito de impacto", "Vento e atmosfera"],
+      "exploration_use": "Ensaiar operações em clima polar extremo.",
+      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+    },
+    {
+      "analog": "earth-mauna-kea",
+      "target": "moon-malapert",
+      "score": 0.48,
+      "dimensions": {
+        "regolito":    { "score": 0.65, "earth": "tefra basáltica", "target": "regolito anortosítico", "note": "Valor ilustrativo." },
+        "relevo":      { "score": 0.5, "earth": "encosta vulcânica", "target": "maciço montanhoso", "note": "Valor ilustrativo." }
+      },
+      "strengths": ["Material fino parecido com regolito"],
+      "limits": ["Composição basáltica, não anortosítica", "Clima tropical de altitude"],
+      "exploration_use": "Testar extração de oxigênio do regolito (ISRU).",
+      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+    },
+    {
+      "analog": "earth-atacama",
+      "target": "mars-jezero",
+      "score": 0.58,
+      "dimensions": {
+        "gelo":        { "score": 0.3, "earth": "hiperárido", "target": "sem gelo superficial", "note": "Valor ilustrativo." },
+        "regolito":    { "score": 0.7, "earth": "solo com sais e nitratos", "target": "sedimentos com carbonatos", "note": "Valor ilustrativo." },
+        "relevo":      { "score": 0.65, "earth": "leques aluviais", "target": "delta fluvial antigo", "note": "Valor ilustrativo." }
+      },
+      "strengths": ["Aridez extrema", "Sedimentos de antigos corpos d'água"],
+      "limits": ["Pressão atmosférica 100 vezes maior", "Radiação UV menor"],
+      "exploration_use": "Testar detecção de bioassinaturas em solo árido.",
+      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+    },
+    {
+      "analog": "earth-devon",
+      "target": "mars-arcadia",
+      "score": 0.68,
+      "dimensions": {
+        "gelo":        { "score": 0.85, "earth": "permafrost contínuo", "target": "gelo raso no subsolo", "note": "Valor ilustrativo." },
+        "temperatura": { "score": 0.55, "earth": "-50 a 10 °C", "target": "-110 a 0 °C", "note": "Valor ilustrativo." },
+        "relevo":      { "score": 0.6, "earth": "terreno poligonal", "target": "terreno poligonal", "note": "Valor ilustrativo." }
+      },
+      "strengths": ["Permafrost e terreno poligonal"],
+      "limits": ["Atmosfera respirável", "Gravidade 2,6 vezes maior"],
+      "exploration_use": "Ensaiar operações de base em clima polar.",
+      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+    },
+    {
+      "analog": "earth-dry-valleys",
+      "target": "mars-arcadia",
+      "score": 0.64,
+      "dimensions": {
+        "gelo":        { "score": 0.8, "earth": "gelo enterrado", "target": "gelo raso no subsolo", "note": "Valor ilustrativo." },
+        "temperatura": { "score": 0.6, "earth": "-60 a 0 °C", "target": "-110 a 0 °C", "note": "Valor ilustrativo." }
+      },
+      "strengths": ["Gelo sob camada seca"],
+      "limits": ["Pressão atmosférica muito maior"],
+      "exploration_use": "Testar perfuração de gelo raso.",
+      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+    }
+  ]
+}
