@@ -1,0 +1,12 @@
+# Space Apps 2026 — Análogos Terra · Lua · Marte
+
+Visualizador 3D (Three.js) de análogos terrestres para locais candidatos na Lua e em Marte,
+alimentado por um JSON gerado por um pipeline Python.
+
+Antes de implementar qualquer coisa, leia `docs/instrucoes-desenvolvimento.md`: arquitetura,
+contrato do `analogs.json`, regras do front-end e critérios de pronto.
+
+- Rodar o front-end: `cd web && python -m http.server 8000`
+- Gerar os dados: `python -m pipeline.export`
+- O front-end não calcula semelhanças; todo número vem do JSON.
+- Mudanças no formato do JSON exigem atualizar `pipeline/schema.json` e o documento de instruções.
