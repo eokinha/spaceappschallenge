@@ -1,29 +1,68 @@
 {
   "version": 1,
-  "generated_at": "2026-11-13T00:00:00Z",
+  "generated_at": "2026-11-13T03:34:25Z",
   "dimensions": [
-    { "id": "gelo",        "label": "Gelo / água" },
-    { "id": "temperatura", "label": "Temperatura" },
-    { "id": "regolito",    "label": "Regolito / materiais" },
-    { "id": "iluminacao",  "label": "Iluminação" },
-    { "id": "relevo",      "label": "Relevo" }
+    {
+      "id": "gelo",
+      "label": "Gelo / água"
+    },
+    {
+      "id": "temperatura",
+      "label": "Temperatura"
+    },
+    {
+      "id": "regolito",
+      "label": "Regolito / materiais"
+    },
+    {
+      "id": "iluminacao",
+      "label": "Iluminação"
+    },
+    {
+      "id": "relevo",
+      "label": "Relevo"
+    }
   ],
   "targets": [
     {
       "id": "moon-shackleton",
       "body": "moon",
-      "name": "Borda da cratera Shackleton",
+      "name": "Cratera Shackleton (borda e crista de ligação)",
       "lat": -89.67,
       "lon": 129.78,
-      "description": "[EXEMPLO ILUSTRATIVO] Candidato a base no polo sul lunar, com iluminação quase contínua na borda."
+      "description": "Cratera no polo sul lunar. Sua borda e a crista que a liga à cratera de Gerlache têm alguns dos pontos mais iluminados da Lua, ao lado de crateras em sombra permanente com possível gelo."
     },
     {
       "id": "moon-malapert",
       "body": "moon",
-      "name": "Maciço Malapert",
-      "lat": -86.0,
-      "lon": 2.9,
-      "description": "[EXEMPLO ILUSTRATIVO] Montanha perto do polo sul, com visada para a Terra."
+      "name": "Região do Malapert",
+      "lat": -84.9,
+      "lon": 12.9,
+      "description": "Região do maciço Malapert, uma das regiões candidatas ao pouso do Artemis III. Montanha alta com boa iluminação e visada direta para a Terra."
+    },
+    {
+      "id": "moon-haworth",
+      "body": "moon",
+      "name": "Cratera Haworth",
+      "lat": -86.9,
+      "lon": -4.0,
+      "description": "Região candidata ao Artemis III. A cratera tem grande área em sombra permanente, com temperaturas baixas o bastante para reter gelo."
+    },
+    {
+      "id": "moon-nobile",
+      "body": "moon",
+      "name": "Borda da cratera Nobile",
+      "lat": -85.28,
+      "lon": 53.27,
+      "description": "Região candidata ao Artemis III (Nobile Rim 1 e 2), na borda de uma cratera antiga perto do polo sul."
+    },
+    {
+      "id": "moon-tranquillitatis-pit",
+      "body": "moon",
+      "name": "Fosso do Mare Tranquillitatis",
+      "lat": 8.34,
+      "lon": 33.22,
+      "description": "Fosso de colapso que pode dar acesso a um tubo de lava. A parte em sombra fica perto de 17 °C o tempo todo, um abrigo natural contra temperatura, radiação e micrometeoritos."
     },
     {
       "id": "mars-jezero",
@@ -31,15 +70,39 @@
       "name": "Cratera Jezero",
       "lat": 18.38,
       "lon": 77.58,
-      "description": "[EXEMPLO ILUSTRATIVO] Antigo lago com delta, explorado pelo Perseverance."
+      "description": "Antigo lago com delta de rio, explorado pelo rover Perseverance. Rochas com carbonatos e argilas formadas em água."
+    },
+    {
+      "id": "mars-gale",
+      "body": "mars",
+      "name": "Cratera Gale",
+      "lat": -5.4,
+      "lon": 137.8,
+      "description": "Cratera com o Monte Sharp, camadas de sedimentos de lagos antigos exploradas pelo rover Curiosity."
     },
     {
       "id": "mars-arcadia",
       "body": "mars",
       "name": "Arcadia Planitia",
-      "lat": 45.0,
-      "lon": -170.0,
-      "description": "[EXEMPLO ILUSTRATIVO] Planície com gelo raso no subsolo, candidata a base tripulada."
+      "lat": 47.2,
+      "lon": -175.7,
+      "description": "Planície do norte com gelo em excesso a poucos metros da superfície, um dos alvos mais citados para uma base tripulada que use água local."
+    },
+    {
+      "id": "mars-deuteronilus",
+      "body": "mars",
+      "name": "Deuteronilus Mensae",
+      "lat": 43.9,
+      "lon": 22.6,
+      "description": "Região de mesas e escarpas com geleiras cobertas de detritos (aventais lobados), confirmadas por radar como gelo quase puro."
+    },
+    {
+      "id": "mars-utopia",
+      "body": "mars",
+      "name": "Utopia Planitia",
+      "lat": 46.7,
+      "lon": 117.5,
+      "description": "Grande planície do norte, local de pouso da Viking 2, com um depósito de gelo no subsolo do tamanho de um grande lago terrestre."
     }
   ],
   "analogs": [
@@ -47,114 +110,1925 @@
       "id": "earth-devon",
       "name": "Ilha Devon (cratera Haughton)",
       "lat": 75.38,
-      "lon": -89.68,
-      "description": "[EXEMPLO ILUSTRATIVO] Cratera de impacto no Ártico canadense, com permafrost."
+      "lon": -89.67,
+      "description": "Cratera de impacto no Ártico canadense, em deserto polar com permafrost."
     },
     {
       "id": "earth-dry-valleys",
-      "name": "Vales Secos McMurdo",
-      "lat": -77.5,
-      "lon": 162.0,
-      "description": "[EXEMPLO ILUSTRATIVO] Deserto polar frio e seco na Antártida."
+      "name": "Vales Secos McMurdo (Antártida)",
+      "lat": -77.47,
+      "lon": 162.52,
+      "description": "Deserto polar frio e seco, com gelo enterrado e solos com percloratos."
     },
     {
-      "id": "earth-atacama",
-      "name": "Deserto do Atacama",
-      "lat": -24.5,
-      "lon": -69.25,
-      "description": "[EXEMPLO ILUSTRATIVO] Um dos lugares mais secos da Terra."
+      "id": "earth-svalbard",
+      "name": "Bockfjorden (Svalbard)",
+      "lat": 79.47,
+      "lon": 13.33,
+      "description": "Vulcões antigos no Ártico, com carbonatos em basalto parecidos com os do meteorito marciano ALH84001."
+    },
+    {
+      "id": "earth-holuhraun",
+      "name": "Holuhraun (Islândia)",
+      "lat": 64.85,
+      "lon": -16.83,
+      "description": "Campo de lava basáltica recente (2014–2015) nas terras altas da Islândia."
     },
     {
       "id": "earth-mauna-kea",
       "name": "Mauna Kea (Havaí)",
       "lat": 19.82,
       "lon": -155.47,
-      "description": "[EXEMPLO ILUSTRATIVO] Vulcão basáltico usado em testes de ISRU."
+      "description": "Vulcão basáltico cujo solo foi usado para fazer simuladores de regolito."
+    },
+    {
+      "id": "earth-rio-tinto",
+      "name": "Rio Tinto (Espanha)",
+      "lat": 37.21,
+      "lon": -6.94,
+      "description": "Rio ácido e rico em ferro, com sulfatos como a jarosita, também encontrada em Marte."
+    },
+    {
+      "id": "earth-meteor-crater",
+      "name": "Meteor Crater (Arizona)",
+      "lat": 35.03,
+      "lon": -111.02,
+      "description": "Cratera de impacto jovem e bem preservada no deserto do Arizona."
+    },
+    {
+      "id": "earth-pilbara",
+      "name": "Pilbara (Austrália)",
+      "lat": -21.1,
+      "lon": 119.4,
+      "description": "Rochas de cerca de 3,5 bilhões de anos com estromatólitos, alguns dos sinais de vida mais antigos."
+    },
+    {
+      "id": "earth-lava-beds",
+      "name": "Lava Beds (Califórnia)",
+      "lat": 41.71,
+      "lon": -121.51,
+      "description": "Centenas de tubos de lava, alguns com gelo permanente no interior."
+    },
+    {
+      "id": "earth-lanzarote",
+      "name": "Cueva de los Verdes (Lanzarote)",
+      "lat": 29.16,
+      "lon": -13.44,
+      "description": "Tubo de lava de vários quilômetros, usado pela ESA em treinos de exploração de cavernas."
+    },
+    {
+      "id": "earth-ries",
+      "name": "Cratera de Ries (Alemanha)",
+      "lat": 48.88,
+      "lon": 10.57,
+      "description": "Cratera de impacto de 24 km, com brechas e sedimentos de um lago antigo."
+    },
+    {
+      "id": "earth-mdrs",
+      "name": "Mars Desert Research Station (Utah)",
+      "lat": 38.41,
+      "lon": -110.79,
+      "description": "Deserto de camadas sedimentares avermelhadas, com argilas e gipsita."
     }
   ],
   "links": [
     {
       "analog": "earth-devon",
       "target": "moon-shackleton",
-      "score": 0.62,
+      "score": 0.5,
       "dimensions": {
-        "gelo":        { "score": 0.8, "earth": "permafrost contínuo", "target": "gelo em crateras sombreadas", "note": "Valor ilustrativo." },
-        "temperatura": { "score": 0.3, "earth": "-50 a 10 °C", "target": "-230 a 50 °C", "note": "Valor ilustrativo." },
-        "iluminacao":  { "score": 0.85, "earth": "sol baixo no horizonte", "target": "sol rasante quase contínuo", "note": "Valor ilustrativo." },
-        "relevo":      { "score": 0.6, "earth": "borda de cratera de impacto", "target": "borda de cratera de impacto", "note": "Valor ilustrativo." }
+        "gelo": {
+          "score": 1.0,
+          "earth": "permafrost contínuo",
+          "target": "gelo possível nas crateras de sombra permanente vizinhas",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.0,
+          "earth": "-45 a 15 °C",
+          "target": "-200 a -50 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.29,
+          "earth": "brecha de impacto, carbonatos, solo cimentado por gelo",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.45,
+          "earth": "Sol até 38° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 2° de altura, iluminado ~85% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.77,
+          "earth": "borda de cratera, interior de cratera, terreno poligonal periglacial",
+          "target": "borda de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
       },
-      "strengths": ["Iluminação rasante", "Gelo no subsolo"],
-      "limits": ["Atmosfera e gravidade terrestres", "Faixa de temperatura muito menor"],
-      "exploration_use": "Testar rovers e perfuração em gelo sob luz rasante.",
-      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+      "strengths": [
+        "Gelo / água parecida: permafrost contínuo × gelo possível nas crateras de sombra permanente vizinhas",
+        "Relevo parecida: borda de cratera, interior de cratera, terreno poligonal periglacial × borda de cratera"
+      ],
+      "limits": [
+        "Temperatura diferente: -45 a 15 °C na Terra × -200 a -50 °C no alvo",
+        "Regolito / materiais diferente: brecha de impacto, carbonatos, solo cimentado por gelo na Terra × anortosito (crosta lunar clara), regolito fino de impacto no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Base do Haughton-Mars Project, com testes de rovers, trajes e operações de campo em clima polar.",
+      "sources": [
+        {
+          "label": "Mazarico et al. 2011 — Illumination conditions of the lunar polar regions (Icarus)",
+          "url": "https://doi.org/10.1016/j.icarus.2010.10.030"
+        },
+        {
+          "label": "Paige et al. 2010 — Diviner observations of cold traps (Science)",
+          "url": "https://doi.org/10.1126/science.1187726"
+        },
+        {
+          "label": "Wikipedia — Shackleton (crater)",
+          "url": "https://en.wikipedia.org/wiki/Shackleton_(crater)"
+        },
+        {
+          "label": "Wikipedia — Haughton impact crater",
+          "url": "https://en.wikipedia.org/wiki/Haughton_impact_crater"
+        }
+      ]
     },
     {
-      "analog": "earth-dry-valleys",
+      "analog": "earth-meteor-crater",
       "target": "moon-shackleton",
-      "score": 0.55,
+      "score": 0.42,
       "dimensions": {
-        "gelo":        { "score": 0.7, "earth": "gelo enterrado", "target": "gelo em crateras sombreadas", "note": "Valor ilustrativo." },
-        "temperatura": { "score": 0.4, "earth": "-60 a 0 °C", "target": "-230 a 50 °C", "note": "Valor ilustrativo." },
-        "iluminacao":  { "score": 0.75, "earth": "dia e noite polares", "target": "sol rasante quase contínuo", "note": "Valor ilustrativo." }
+        "gelo": {
+          "score": 0.25,
+          "earth": "sem gelo nem água",
+          "target": "gelo possível nas crateras de sombra permanente vizinhas",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.0,
+          "earth": "-15 a 45 °C",
+          "target": "-200 a -50 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.75,
+          "earth": "brecha de impacto, regolito fino de impacto",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.22,
+          "earth": "Sol até 78° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 2° de altura, iluminado ~85% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.9,
+          "earth": "borda de cratera, interior de cratera",
+          "target": "borda de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
       },
-      "strengths": ["Frio extremo e seco"],
-      "limits": ["Não há regolito de impacto", "Vento e atmosfera"],
-      "exploration_use": "Ensaiar operações em clima polar extremo.",
-      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+      "strengths": [
+        "Relevo parecida: borda de cratera, interior de cratera × borda de cratera",
+        "Regolito / materiais parecida: brecha de impacto, regolito fino de impacto × anortosito (crosta lunar clara), regolito fino de impacto"
+      ],
+      "limits": [
+        "Temperatura diferente: -15 a 45 °C na Terra × -200 a -50 °C no alvo",
+        "Iluminação diferente: Sol até 78° de altura, iluminado ~50% do tempo na Terra × Sol até 2° de altura, iluminado ~85% do tempo no alvo",
+        "Gelo / água diferente: sem gelo nem água na Terra × gelo possível nas crateras de sombra permanente vizinhas no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Treino de astronautas em geologia de crateras de impacto.",
+      "sources": [
+        {
+          "label": "Mazarico et al. 2011 — Illumination conditions of the lunar polar regions (Icarus)",
+          "url": "https://doi.org/10.1016/j.icarus.2010.10.030"
+        },
+        {
+          "label": "Paige et al. 2010 — Diviner observations of cold traps (Science)",
+          "url": "https://doi.org/10.1126/science.1187726"
+        },
+        {
+          "label": "Wikipedia — Shackleton (crater)",
+          "url": "https://en.wikipedia.org/wiki/Shackleton_(crater)"
+        },
+        {
+          "label": "Wikipedia — Meteor Crater",
+          "url": "https://en.wikipedia.org/wiki/Meteor_Crater"
+        }
+      ]
+    },
+    {
+      "analog": "earth-meteor-crater",
+      "target": "moon-malapert",
+      "score": 0.49,
+      "dimensions": {
+        "gelo": {
+          "score": 0.5,
+          "earth": "sem gelo nem água",
+          "target": "geada sazonal ou gelo pontual",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.0,
+          "earth": "-15 a 45 °C",
+          "target": "-190 a -30 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.75,
+          "earth": "brecha de impacto, regolito fino de impacto",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.4,
+          "earth": "Sol até 78° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 7° de altura, iluminado ~70% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.8,
+          "earth": "borda de cratera, interior de cratera",
+          "target": "maciço montanhoso, borda de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Relevo parecida: borda de cratera, interior de cratera × maciço montanhoso, borda de cratera",
+        "Regolito / materiais parecida: brecha de impacto, regolito fino de impacto × anortosito (crosta lunar clara), regolito fino de impacto"
+      ],
+      "limits": [
+        "Temperatura diferente: -15 a 45 °C na Terra × -190 a -30 °C no alvo",
+        "Iluminação diferente: Sol até 78° de altura, iluminado ~50% do tempo na Terra × Sol até 7° de altura, iluminado ~70% do tempo no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Treino de astronautas em geologia de crateras de impacto.",
+      "sources": [
+        {
+          "label": "NASA — atualização das regiões de pouso do Artemis III (2024)",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+        },
+        {
+          "label": "Wikipedia — Malapert (crater)",
+          "url": "https://en.wikipedia.org/wiki/Malapert_(crater)"
+        },
+        {
+          "label": "Wikipedia — Meteor Crater",
+          "url": "https://en.wikipedia.org/wiki/Meteor_Crater"
+        }
+      ]
+    },
+    {
+      "analog": "earth-devon",
+      "target": "moon-malapert",
+      "score": 0.48,
+      "dimensions": {
+        "gelo": {
+          "score": 0.75,
+          "earth": "permafrost contínuo",
+          "target": "geada sazonal ou gelo pontual",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.07,
+          "earth": "-45 a 15 °C",
+          "target": "-190 a -30 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.29,
+          "earth": "brecha de impacto, carbonatos, solo cimentado por gelo",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.63,
+          "earth": "Sol até 38° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 7° de altura, iluminado ~70% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.67,
+          "earth": "borda de cratera, interior de cratera, terreno poligonal periglacial",
+          "target": "maciço montanhoso, borda de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: permafrost contínuo × geada sazonal ou gelo pontual"
+      ],
+      "limits": [
+        "Temperatura diferente: -45 a 15 °C na Terra × -190 a -30 °C no alvo",
+        "Regolito / materiais diferente: brecha de impacto, carbonatos, solo cimentado por gelo na Terra × anortosito (crosta lunar clara), regolito fino de impacto no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Base do Haughton-Mars Project, com testes de rovers, trajes e operações de campo em clima polar.",
+      "sources": [
+        {
+          "label": "NASA — atualização das regiões de pouso do Artemis III (2024)",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+        },
+        {
+          "label": "Wikipedia — Malapert (crater)",
+          "url": "https://en.wikipedia.org/wiki/Malapert_(crater)"
+        },
+        {
+          "label": "Wikipedia — Haughton impact crater",
+          "url": "https://en.wikipedia.org/wiki/Haughton_impact_crater"
+        }
+      ]
     },
     {
       "analog": "earth-mauna-kea",
       "target": "moon-malapert",
       "score": 0.48,
       "dimensions": {
-        "regolito":    { "score": 0.65, "earth": "tefra basáltica", "target": "regolito anortosítico", "note": "Valor ilustrativo." },
-        "relevo":      { "score": 0.5, "earth": "encosta vulcânica", "target": "maciço montanhoso", "note": "Valor ilustrativo." }
+        "gelo": {
+          "score": 1.0,
+          "earth": "permafrost pontual no cume",
+          "target": "geada sazonal ou gelo pontual",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.0,
+          "earth": "-10 a 20 °C",
+          "target": "-190 a -30 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.33,
+          "earth": "basalto, tefra / cinza vulcânica, óxidos de ferro",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.34,
+          "earth": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 7° de altura, iluminado ~70% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.75,
+          "earth": "campo vulcânico, maciço montanhoso",
+          "target": "maciço montanhoso, borda de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
       },
-      "strengths": ["Material fino parecido com regolito"],
-      "limits": ["Composição basáltica, não anortosítica", "Clima tropical de altitude"],
-      "exploration_use": "Testar extração de oxigênio do regolito (ISRU).",
-      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
-    },
-    {
-      "analog": "earth-atacama",
-      "target": "mars-jezero",
-      "score": 0.58,
-      "dimensions": {
-        "gelo":        { "score": 0.3, "earth": "hiperárido", "target": "sem gelo superficial", "note": "Valor ilustrativo." },
-        "regolito":    { "score": 0.7, "earth": "solo com sais e nitratos", "target": "sedimentos com carbonatos", "note": "Valor ilustrativo." },
-        "relevo":      { "score": 0.65, "earth": "leques aluviais", "target": "delta fluvial antigo", "note": "Valor ilustrativo." }
-      },
-      "strengths": ["Aridez extrema", "Sedimentos de antigos corpos d'água"],
-      "limits": ["Pressão atmosférica 100 vezes maior", "Radiação UV menor"],
-      "exploration_use": "Testar detecção de bioassinaturas em solo árido.",
-      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+      "strengths": [
+        "Gelo / água parecida: permafrost pontual no cume × geada sazonal ou gelo pontual",
+        "Relevo parecida: campo vulcânico, maciço montanhoso × maciço montanhoso, borda de cratera"
+      ],
+      "limits": [
+        "Temperatura diferente: -10 a 20 °C na Terra × -190 a -30 °C no alvo",
+        "Regolito / materiais diferente: basalto, tefra / cinza vulcânica, óxidos de ferro na Terra × anortosito (crosta lunar clara), regolito fino de impacto no alvo",
+        "Iluminação diferente: Sol até 90° de altura, iluminado ~50% do tempo na Terra × Sol até 7° de altura, iluminado ~70% do tempo no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Testes de ISRU, extraindo oxigênio e água do solo vulcânico.",
+      "sources": [
+        {
+          "label": "NASA — atualização das regiões de pouso do Artemis III (2024)",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+        },
+        {
+          "label": "Wikipedia — Malapert (crater)",
+          "url": "https://en.wikipedia.org/wiki/Malapert_(crater)"
+        },
+        {
+          "label": "Wikipedia — Mauna Kea",
+          "url": "https://en.wikipedia.org/wiki/Mauna_Kea"
+        }
+      ]
     },
     {
       "analog": "earth-devon",
-      "target": "mars-arcadia",
+      "target": "moon-haworth",
+      "score": 0.57,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "permafrost contínuo",
+          "target": "armadilha fria em sombra permanente",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.0,
+          "earth": "-45 a 15 °C",
+          "target": "-230 a -50 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.29,
+          "earth": "brecha de impacto, carbonatos, solo cimentado por gelo",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.71,
+          "earth": "Sol até 38° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 5° de altura, iluminado ~60% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.83,
+          "earth": "borda de cratera, interior de cratera, terreno poligonal periglacial",
+          "target": "borda de cratera, interior de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: permafrost contínuo × armadilha fria em sombra permanente",
+        "Relevo parecida: borda de cratera, interior de cratera, terreno poligonal periglacial × borda de cratera, interior de cratera",
+        "Iluminação parecida: Sol até 38° de altura, iluminado ~50% do tempo × Sol até 5° de altura, iluminado ~60% do tempo"
+      ],
+      "limits": [
+        "Temperatura diferente: -45 a 15 °C na Terra × -230 a -50 °C no alvo",
+        "Regolito / materiais diferente: brecha de impacto, carbonatos, solo cimentado por gelo na Terra × anortosito (crosta lunar clara), regolito fino de impacto no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Base do Haughton-Mars Project, com testes de rovers, trajes e operações de campo em clima polar.",
+      "sources": [
+        {
+          "label": "NASA — atualização das regiões de pouso do Artemis III (2024)",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+        },
+        {
+          "label": "Paige et al. 2010 — Diviner observations of cold traps (Science)",
+          "url": "https://doi.org/10.1126/science.1187726"
+        },
+        {
+          "label": "Wikipedia — Haworth (crater)",
+          "url": "https://en.wikipedia.org/wiki/Haworth_(crater)"
+        },
+        {
+          "label": "Wikipedia — Haughton impact crater",
+          "url": "https://en.wikipedia.org/wiki/Haughton_impact_crater"
+        }
+      ]
+    },
+    {
+      "analog": "earth-meteor-crater",
+      "target": "moon-haworth",
+      "score": 0.5,
+      "dimensions": {
+        "gelo": {
+          "score": 0.25,
+          "earth": "sem gelo nem água",
+          "target": "armadilha fria em sombra permanente",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.0,
+          "earth": "-15 a 45 °C",
+          "target": "-230 a -50 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.75,
+          "earth": "brecha de impacto, regolito fino de impacto",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.49,
+          "earth": "Sol até 78° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 5° de altura, iluminado ~60% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 1.0,
+          "earth": "borda de cratera, interior de cratera",
+          "target": "borda de cratera, interior de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Relevo parecida: borda de cratera, interior de cratera × borda de cratera, interior de cratera",
+        "Regolito / materiais parecida: brecha de impacto, regolito fino de impacto × anortosito (crosta lunar clara), regolito fino de impacto"
+      ],
+      "limits": [
+        "Temperatura diferente: -15 a 45 °C na Terra × -230 a -50 °C no alvo",
+        "Gelo / água diferente: sem gelo nem água na Terra × armadilha fria em sombra permanente no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Treino de astronautas em geologia de crateras de impacto.",
+      "sources": [
+        {
+          "label": "NASA — atualização das regiões de pouso do Artemis III (2024)",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+        },
+        {
+          "label": "Paige et al. 2010 — Diviner observations of cold traps (Science)",
+          "url": "https://doi.org/10.1126/science.1187726"
+        },
+        {
+          "label": "Wikipedia — Haworth (crater)",
+          "url": "https://en.wikipedia.org/wiki/Haworth_(crater)"
+        },
+        {
+          "label": "Wikipedia — Meteor Crater",
+          "url": "https://en.wikipedia.org/wiki/Meteor_Crater"
+        }
+      ]
+    },
+    {
+      "analog": "earth-svalbard",
+      "target": "moon-haworth",
+      "score": 0.37,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "permafrost e fontes termais",
+          "target": "armadilha fria em sombra permanente",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.0,
+          "earth": "-35 a 15 °C",
+          "target": "-230 a -50 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.12,
+          "earth": "basalto, carbonatos, solo cimentado por gelo",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.74,
+          "earth": "Sol até 34° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 5° de altura, iluminado ~60% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.0,
+          "earth": "campo vulcânico, terreno poligonal periglacial",
+          "target": "borda de cratera, interior de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: permafrost e fontes termais × armadilha fria em sombra permanente",
+        "Iluminação parecida: Sol até 34° de altura, iluminado ~50% do tempo × Sol até 5° de altura, iluminado ~60% do tempo"
+      ],
+      "limits": [
+        "Temperatura diferente: -35 a 15 °C na Terra × -230 a -50 °C no alvo",
+        "Relevo diferente: campo vulcânico, terreno poligonal periglacial na Terra × borda de cratera, interior de cratera no alvo",
+        "Regolito / materiais diferente: basalto, carbonatos, solo cimentado por gelo na Terra × anortosito (crosta lunar clara), regolito fino de impacto no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Testes de instrumentos de missões a Marte (expedições AMASE) em carbonatos e basalto.",
+      "sources": [
+        {
+          "label": "NASA — atualização das regiões de pouso do Artemis III (2024)",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+        },
+        {
+          "label": "Paige et al. 2010 — Diviner observations of cold traps (Science)",
+          "url": "https://doi.org/10.1126/science.1187726"
+        },
+        {
+          "label": "Wikipedia — Haworth (crater)",
+          "url": "https://en.wikipedia.org/wiki/Haworth_(crater)"
+        },
+        {
+          "label": "Wikipedia — Bockfjorden",
+          "url": "https://en.wikipedia.org/wiki/Bockfjorden"
+        }
+      ]
+    },
+    {
+      "analog": "earth-devon",
+      "target": "moon-nobile",
+      "score": 0.56,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "permafrost contínuo",
+          "target": "interior da cratera em sombra permanente",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.02,
+          "earth": "-45 a 15 °C",
+          "target": "-220 a -40 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.29,
+          "earth": "brecha de impacto, carbonatos, solo cimentado por gelo",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.72,
+          "earth": "Sol até 38° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 6° de altura, iluminado ~60% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.77,
+          "earth": "borda de cratera, interior de cratera, terreno poligonal periglacial",
+          "target": "borda de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: permafrost contínuo × interior da cratera em sombra permanente",
+        "Relevo parecida: borda de cratera, interior de cratera, terreno poligonal periglacial × borda de cratera",
+        "Iluminação parecida: Sol até 38° de altura, iluminado ~50% do tempo × Sol até 6° de altura, iluminado ~60% do tempo"
+      ],
+      "limits": [
+        "Temperatura diferente: -45 a 15 °C na Terra × -220 a -40 °C no alvo",
+        "Regolito / materiais diferente: brecha de impacto, carbonatos, solo cimentado por gelo na Terra × anortosito (crosta lunar clara), regolito fino de impacto no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Base do Haughton-Mars Project, com testes de rovers, trajes e operações de campo em clima polar.",
+      "sources": [
+        {
+          "label": "NASA — atualização das regiões de pouso do Artemis III (2024)",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+        },
+        {
+          "label": "Wikipedia — Nobile (crater)",
+          "url": "https://en.wikipedia.org/wiki/Nobile_(crater)"
+        },
+        {
+          "label": "Wikipedia — Haughton impact crater",
+          "url": "https://en.wikipedia.org/wiki/Haughton_impact_crater"
+        }
+      ]
+    },
+    {
+      "analog": "earth-meteor-crater",
+      "target": "moon-nobile",
+      "score": 0.48,
+      "dimensions": {
+        "gelo": {
+          "score": 0.25,
+          "earth": "sem gelo nem água",
+          "target": "interior da cratera em sombra permanente",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.0,
+          "earth": "-15 a 45 °C",
+          "target": "-220 a -40 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.75,
+          "earth": "brecha de impacto, regolito fino de impacto",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.5,
+          "earth": "Sol até 78° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 6° de altura, iluminado ~60% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.9,
+          "earth": "borda de cratera, interior de cratera",
+          "target": "borda de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Relevo parecida: borda de cratera, interior de cratera × borda de cratera",
+        "Regolito / materiais parecida: brecha de impacto, regolito fino de impacto × anortosito (crosta lunar clara), regolito fino de impacto"
+      ],
+      "limits": [
+        "Temperatura diferente: -15 a 45 °C na Terra × -220 a -40 °C no alvo",
+        "Gelo / água diferente: sem gelo nem água na Terra × interior da cratera em sombra permanente no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Treino de astronautas em geologia de crateras de impacto.",
+      "sources": [
+        {
+          "label": "NASA — atualização das regiões de pouso do Artemis III (2024)",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+        },
+        {
+          "label": "Wikipedia — Nobile (crater)",
+          "url": "https://en.wikipedia.org/wiki/Nobile_(crater)"
+        },
+        {
+          "label": "Wikipedia — Meteor Crater",
+          "url": "https://en.wikipedia.org/wiki/Meteor_Crater"
+        }
+      ]
+    },
+    {
+      "analog": "earth-mauna-kea",
+      "target": "moon-nobile",
+      "score": 0.39,
+      "dimensions": {
+        "gelo": {
+          "score": 0.75,
+          "earth": "permafrost pontual no cume",
+          "target": "interior da cratera em sombra permanente",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.0,
+          "earth": "-10 a 20 °C",
+          "target": "-220 a -40 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.33,
+          "earth": "basalto, tefra / cinza vulcânica, óxidos de ferro",
+          "target": "anortosito (crosta lunar clara), regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.43,
+          "earth": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 6° de altura, iluminado ~60% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.45,
+          "earth": "campo vulcânico, maciço montanhoso",
+          "target": "borda de cratera",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: permafrost pontual no cume × interior da cratera em sombra permanente"
+      ],
+      "limits": [
+        "Temperatura diferente: -10 a 20 °C na Terra × -220 a -40 °C no alvo",
+        "Regolito / materiais diferente: basalto, tefra / cinza vulcânica, óxidos de ferro na Terra × anortosito (crosta lunar clara), regolito fino de impacto no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Testes de ISRU, extraindo oxigênio e água do solo vulcânico.",
+      "sources": [
+        {
+          "label": "NASA — atualização das regiões de pouso do Artemis III (2024)",
+          "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+        },
+        {
+          "label": "Wikipedia — Nobile (crater)",
+          "url": "https://en.wikipedia.org/wiki/Nobile_(crater)"
+        },
+        {
+          "label": "Wikipedia — Mauna Kea",
+          "url": "https://en.wikipedia.org/wiki/Mauna_Kea"
+        }
+      ]
+    },
+    {
+      "analog": "earth-lanzarote",
+      "target": "moon-tranquillitatis-pit",
+      "score": 0.81,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "sem gelo nem água",
+          "target": "sem gelo nem água",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.5,
+          "earth": "17 a 21 °C",
+          "target": "15 a 20 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.82,
+          "earth": "basalto, tefra / cinza vulcânica",
+          "target": "basalto, regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.99,
+          "earth": "Sol até 84° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 83° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.72,
+          "earth": "tubo de lava / fosso de colapso, campo vulcânico",
+          "target": "tubo de lava / fosso de colapso, planície",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: sem gelo nem água × sem gelo nem água",
+        "Iluminação parecida: Sol até 84° de altura, iluminado ~50% do tempo × Sol até 83° de altura, iluminado ~50% do tempo",
+        "Regolito / materiais parecida: basalto, tefra / cinza vulcânica × basalto, regolito fino de impacto",
+        "Relevo parecida: tubo de lava / fosso de colapso, campo vulcânico × tubo de lava / fosso de colapso, planície"
+      ],
+      "limits": [
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Treino de exploração de cavernas (ESA PANGAEA e CAVES) e de tubos de lava como abrigo.",
+      "sources": [
+        {
+          "label": "Horvath et al. 2022 — Thermal environments of lunar pits and caves (GRL)",
+          "url": "https://doi.org/10.1029/2022GL099710"
+        },
+        {
+          "label": "Haruyama et al. 2009 — Possible lunar lava tube skylight (GRL)",
+          "url": "https://doi.org/10.1029/2009GL040635"
+        },
+        {
+          "label": "Wikipedia — Cueva de los Verdes",
+          "url": "https://en.wikipedia.org/wiki/Cueva_de_los_Verdes"
+        }
+      ]
+    },
+    {
+      "analog": "earth-holuhraun",
+      "target": "moon-tranquillitatis-pit",
+      "score": 0.6,
+      "dimensions": {
+        "gelo": {
+          "score": 0.5,
+          "earth": "geada sazonal ou gelo pontual",
+          "target": "sem gelo nem água",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.1,
+          "earth": "-30 a 20 °C",
+          "target": "15 a 20 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.82,
+          "earth": "basalto, tefra / cinza vulcânica",
+          "target": "basalto, regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.81,
+          "earth": "Sol até 49° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 83° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.75,
+          "earth": "campo vulcânico, planície",
+          "target": "tubo de lava / fosso de colapso, planície",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Regolito / materiais parecida: basalto, tefra / cinza vulcânica × basalto, regolito fino de impacto",
+        "Iluminação parecida: Sol até 49° de altura, iluminado ~50% do tempo × Sol até 83° de altura, iluminado ~50% do tempo",
+        "Relevo parecida: campo vulcânico, planície × tubo de lava / fosso de colapso, planície"
+      ],
+      "limits": [
+        "Temperatura diferente: -30 a 20 °C na Terra × 15 a 20 °C no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Testes de rovers e estudo da alteração de basalto recente.",
+      "sources": [
+        {
+          "label": "Horvath et al. 2022 — Thermal environments of lunar pits and caves (GRL)",
+          "url": "https://doi.org/10.1029/2022GL099710"
+        },
+        {
+          "label": "Haruyama et al. 2009 — Possible lunar lava tube skylight (GRL)",
+          "url": "https://doi.org/10.1029/2009GL040635"
+        },
+        {
+          "label": "Wikipedia — Holuhraun",
+          "url": "https://en.wikipedia.org/wiki/Holuhraun"
+        }
+      ]
+    },
+    {
+      "analog": "earth-meteor-crater",
+      "target": "moon-tranquillitatis-pit",
+      "score": 0.55,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "sem gelo nem água",
+          "target": "sem gelo nem água",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.08,
+          "earth": "-15 a 45 °C",
+          "target": "15 a 20 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.68,
+          "earth": "brecha de impacto, regolito fino de impacto",
+          "target": "basalto, regolito fino de impacto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.97,
+          "earth": "Sol até 78° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 83° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.0,
+          "earth": "borda de cratera, interior de cratera",
+          "target": "tubo de lava / fosso de colapso, planície",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: sem gelo nem água × sem gelo nem água",
+        "Iluminação parecida: Sol até 78° de altura, iluminado ~50% do tempo × Sol até 83° de altura, iluminado ~50% do tempo"
+      ],
+      "limits": [
+        "Relevo diferente: borda de cratera, interior de cratera na Terra × tubo de lava / fosso de colapso, planície no alvo",
+        "Temperatura diferente: -15 a 45 °C na Terra × 15 a 20 °C no alvo",
+        "Gravidade lunar é 1/6 da terrestre",
+        "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+      ],
+      "exploration_use": "Treino de astronautas em geologia de crateras de impacto.",
+      "sources": [
+        {
+          "label": "Horvath et al. 2022 — Thermal environments of lunar pits and caves (GRL)",
+          "url": "https://doi.org/10.1029/2022GL099710"
+        },
+        {
+          "label": "Haruyama et al. 2009 — Possible lunar lava tube skylight (GRL)",
+          "url": "https://doi.org/10.1029/2009GL040635"
+        },
+        {
+          "label": "Wikipedia — Meteor Crater",
+          "url": "https://en.wikipedia.org/wiki/Meteor_Crater"
+        }
+      ]
+    },
+    {
+      "analog": "earth-pilbara",
+      "target": "mars-jezero",
       "score": 0.68,
       "dimensions": {
-        "gelo":        { "score": 0.85, "earth": "permafrost contínuo", "target": "gelo raso no subsolo", "note": "Valor ilustrativo." },
-        "temperatura": { "score": 0.55, "earth": "-50 a 10 °C", "target": "-110 a 0 °C", "note": "Valor ilustrativo." },
-        "relevo":      { "score": 0.6, "earth": "terreno poligonal", "target": "terreno poligonal", "note": "Valor ilustrativo." }
+        "gelo": {
+          "score": 1.0,
+          "earth": "minerais hidratados ou traços de água",
+          "target": "minerais formados em água, sem gelo superficial",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.07,
+          "earth": "5 a 50 °C",
+          "target": "-90 a 15 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.88,
+          "earth": "carbonatos, argilominerais, sedimentos de lago ou rio",
+          "target": "sedimentos de lago ou rio, carbonatos, argilominerais, basalto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 1.0,
+          "earth": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.45,
+          "earth": "camadas sedimentares",
+          "target": "interior de cratera, delta ou leque aluvial",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
       },
-      "strengths": ["Permafrost e terreno poligonal"],
-      "limits": ["Atmosfera respirável", "Gravidade 2,6 vezes maior"],
-      "exploration_use": "Ensaiar operações de base em clima polar.",
-      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+      "strengths": [
+        "Gelo / água parecida: minerais hidratados ou traços de água × minerais formados em água, sem gelo superficial",
+        "Iluminação parecida: Sol até 90° de altura, iluminado ~50% do tempo × Sol até 90° de altura, iluminado ~50% do tempo",
+        "Regolito / materiais parecida: carbonatos, argilominerais, sedimentos de lago ou rio × sedimentos de lago ou rio, carbonatos, argilominerais, basalto"
+      ],
+      "limits": [
+        "Temperatura diferente: 5 a 50 °C na Terra × -90 a 15 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Estudo de bioassinaturas antigas para orientar a busca de vida em Marte.",
+      "sources": [
+        {
+          "label": "NASA — Mars 2020 Perseverance",
+          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/"
+        },
+        {
+          "label": "Wikipedia — Jezero (crater)",
+          "url": "https://en.wikipedia.org/wiki/Jezero_(crater)"
+        },
+        {
+          "label": "Wikipedia — Pilbara Craton",
+          "url": "https://en.wikipedia.org/wiki/Pilbara_Craton"
+        }
+      ]
+    },
+    {
+      "analog": "earth-ries",
+      "target": "mars-jezero",
+      "score": 0.63,
+      "dimensions": {
+        "gelo": {
+          "score": 0.75,
+          "earth": "sem gelo nem água",
+          "target": "minerais formados em água, sem gelo superficial",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.24,
+          "earth": "-15 a 35 °C",
+          "target": "-90 a 15 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.51,
+          "earth": "brecha de impacto, sedimentos de lago ou rio",
+          "target": "sedimentos de lago ou rio, carbonatos, argilominerais, basalto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.86,
+          "earth": "Sol até 65° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.8,
+          "earth": "interior de cratera, camadas sedimentares",
+          "target": "interior de cratera, delta ou leque aluvial",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Iluminação parecida: Sol até 65° de altura, iluminado ~50% do tempo × Sol até 90° de altura, iluminado ~50% do tempo",
+        "Relevo parecida: interior de cratera, camadas sedimentares × interior de cratera, delta ou leque aluvial",
+        "Gelo / água parecida: sem gelo nem água × minerais formados em água, sem gelo superficial"
+      ],
+      "limits": [
+        "Temperatura diferente: -15 a 35 °C na Terra × -90 a 15 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Treino de geologia de impacto para astronautas, da Apollo 14 à ESA.",
+      "sources": [
+        {
+          "label": "NASA — Mars 2020 Perseverance",
+          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/"
+        },
+        {
+          "label": "Wikipedia — Jezero (crater)",
+          "url": "https://en.wikipedia.org/wiki/Jezero_(crater)"
+        },
+        {
+          "label": "Wikipedia — Nördlinger Ries",
+          "url": "https://en.wikipedia.org/wiki/N%C3%B6rdlinger_Ries"
+        }
+      ]
+    },
+    {
+      "analog": "earth-mdrs",
+      "target": "mars-jezero",
+      "score": 0.6,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "argilas e gipsita (minerais hidratados)",
+          "target": "minerais formados em água, sem gelo superficial",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.26,
+          "earth": "-20 a 45 °C",
+          "target": "-90 a 15 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.53,
+          "earth": "argilominerais, sulfatos, óxidos de ferro",
+          "target": "sedimentos de lago ou rio, carbonatos, argilominerais, basalto",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.92,
+          "earth": "Sol até 75° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.3,
+          "earth": "camadas sedimentares, mesas e escarpas",
+          "target": "interior de cratera, delta ou leque aluvial",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: argilas e gipsita (minerais hidratados) × minerais formados em água, sem gelo superficial",
+        "Iluminação parecida: Sol até 75° de altura, iluminado ~50% do tempo × Sol até 90° de altura, iluminado ~50% do tempo"
+      ],
+      "limits": [
+        "Temperatura diferente: -20 a 45 °C na Terra × -90 a 15 °C no alvo",
+        "Relevo diferente: camadas sedimentares, mesas e escarpas na Terra × interior de cratera, delta ou leque aluvial no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Simulações de missões tripuladas a Marte com equipes isoladas.",
+      "sources": [
+        {
+          "label": "NASA — Mars 2020 Perseverance",
+          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/"
+        },
+        {
+          "label": "Wikipedia — Jezero (crater)",
+          "url": "https://en.wikipedia.org/wiki/Jezero_(crater)"
+        },
+        {
+          "label": "Wikipedia — Mars Desert Research Station",
+          "url": "https://en.wikipedia.org/wiki/Mars_Desert_Research_Station"
+        }
+      ]
+    },
+    {
+      "analog": "earth-mdrs",
+      "target": "mars-gale",
+      "score": 0.75,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "argilas e gipsita (minerais hidratados)",
+          "target": "argilas e sulfatos formados em água",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.24,
+          "earth": "-20 a 45 °C",
+          "target": "-100 a 15 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.95,
+          "earth": "argilominerais, sulfatos, óxidos de ferro",
+          "target": "sedimentos de lago ou rio, argilominerais, sulfatos, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.92,
+          "earth": "Sol até 75° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.62,
+          "earth": "camadas sedimentares, mesas e escarpas",
+          "target": "interior de cratera, camadas sedimentares",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: argilas e gipsita (minerais hidratados) × argilas e sulfatos formados em água",
+        "Regolito / materiais parecida: argilominerais, sulfatos, óxidos de ferro × sedimentos de lago ou rio, argilominerais, sulfatos, óxidos de ferro",
+        "Iluminação parecida: Sol até 75° de altura, iluminado ~50% do tempo × Sol até 90° de altura, iluminado ~50% do tempo"
+      ],
+      "limits": [
+        "Temperatura diferente: -20 a 45 °C na Terra × -100 a 15 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Simulações de missões tripuladas a Marte com equipes isoladas.",
+      "sources": [
+        {
+          "label": "NASA — MSL Curiosity",
+          "url": "https://science.nasa.gov/mission/msl-curiosity/"
+        },
+        {
+          "label": "Wikipedia — Gale (crater)",
+          "url": "https://en.wikipedia.org/wiki/Gale_(crater)"
+        },
+        {
+          "label": "Wikipedia — Mars Desert Research Station",
+          "url": "https://en.wikipedia.org/wiki/Mars_Desert_Research_Station"
+        }
+      ]
+    },
+    {
+      "analog": "earth-rio-tinto",
+      "target": "mars-gale",
+      "score": 0.71,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "água ácida e sulfatos hidratados",
+          "target": "argilas e sulfatos formados em água",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.1,
+          "earth": "0 a 45 °C",
+          "target": "-100 a 15 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.79,
+          "earth": "sulfatos, óxidos de ferro",
+          "target": "sedimentos de lago ou rio, argilominerais, sulfatos, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.92,
+          "earth": "Sol até 76° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.75,
+          "earth": "camadas sedimentares",
+          "target": "interior de cratera, camadas sedimentares",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: água ácida e sulfatos hidratados × argilas e sulfatos formados em água",
+        "Iluminação parecida: Sol até 76° de altura, iluminado ~50% do tempo × Sol até 90° de altura, iluminado ~50% do tempo",
+        "Regolito / materiais parecida: sulfatos, óxidos de ferro × sedimentos de lago ou rio, argilominerais, sulfatos, óxidos de ferro",
+        "Relevo parecida: camadas sedimentares × interior de cratera, camadas sedimentares"
+      ],
+      "limits": [
+        "Temperatura diferente: 0 a 45 °C na Terra × -100 a 15 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Estudo de vida em água ácida rica em ferro e sulfatos, como nos ambientes antigos de Marte.",
+      "sources": [
+        {
+          "label": "NASA — MSL Curiosity",
+          "url": "https://science.nasa.gov/mission/msl-curiosity/"
+        },
+        {
+          "label": "Wikipedia — Gale (crater)",
+          "url": "https://en.wikipedia.org/wiki/Gale_(crater)"
+        },
+        {
+          "label": "Wikipedia — Río Tinto (river)",
+          "url": "https://en.wikipedia.org/wiki/R%C3%ADo_Tinto_(river)"
+        }
+      ]
+    },
+    {
+      "analog": "earth-pilbara",
+      "target": "mars-gale",
+      "score": 0.7,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "minerais hidratados ou traços de água",
+          "target": "argilas e sulfatos formados em água",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.07,
+          "earth": "5 a 50 °C",
+          "target": "-100 a 15 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.7,
+          "earth": "carbonatos, argilominerais, sedimentos de lago ou rio",
+          "target": "sedimentos de lago ou rio, argilominerais, sulfatos, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 1.0,
+          "earth": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 90° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.75,
+          "earth": "camadas sedimentares",
+          "target": "interior de cratera, camadas sedimentares",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: minerais hidratados ou traços de água × argilas e sulfatos formados em água",
+        "Iluminação parecida: Sol até 90° de altura, iluminado ~50% do tempo × Sol até 90° de altura, iluminado ~50% do tempo",
+        "Relevo parecida: camadas sedimentares × interior de cratera, camadas sedimentares",
+        "Regolito / materiais parecida: carbonatos, argilominerais, sedimentos de lago ou rio × sedimentos de lago ou rio, argilominerais, sulfatos, óxidos de ferro"
+      ],
+      "limits": [
+        "Temperatura diferente: 5 a 50 °C na Terra × -100 a 15 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Estudo de bioassinaturas antigas para orientar a busca de vida em Marte.",
+      "sources": [
+        {
+          "label": "NASA — MSL Curiosity",
+          "url": "https://science.nasa.gov/mission/msl-curiosity/"
+        },
+        {
+          "label": "Wikipedia — Gale (crater)",
+          "url": "https://en.wikipedia.org/wiki/Gale_(crater)"
+        },
+        {
+          "label": "Wikipedia — Pilbara Craton",
+          "url": "https://en.wikipedia.org/wiki/Pilbara_Craton"
+        }
+      ]
     },
     {
       "analog": "earth-dry-valleys",
       "target": "mars-arcadia",
+      "score": 0.72,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "gelo maciço enterrado sob solo seco",
+          "target": "gelo em excesso raso, detectado por radar",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.38,
+          "earth": "-55 a 10 °C",
+          "target": "-120 a -5 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.73,
+          "earth": "solo cimentado por gelo, sais e percloratos, basalto",
+          "target": "basalto, solo cimentado por gelo, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.82,
+          "earth": "Sol até 36° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 68° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.65,
+          "earth": "terreno poligonal periglacial, geleira coberta de detritos, mesas e escarpas",
+          "target": "planície, terreno poligonal periglacial",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: gelo maciço enterrado sob solo seco × gelo em excesso raso, detectado por radar",
+        "Iluminação parecida: Sol até 36° de altura, iluminado ~50% do tempo × Sol até 68° de altura, iluminado ~50% do tempo",
+        "Regolito / materiais parecida: solo cimentado por gelo, sais e percloratos, basalto × basalto, solo cimentado por gelo, óxidos de ferro"
+      ],
+      "limits": [
+        "Temperatura diferente: -55 a 10 °C na Terra × -120 a -5 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Perfuração de gelo enterrado e busca de vida em solo frio e seco.",
+      "sources": [
+        {
+          "label": "Bramson et al. 2015 — Widespread excess ice in Arcadia Planitia (GRL)",
+          "url": "https://doi.org/10.1002/2015GL064844"
+        },
+        {
+          "label": "PSI — Subsurface Water Ice Mapping (SWIM)",
+          "url": "https://swim.psi.edu/"
+        },
+        {
+          "label": "Wikipedia — Arcadia Planitia",
+          "url": "https://en.wikipedia.org/wiki/Arcadia_Planitia"
+        },
+        {
+          "label": "Wikipedia — McMurdo Dry Valleys",
+          "url": "https://en.wikipedia.org/wiki/McMurdo_Dry_Valleys"
+        }
+      ]
+    },
+    {
+      "analog": "earth-svalbard",
+      "target": "mars-arcadia",
+      "score": 0.65,
+      "dimensions": {
+        "gelo": {
+          "score": 0.75,
+          "earth": "permafrost e fontes termais",
+          "target": "gelo em excesso raso, detectado por radar",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.22,
+          "earth": "-35 a 15 °C",
+          "target": "-120 a -5 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.73,
+          "earth": "basalto, carbonatos, solo cimentado por gelo",
+          "target": "basalto, solo cimentado por gelo, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.81,
+          "earth": "Sol até 34° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 68° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.75,
+          "earth": "campo vulcânico, terreno poligonal periglacial",
+          "target": "planície, terreno poligonal periglacial",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Iluminação parecida: Sol até 34° de altura, iluminado ~50% do tempo × Sol até 68° de altura, iluminado ~50% do tempo",
+        "Gelo / água parecida: permafrost e fontes termais × gelo em excesso raso, detectado por radar",
+        "Relevo parecida: campo vulcânico, terreno poligonal periglacial × planície, terreno poligonal periglacial",
+        "Regolito / materiais parecida: basalto, carbonatos, solo cimentado por gelo × basalto, solo cimentado por gelo, óxidos de ferro"
+      ],
+      "limits": [
+        "Temperatura diferente: -35 a 15 °C na Terra × -120 a -5 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Testes de instrumentos de missões a Marte (expedições AMASE) em carbonatos e basalto.",
+      "sources": [
+        {
+          "label": "Bramson et al. 2015 — Widespread excess ice in Arcadia Planitia (GRL)",
+          "url": "https://doi.org/10.1002/2015GL064844"
+        },
+        {
+          "label": "PSI — Subsurface Water Ice Mapping (SWIM)",
+          "url": "https://swim.psi.edu/"
+        },
+        {
+          "label": "Wikipedia — Arcadia Planitia",
+          "url": "https://en.wikipedia.org/wiki/Arcadia_Planitia"
+        },
+        {
+          "label": "Wikipedia — Bockfjorden",
+          "url": "https://en.wikipedia.org/wiki/Bockfjorden"
+        }
+      ]
+    },
+    {
+      "analog": "earth-holuhraun",
+      "target": "mars-arcadia",
+      "score": 0.6,
+      "dimensions": {
+        "gelo": {
+          "score": 0.5,
+          "earth": "geada sazonal ou gelo pontual",
+          "target": "gelo em excesso raso, detectado por radar",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.18,
+          "earth": "-30 a 20 °C",
+          "target": "-120 a -5 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.68,
+          "earth": "basalto, tefra / cinza vulcânica",
+          "target": "basalto, solo cimentado por gelo, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.89,
+          "earth": "Sol até 49° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 68° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.75,
+          "earth": "campo vulcânico, planície",
+          "target": "planície, terreno poligonal periglacial",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Iluminação parecida: Sol até 49° de altura, iluminado ~50% do tempo × Sol até 68° de altura, iluminado ~50% do tempo",
+        "Relevo parecida: campo vulcânico, planície × planície, terreno poligonal periglacial"
+      ],
+      "limits": [
+        "Temperatura diferente: -30 a 20 °C na Terra × -120 a -5 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Testes de rovers e estudo da alteração de basalto recente.",
+      "sources": [
+        {
+          "label": "Bramson et al. 2015 — Widespread excess ice in Arcadia Planitia (GRL)",
+          "url": "https://doi.org/10.1002/2015GL064844"
+        },
+        {
+          "label": "PSI — Subsurface Water Ice Mapping (SWIM)",
+          "url": "https://swim.psi.edu/"
+        },
+        {
+          "label": "Wikipedia — Arcadia Planitia",
+          "url": "https://en.wikipedia.org/wiki/Arcadia_Planitia"
+        },
+        {
+          "label": "Wikipedia — Holuhraun",
+          "url": "https://en.wikipedia.org/wiki/Holuhraun"
+        }
+      ]
+    },
+    {
+      "analog": "earth-dry-valleys",
+      "target": "mars-deuteronilus",
+      "score": 0.77,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "gelo maciço enterrado sob solo seco",
+          "target": "geleiras sob uma camada de detritos",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.42,
+          "earth": "-55 a 10 °C",
+          "target": "-120 a 0 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.73,
+          "earth": "solo cimentado por gelo, sais e percloratos, basalto",
+          "target": "solo cimentado por gelo, basalto, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.8,
+          "earth": "Sol até 36° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 71° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.92,
+          "earth": "terreno poligonal periglacial, geleira coberta de detritos, mesas e escarpas",
+          "target": "mesas e escarpas, geleira coberta de detritos",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: gelo maciço enterrado sob solo seco × geleiras sob uma camada de detritos",
+        "Relevo parecida: terreno poligonal periglacial, geleira coberta de detritos, mesas e escarpas × mesas e escarpas, geleira coberta de detritos",
+        "Iluminação parecida: Sol até 36° de altura, iluminado ~50% do tempo × Sol até 71° de altura, iluminado ~50% do tempo",
+        "Regolito / materiais parecida: solo cimentado por gelo, sais e percloratos, basalto × solo cimentado por gelo, basalto, óxidos de ferro"
+      ],
+      "limits": [
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Perfuração de gelo enterrado e busca de vida em solo frio e seco.",
+      "sources": [
+        {
+          "label": "Plaut et al. 2009 — Radar evidence for ice in lobate debris aprons (GRL)",
+          "url": "https://doi.org/10.1029/2008GL036379"
+        },
+        {
+          "label": "Wikipedia — Deuteronilus Mensae",
+          "url": "https://en.wikipedia.org/wiki/Deuteronilus_Mensae"
+        },
+        {
+          "label": "Wikipedia — McMurdo Dry Valleys",
+          "url": "https://en.wikipedia.org/wiki/McMurdo_Dry_Valleys"
+        }
+      ]
+    },
+    {
+      "analog": "earth-svalbard",
+      "target": "mars-deuteronilus",
+      "score": 0.56,
+      "dimensions": {
+        "gelo": {
+          "score": 0.75,
+          "earth": "permafrost e fontes termais",
+          "target": "geleiras sob uma camada de detritos",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.26,
+          "earth": "-35 a 15 °C",
+          "target": "-120 a 0 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.73,
+          "earth": "basalto, carbonatos, solo cimentado por gelo",
+          "target": "solo cimentado por gelo, basalto, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.79,
+          "earth": "Sol até 34° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 71° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.25,
+          "earth": "campo vulcânico, terreno poligonal periglacial",
+          "target": "mesas e escarpas, geleira coberta de detritos",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Iluminação parecida: Sol até 34° de altura, iluminado ~50% do tempo × Sol até 71° de altura, iluminado ~50% do tempo",
+        "Gelo / água parecida: permafrost e fontes termais × geleiras sob uma camada de detritos",
+        "Regolito / materiais parecida: basalto, carbonatos, solo cimentado por gelo × solo cimentado por gelo, basalto, óxidos de ferro"
+      ],
+      "limits": [
+        "Relevo diferente: campo vulcânico, terreno poligonal periglacial na Terra × mesas e escarpas, geleira coberta de detritos no alvo",
+        "Temperatura diferente: -35 a 15 °C na Terra × -120 a 0 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Testes de instrumentos de missões a Marte (expedições AMASE) em carbonatos e basalto.",
+      "sources": [
+        {
+          "label": "Plaut et al. 2009 — Radar evidence for ice in lobate debris aprons (GRL)",
+          "url": "https://doi.org/10.1029/2008GL036379"
+        },
+        {
+          "label": "Wikipedia — Deuteronilus Mensae",
+          "url": "https://en.wikipedia.org/wiki/Deuteronilus_Mensae"
+        },
+        {
+          "label": "Wikipedia — Bockfjorden",
+          "url": "https://en.wikipedia.org/wiki/Bockfjorden"
+        }
+      ]
+    },
+    {
+      "analog": "earth-lava-beds",
+      "target": "mars-deuteronilus",
+      "score": 0.5,
+      "dimensions": {
+        "gelo": {
+          "score": 0.75,
+          "earth": "gelo permanente em cavernas",
+          "target": "geleiras sob uma camada de detritos",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.04,
+          "earth": "-5 a 10 °C",
+          "target": "-120 a 0 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.73,
+          "earth": "basalto",
+          "target": "solo cimentado por gelo, basalto, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 1.0,
+          "earth": "Sol até 72° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 71° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.0,
+          "earth": "tubo de lava / fosso de colapso, campo vulcânico",
+          "target": "mesas e escarpas, geleira coberta de detritos",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Iluminação parecida: Sol até 72° de altura, iluminado ~50% do tempo × Sol até 71° de altura, iluminado ~50% do tempo",
+        "Gelo / água parecida: gelo permanente em cavernas × geleiras sob uma camada de detritos",
+        "Regolito / materiais parecida: basalto × solo cimentado por gelo, basalto, óxidos de ferro"
+      ],
+      "limits": [
+        "Relevo diferente: tubo de lava / fosso de colapso, campo vulcânico na Terra × mesas e escarpas, geleira coberta de detritos no alvo",
+        "Temperatura diferente: -5 a 10 °C na Terra × -120 a 0 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Estudo de tubos de lava e de gelo em cavernas como abrigo para bases.",
+      "sources": [
+        {
+          "label": "Plaut et al. 2009 — Radar evidence for ice in lobate debris aprons (GRL)",
+          "url": "https://doi.org/10.1029/2008GL036379"
+        },
+        {
+          "label": "Wikipedia — Deuteronilus Mensae",
+          "url": "https://en.wikipedia.org/wiki/Deuteronilus_Mensae"
+        },
+        {
+          "label": "Wikipedia — Lava Beds National Monument",
+          "url": "https://en.wikipedia.org/wiki/Lava_Beds_National_Monument"
+        }
+      ]
+    },
+    {
+      "analog": "earth-svalbard",
+      "target": "mars-utopia",
+      "score": 0.7,
+      "dimensions": {
+        "gelo": {
+          "score": 1.0,
+          "earth": "permafrost e fontes termais",
+          "target": "depósito de gelo no subsolo detectado por radar",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.19,
+          "earth": "-35 a 15 °C",
+          "target": "-120 a -10 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.73,
+          "earth": "basalto, carbonatos, solo cimentado por gelo",
+          "target": "basalto, solo cimentado por gelo, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.81,
+          "earth": "Sol até 34° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 68° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.75,
+          "earth": "campo vulcânico, terreno poligonal periglacial",
+          "target": "planície, terreno poligonal periglacial",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Gelo / água parecida: permafrost e fontes termais × depósito de gelo no subsolo detectado por radar",
+        "Iluminação parecida: Sol até 34° de altura, iluminado ~50% do tempo × Sol até 68° de altura, iluminado ~50% do tempo",
+        "Relevo parecida: campo vulcânico, terreno poligonal periglacial × planície, terreno poligonal periglacial",
+        "Regolito / materiais parecida: basalto, carbonatos, solo cimentado por gelo × basalto, solo cimentado por gelo, óxidos de ferro"
+      ],
+      "limits": [
+        "Temperatura diferente: -35 a 15 °C na Terra × -120 a -10 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Testes de instrumentos de missões a Marte (expedições AMASE) em carbonatos e basalto.",
+      "sources": [
+        {
+          "label": "Stuurman et al. 2016 — Subsurface water ice deposits in Utopia Planitia (GRL)",
+          "url": "https://doi.org/10.1002/2016GL070138"
+        },
+        {
+          "label": "Wikipedia — Utopia Planitia",
+          "url": "https://en.wikipedia.org/wiki/Utopia_Planitia"
+        },
+        {
+          "label": "Wikipedia — Bockfjorden",
+          "url": "https://en.wikipedia.org/wiki/Bockfjorden"
+        }
+      ]
+    },
+    {
+      "analog": "earth-dry-valleys",
+      "target": "mars-utopia",
+      "score": 0.66,
+      "dimensions": {
+        "gelo": {
+          "score": 0.75,
+          "earth": "gelo maciço enterrado sob solo seco",
+          "target": "depósito de gelo no subsolo detectado por radar",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.35,
+          "earth": "-55 a 10 °C",
+          "target": "-120 a -10 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.73,
+          "earth": "solo cimentado por gelo, sais e percloratos, basalto",
+          "target": "basalto, solo cimentado por gelo, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.82,
+          "earth": "Sol até 36° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 68° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.65,
+          "earth": "terreno poligonal periglacial, geleira coberta de detritos, mesas e escarpas",
+          "target": "planície, terreno poligonal periglacial",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
+      },
+      "strengths": [
+        "Iluminação parecida: Sol até 36° de altura, iluminado ~50% do tempo × Sol até 68° de altura, iluminado ~50% do tempo",
+        "Gelo / água parecida: gelo maciço enterrado sob solo seco × depósito de gelo no subsolo detectado por radar",
+        "Regolito / materiais parecida: solo cimentado por gelo, sais e percloratos, basalto × basalto, solo cimentado por gelo, óxidos de ferro"
+      ],
+      "limits": [
+        "Temperatura diferente: -55 a 10 °C na Terra × -120 a -10 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Perfuração de gelo enterrado e busca de vida em solo frio e seco.",
+      "sources": [
+        {
+          "label": "Stuurman et al. 2016 — Subsurface water ice deposits in Utopia Planitia (GRL)",
+          "url": "https://doi.org/10.1002/2016GL070138"
+        },
+        {
+          "label": "Wikipedia — Utopia Planitia",
+          "url": "https://en.wikipedia.org/wiki/Utopia_Planitia"
+        },
+        {
+          "label": "Wikipedia — McMurdo Dry Valleys",
+          "url": "https://en.wikipedia.org/wiki/McMurdo_Dry_Valleys"
+        }
+      ]
+    },
+    {
+      "analog": "earth-holuhraun",
+      "target": "mars-utopia",
       "score": 0.64,
       "dimensions": {
-        "gelo":        { "score": 0.8, "earth": "gelo enterrado", "target": "gelo raso no subsolo", "note": "Valor ilustrativo." },
-        "temperatura": { "score": 0.6, "earth": "-60 a 0 °C", "target": "-110 a 0 °C", "note": "Valor ilustrativo." }
+        "gelo": {
+          "score": 0.75,
+          "earth": "geada sazonal ou gelo pontual",
+          "target": "depósito de gelo no subsolo detectado por radar",
+          "note": "Distância na escala de gelo de 0 (sem gelo) a 4 (gelo maciço)."
+        },
+        "temperatura": {
+          "score": 0.14,
+          "earth": "-30 a 20 °C",
+          "target": "-120 a -10 °C",
+          "note": "Sobreposição das faixas de temperatura (interseção ÷ união)."
+        },
+        "regolito": {
+          "score": 0.68,
+          "earth": "basalto, tefra / cinza vulcânica",
+          "target": "basalto, solo cimentado por gelo, óxidos de ferro",
+          "note": "Casamento entre os tipos de material dos dois locais."
+        },
+        "iluminacao": {
+          "score": 0.89,
+          "earth": "Sol até 49° de altura, iluminado ~50% do tempo",
+          "target": "Sol até 68° de altura, iluminado ~50% do tempo",
+          "note": "Média entre a diferença na altura máxima do Sol e no tempo iluminado."
+        },
+        "relevo": {
+          "score": 0.75,
+          "earth": "campo vulcânico, planície",
+          "target": "planície, terreno poligonal periglacial",
+          "note": "Casamento entre os tipos de relevo dos dois locais."
+        }
       },
-      "strengths": ["Gelo sob camada seca"],
-      "limits": ["Pressão atmosférica muito maior"],
-      "exploration_use": "Testar perfuração de gelo raso.",
-      "sources": [{ "label": "Exemplo — substituir pelo dataset real", "url": "https://www.spaceappschallenge.org/" }]
+      "strengths": [
+        "Iluminação parecida: Sol até 49° de altura, iluminado ~50% do tempo × Sol até 68° de altura, iluminado ~50% do tempo",
+        "Gelo / água parecida: geada sazonal ou gelo pontual × depósito de gelo no subsolo detectado por radar",
+        "Relevo parecida: campo vulcânico, planície × planície, terreno poligonal periglacial"
+      ],
+      "limits": [
+        "Temperatura diferente: -30 a 20 °C na Terra × -120 a -10 °C no alvo",
+        "Gravidade marciana é 0,38 da terrestre",
+        "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+      ],
+      "exploration_use": "Testes de rovers e estudo da alteração de basalto recente.",
+      "sources": [
+        {
+          "label": "Stuurman et al. 2016 — Subsurface water ice deposits in Utopia Planitia (GRL)",
+          "url": "https://doi.org/10.1002/2016GL070138"
+        },
+        {
+          "label": "Wikipedia — Utopia Planitia",
+          "url": "https://en.wikipedia.org/wiki/Utopia_Planitia"
+        },
+        {
+          "label": "Wikipedia — Holuhraun",
+          "url": "https://en.wikipedia.org/wiki/Holuhraun"
+        }
+      ]
     }
   ]
 }

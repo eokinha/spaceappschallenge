@@ -1,0 +1,393 @@
+# Tabela curada de locais. Fonte única dos valores usados pelo pipeline.
+#
+# Campos de cada local:
+#   id, name, lat, lon, description          — lon pode vir em 0–360 (convertido para -180..180)
+#   body                                     — só alvos: moon | mars
+#   temperatura_c: [min, max]                — faixa de temperatura da superfície/solo, °C
+#   gelo: 0..4                               — escala ordinal em config.yaml (ice_levels)
+#   gelo_nota                                — texto curto opcional sobre o gelo
+#   iluminacao_fracao: 0..1                  — fração do tempo iluminado; ausente = default do config
+#   regolito: [categorias]                   — chaves de config.yaml → regolito.labels
+#   relevo: [categorias]                     — chaves de config.yaml → relevo.labels
+#   uso                                      — só análogos: uso na exploração
+#   fontes: [{label, url}]
+#   revisar: [campos]                        — valores estimados que a equipe ainda precisa confirmar
+#
+# Uma dimensão sem campo fica fora da comparação (nunca vira zero).
+# Coordenadas: Wikipedia (prop=coordinates) quando disponível; demais marcadas em `revisar`.
+
+targets:
+  # ---------------------------------------------------------------- Lua
+  - id: moon-shackleton
+    body: moon
+    name: Cratera Shackleton (borda e crista de ligação)
+    lat: -89.67
+    lon: 129.78
+    description: >-
+      Cratera no polo sul lunar. Sua borda e a crista que a liga à cratera de Gerlache têm alguns dos
+      pontos mais iluminados da Lua, ao lado de crateras em sombra permanente com possível gelo.
+    temperatura_c: [-200, -50]
+    gelo: 3
+    gelo_nota: gelo possível nas crateras de sombra permanente vizinhas
+    iluminacao_fracao: 0.85
+    regolito: [anortosito, regolito_impacto]
+    relevo: [borda_cratera]
+    fontes:
+      - { label: "Mazarico et al. 2011 — Illumination conditions of the lunar polar regions (Icarus)", url: "https://doi.org/10.1016/j.icarus.2010.10.030" }
+      - { label: "Paige et al. 2010 — Diviner observations of cold traps (Science)", url: "https://doi.org/10.1126/science.1187726" }
+      - { label: "Wikipedia — Shackleton (crater)", url: "https://en.wikipedia.org/wiki/Shackleton_(crater)" }
+    revisar: [temperatura_c, iluminacao_fracao]
+
+  - id: moon-malapert
+    body: moon
+    name: Região do Malapert
+    lat: -84.9
+    lon: 12.9
+    description: >-
+      Região do maciço Malapert, uma das regiões candidatas ao pouso do Artemis III. Montanha alta com boa
+      iluminação e visada direta para a Terra.
+    temperatura_c: [-190, -30]
+    gelo: 2
+    iluminacao_fracao: 0.7
+    regolito: [anortosito, regolito_impacto]
+    relevo: [macico, borda_cratera]
+    fontes:
+      - { label: "NASA — atualização das regiões de pouso do Artemis III (2024)", url: "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/" }
+      - { label: "Wikipedia — Malapert (crater)", url: "https://en.wikipedia.org/wiki/Malapert_(crater)" }
+    revisar: [temperatura_c, iluminacao_fracao, gelo]
+
+  - id: moon-haworth
+    body: moon
+    name: Cratera Haworth
+    lat: -86.9
+    lon: -4.0
+    description: >-
+      Região candidata ao Artemis III. A cratera tem grande área em sombra permanente, com temperaturas
+      baixas o bastante para reter gelo.
+    temperatura_c: [-230, -50]
+    gelo: 3
+    gelo_nota: armadilha fria em sombra permanente
+    iluminacao_fracao: 0.6
+    regolito: [anortosito, regolito_impacto]
+    relevo: [borda_cratera, interior_cratera]
+    fontes:
+      - { label: "NASA — atualização das regiões de pouso do Artemis III (2024)", url: "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/" }
+      - { label: "Paige et al. 2010 — Diviner observations of cold traps (Science)", url: "https://doi.org/10.1126/science.1187726" }
+      - { label: "Wikipedia — Haworth (crater)", url: "https://en.wikipedia.org/wiki/Haworth_(crater)" }
+    revisar: [temperatura_c, iluminacao_fracao]
+
+  - id: moon-nobile
+    body: moon
+    name: Borda da cratera Nobile
+    lat: -85.28
+    lon: 53.27
+    description: >-
+      Região candidata ao Artemis III (Nobile Rim 1 e 2), na borda de uma cratera antiga perto do polo sul.
+    temperatura_c: [-220, -40]
+    gelo: 3
+    gelo_nota: interior da cratera em sombra permanente
+    iluminacao_fracao: 0.6
+    regolito: [anortosito, regolito_impacto]
+    relevo: [borda_cratera]
+    fontes:
+      - { label: "NASA — atualização das regiões de pouso do Artemis III (2024)", url: "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/" }
+      - { label: "Wikipedia — Nobile (crater)", url: "https://en.wikipedia.org/wiki/Nobile_(crater)" }
+    revisar: [temperatura_c, iluminacao_fracao]
+
+  - id: moon-tranquillitatis-pit
+    body: moon
+    name: Fosso do Mare Tranquillitatis
+    lat: 8.34
+    lon: 33.22
+    description: >-
+      Fosso de colapso que pode dar acesso a um tubo de lava. A parte em sombra fica perto de 17 °C o tempo
+      todo, um abrigo natural contra temperatura, radiação e micrometeoritos.
+    temperatura_c: [15, 20]
+    gelo: 0
+    regolito: [basalto, regolito_impacto]
+    relevo: [tubo_lava, planicie]
+    fontes:
+      - { label: "Horvath et al. 2022 — Thermal environments of lunar pits and caves (GRL)", url: "https://doi.org/10.1029/2022GL099710" }
+      - { label: "Haruyama et al. 2009 — Possible lunar lava tube skylight (GRL)", url: "https://doi.org/10.1029/2009GL040635" }
+    revisar: [lat, lon]
+
+  # ---------------------------------------------------------------- Marte
+  - id: mars-jezero
+    body: mars
+    name: Cratera Jezero
+    lat: 18.38
+    lon: 77.58
+    description: >-
+      Antigo lago com delta de rio, explorado pelo rover Perseverance. Rochas com carbonatos e argilas
+      formadas em água.
+    temperatura_c: [-90, 15]
+    gelo: 1
+    gelo_nota: minerais formados em água, sem gelo superficial
+    regolito: [sedimento_lacustre, carbonato, argila, basalto]
+    relevo: [interior_cratera, delta_fluvial]
+    fontes:
+      - { label: "NASA — Mars 2020 Perseverance", url: "https://science.nasa.gov/mission/mars-2020-perseverance/" }
+      - { label: "Wikipedia — Jezero (crater)", url: "https://en.wikipedia.org/wiki/Jezero_(crater)" }
+    revisar: [temperatura_c]
+
+  - id: mars-gale
+    body: mars
+    name: Cratera Gale
+    lat: -5.4
+    lon: 137.8
+    description: >-
+      Cratera com o Monte Sharp, camadas de sedimentos de lagos antigos exploradas pelo rover Curiosity.
+    temperatura_c: [-100, 15]
+    gelo: 1
+    gelo_nota: argilas e sulfatos formados em água
+    regolito: [sedimento_lacustre, argila, sulfato, oxido_ferro]
+    relevo: [interior_cratera, sedimentos_estratificados]
+    fontes:
+      - { label: "NASA — MSL Curiosity", url: "https://science.nasa.gov/mission/msl-curiosity/" }
+      - { label: "Wikipedia — Gale (crater)", url: "https://en.wikipedia.org/wiki/Gale_(crater)" }
+    revisar: [temperatura_c]
+
+  - id: mars-arcadia
+    body: mars
+    name: Arcadia Planitia
+    lat: 47.2
+    lon: 184.3          # 0–360 leste no original; o pipeline converte para -175.7
+    description: >-
+      Planície do norte com gelo em excesso a poucos metros da superfície, um dos alvos mais citados para
+      uma base tripulada que use água local.
+    temperatura_c: [-120, -5]
+    gelo: 4
+    gelo_nota: gelo em excesso raso, detectado por radar
+    regolito: [basalto, solo_gelo, oxido_ferro]
+    relevo: [planicie, poligonos_periglaciais]
+    fontes:
+      - { label: "Bramson et al. 2015 — Widespread excess ice in Arcadia Planitia (GRL)", url: "https://doi.org/10.1002/2015GL064844" }
+      - { label: "PSI — Subsurface Water Ice Mapping (SWIM)", url: "https://swim.psi.edu/" }
+      - { label: "Wikipedia — Arcadia Planitia", url: "https://en.wikipedia.org/wiki/Arcadia_Planitia" }
+    revisar: [temperatura_c]
+
+  - id: mars-deuteronilus
+    body: mars
+    name: Deuteronilus Mensae
+    lat: 43.9
+    lon: 22.6
+    description: >-
+      Região de mesas e escarpas com geleiras cobertas de detritos (aventais lobados), confirmadas por radar
+      como gelo quase puro.
+    temperatura_c: [-120, 0]
+    gelo: 4
+    gelo_nota: geleiras sob uma camada de detritos
+    regolito: [solo_gelo, basalto, oxido_ferro]
+    relevo: [mesa_escarpa, glaciar_detritos]
+    fontes:
+      - { label: "Plaut et al. 2009 — Radar evidence for ice in lobate debris aprons (GRL)", url: "https://doi.org/10.1029/2008GL036379" }
+      - { label: "Wikipedia — Deuteronilus Mensae", url: "https://en.wikipedia.org/wiki/Deuteronilus_Mensae" }
+    revisar: [temperatura_c]
+
+  - id: mars-utopia
+    body: mars
+    name: Utopia Planitia
+    lat: 46.7
+    lon: 117.5
+    description: >-
+      Grande planície do norte, local de pouso da Viking 2, com um depósito de gelo no subsolo do tamanho de
+      um grande lago terrestre.
+    temperatura_c: [-120, -10]
+    gelo: 3
+    gelo_nota: depósito de gelo no subsolo detectado por radar
+    regolito: [basalto, solo_gelo, oxido_ferro]
+    relevo: [planicie, poligonos_periglaciais]
+    fontes:
+      - { label: "Stuurman et al. 2016 — Subsurface water ice deposits in Utopia Planitia (GRL)", url: "https://doi.org/10.1002/2016GL070138" }
+      - { label: "Wikipedia — Utopia Planitia", url: "https://en.wikipedia.org/wiki/Utopia_Planitia" }
+    revisar: [temperatura_c]
+
+analogs:
+  - id: earth-devon
+    name: Ilha Devon (cratera Haughton)
+    lat: 75.38
+    lon: -89.67
+    description: Cratera de impacto no Ártico canadense, em deserto polar com permafrost.
+    temperatura_c: [-45, 15]
+    gelo: 3
+    gelo_nota: permafrost contínuo
+    regolito: [brecha_impacto, carbonato, solo_gelo]
+    relevo: [borda_cratera, interior_cratera, poligonos_periglaciais]
+    uso: Base do Haughton-Mars Project, com testes de rovers, trajes e operações de campo em clima polar.
+    fontes:
+      - { label: "Wikipedia — Haughton impact crater", url: "https://en.wikipedia.org/wiki/Haughton_impact_crater" }
+    revisar: [temperatura_c]
+
+  - id: earth-dry-valleys
+    name: Vales Secos McMurdo (Antártida)
+    lat: -77.47
+    lon: 162.52
+    description: Deserto polar frio e seco, com gelo enterrado e solos com percloratos.
+    temperatura_c: [-55, 10]
+    gelo: 4
+    gelo_nota: gelo maciço enterrado sob solo seco
+    regolito: [solo_gelo, sal_perclorato, basalto]
+    relevo: [poligonos_periglaciais, glaciar_detritos, mesa_escarpa]
+    uso: Perfuração de gelo enterrado e busca de vida em solo frio e seco.
+    fontes:
+      - { label: "Wikipedia — McMurdo Dry Valleys", url: "https://en.wikipedia.org/wiki/McMurdo_Dry_Valleys" }
+    revisar: [temperatura_c]
+
+  - id: earth-atacama
+    name: Deserto do Atacama (Chile)
+    lat: -24.5
+    lon: -69.25
+    description: Um dos lugares mais secos da Terra, com solos ricos em sais e percloratos.
+    temperatura_c: [-5, 45]
+    gelo: 0
+    regolito: [sal_perclorato, sulfato]
+    relevo: [planicie, delta_fluvial]
+    uso: Testes de rovers e de detecção de vida em solo hiperárido com percloratos.
+    fontes:
+      - { label: "Wikipedia — Atacama Desert", url: "https://en.wikipedia.org/wiki/Atacama_Desert" }
+    revisar: [temperatura_c]
+
+  - id: earth-svalbard
+    name: Bockfjorden (Svalbard)
+    lat: 79.47
+    lon: 13.33
+    description: Vulcões antigos no Ártico, com carbonatos em basalto parecidos com os do meteorito marciano ALH84001.
+    temperatura_c: [-35, 15]
+    gelo: 3
+    gelo_nota: permafrost e fontes termais
+    regolito: [basalto, carbonato, solo_gelo]
+    relevo: [campo_vulcanico, poligonos_periglaciais]
+    uso: Testes de instrumentos de missões a Marte (expedições AMASE) em carbonatos e basalto.
+    fontes:
+      - { label: "Wikipedia — Bockfjorden", url: "https://en.wikipedia.org/wiki/Bockfjorden" }
+    revisar: [temperatura_c]
+
+  - id: earth-holuhraun
+    name: Holuhraun (Islândia)
+    lat: 64.85
+    lon: -16.83
+    description: Campo de lava basáltica recente (2014–2015) nas terras altas da Islândia.
+    temperatura_c: [-30, 20]
+    gelo: 2
+    regolito: [basalto, tefra_vulcanica]
+    relevo: [campo_vulcanico, planicie]
+    uso: Testes de rovers e estudo da alteração de basalto recente.
+    fontes:
+      - { label: "Wikipedia — Holuhraun", url: "https://en.wikipedia.org/wiki/Holuhraun" }
+    revisar: [temperatura_c, gelo]
+
+  - id: earth-mauna-kea
+    name: Mauna Kea (Havaí)
+    lat: 19.82
+    lon: -155.47
+    description: Vulcão basáltico cujo solo foi usado para fazer simuladores de regolito.
+    temperatura_c: [-10, 20]
+    gelo: 2
+    gelo_nota: permafrost pontual no cume
+    regolito: [basalto, tefra_vulcanica, oxido_ferro]
+    relevo: [campo_vulcanico, macico]
+    uso: Testes de ISRU, extraindo oxigênio e água do solo vulcânico.
+    fontes:
+      - { label: "Wikipedia — Mauna Kea", url: "https://en.wikipedia.org/wiki/Mauna_Kea" }
+    revisar: [temperatura_c]
+
+  - id: earth-rio-tinto
+    name: Rio Tinto (Espanha)
+    lat: 37.21
+    lon: -6.94
+    description: Rio ácido e rico em ferro, com sulfatos como a jarosita, também encontrada em Marte.
+    temperatura_c: [0, 45]
+    gelo: 1
+    gelo_nota: água ácida e sulfatos hidratados
+    regolito: [sulfato, oxido_ferro]
+    relevo: [sedimentos_estratificados]
+    uso: Estudo de vida em água ácida rica em ferro e sulfatos, como nos ambientes antigos de Marte.
+    fontes:
+      - { label: "Wikipedia — Río Tinto (river)", url: "https://en.wikipedia.org/wiki/R%C3%ADo_Tinto_(river)" }
+    revisar: [temperatura_c]
+
+  - id: earth-meteor-crater
+    name: Meteor Crater (Arizona)
+    lat: 35.03
+    lon: -111.02
+    description: Cratera de impacto jovem e bem preservada no deserto do Arizona.
+    temperatura_c: [-15, 45]
+    gelo: 0
+    regolito: [brecha_impacto, regolito_impacto]
+    relevo: [borda_cratera, interior_cratera]
+    uso: Treino de astronautas em geologia de crateras de impacto.
+    fontes:
+      - { label: "Wikipedia — Meteor Crater", url: "https://en.wikipedia.org/wiki/Meteor_Crater" }
+    revisar: [temperatura_c]
+
+  - id: earth-pilbara
+    name: Pilbara (Austrália)
+    lat: -21.1
+    lon: 119.4
+    description: Rochas de cerca de 3,5 bilhões de anos com estromatólitos, alguns dos sinais de vida mais antigos.
+    temperatura_c: [5, 50]
+    gelo: 1
+    regolito: [carbonato, argila, sedimento_lacustre]
+    relevo: [sedimentos_estratificados]
+    uso: Estudo de bioassinaturas antigas para orientar a busca de vida em Marte.
+    fontes:
+      - { label: "Wikipedia — Pilbara Craton", url: "https://en.wikipedia.org/wiki/Pilbara_Craton" }
+    revisar: [lat, lon, temperatura_c]
+
+  - id: earth-lava-beds
+    name: Lava Beds (Califórnia)
+    lat: 41.71
+    lon: -121.51
+    description: Centenas de tubos de lava, alguns com gelo permanente no interior.
+    temperatura_c: [-5, 10]
+    gelo: 3
+    gelo_nota: gelo permanente em cavernas
+    regolito: [basalto]
+    relevo: [tubo_lava, campo_vulcanico]
+    uso: Estudo de tubos de lava e de gelo em cavernas como abrigo para bases.
+    fontes:
+      - { label: "Wikipedia — Lava Beds National Monument", url: "https://en.wikipedia.org/wiki/Lava_Beds_National_Monument" }
+    revisar: [temperatura_c]
+
+  - id: earth-lanzarote
+    name: Cueva de los Verdes (Lanzarote)
+    lat: 29.16
+    lon: -13.44
+    description: Tubo de lava de vários quilômetros, usado pela ESA em treinos de exploração de cavernas.
+    temperatura_c: [17, 21]
+    gelo: 0
+    regolito: [basalto, tefra_vulcanica]
+    relevo: [tubo_lava, campo_vulcanico]
+    uso: Treino de exploração de cavernas (ESA PANGAEA e CAVES) e de tubos de lava como abrigo.
+    fontes:
+      - { label: "Wikipedia — Cueva de los Verdes", url: "https://en.wikipedia.org/wiki/Cueva_de_los_Verdes" }
+    revisar: [temperatura_c]
+
+  - id: earth-ries
+    name: Cratera de Ries (Alemanha)
+    lat: 48.88
+    lon: 10.57
+    description: Cratera de impacto de 24 km, com brechas e sedimentos de um lago antigo.
+    temperatura_c: [-15, 35]
+    gelo: 0
+    regolito: [brecha_impacto, sedimento_lacustre]
+    relevo: [interior_cratera, sedimentos_estratificados]
+    uso: Treino de geologia de impacto para astronautas, da Apollo 14 à ESA.
+    fontes:
+      - { label: "Wikipedia — Nördlinger Ries", url: "https://en.wikipedia.org/wiki/N%C3%B6rdlinger_Ries" }
+    revisar: [temperatura_c]
+
+  - id: earth-mdrs
+    name: Mars Desert Research Station (Utah)
+    lat: 38.41
+    lon: -110.79
+    description: Deserto de camadas sedimentares avermelhadas, com argilas e gipsita.
+    temperatura_c: [-20, 45]
+    gelo: 1
+    gelo_nota: argilas e gipsita (minerais hidratados)
+    regolito: [argila, sulfato, oxido_ferro]
+    relevo: [sedimentos_estratificados, mesa_escarpa]
+    uso: Simulações de missões tripuladas a Marte com equipes isoladas.
+    fontes:
+      - { label: "Wikipedia — Mars Desert Research Station", url: "https://en.wikipedia.org/wiki/Mars_Desert_Research_Station" }
+    revisar: [temperatura_c]

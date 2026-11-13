@@ -39,15 +39,14 @@ pipeline Python  ──gera──▶  web/data/analogs.json  ──lido por─�
 ```
 .
 ├── pipeline/                 # Python
-│   ├── config.yaml           # pesos das dimensões, lista de alvos, caminhos
-│   ├── sources/              # um módulo por fonte de dados (download + leitura)
-│   ├── features.py           # extrai as 5 dimensões para cada local
-│   ├── similarity.py         # notas por dimensão e nota geral
-│   ├── export.py             # monta e valida o analogs.json
+│   ├── config.yaml           # pesos, regras de ligação, escalas e matrizes de similaridade
+│   ├── sites.yaml            # tabela curada: alvos e análogos com valores e fontes
+│   ├── features.py           # carrega e valida a tabela, extrai as 5 dimensões
+│   ├── similarity.py         # notas por dimensão e nota geral (fórmulas na docstring)
+│   ├── export.py             # escolhe as ligações, monta e valida o analogs.json
 │   └── schema.json           # JSON Schema do analogs.json
-├── data/
-│   ├── raw/                  # downloads (fora do git)
-│   └── processed/            # intermediários (fora do git)
+├── tests/                    # unittest do pipeline
+├── data/                     # reservado para rasters, se um dia usarmos (fora do git)
 ├── web/
 │   ├── index.html
 │   ├── src/
@@ -130,14 +129,26 @@ Regras:
 
 ## 4. Pipeline Python
 
-- Python 3.11+. Dependências em `requirements.txt` (sugestão: `numpy`, `pandas`, `rasterio`, `xarray`,
-  `pyyaml`, `jsonschema`).
-- Comando único: `python -m pipeline.export` gera `web/data/analogs.json`.
-- Cada dimensão é normalizada para 0–1 antes da comparação. Documente no código de onde vem cada valor
-  e qual a fórmula da nota.
-- Valide o JSON contra `pipeline/schema.json` antes de escrever o arquivo. Se não validar, o comando falha.
-- Cada link guarda em `sources` os datasets usados, para citarmos na entrega.
-- Arquivos grandes de `data/raw` e `data/processed` ficam fora do git (`.gitignore`).
+- Python 3.11+. Dependências em `requirements.txt` (`pyyaml`, `jsonschema`, `pillow`). Ambiente:
+  `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`.
+- Comando único: `python -m pipeline.export` gera `web/data/analogs.json` (`--check` só valida).
+  Testes: `python -m unittest discover -s tests -t .`.
+- **Os dados vêm de uma tabela curada** (`pipeline/sites.yaml`), não de rasters. Cada local traz os
+  valores das dimensões e as fontes (artigo, página da missão ou Wikipedia). Valores estimados ficam
+  listados no campo `revisar` e o export avisa quais faltam confirmar.
+- Como cada dimensão vira nota (detalhes em `pipeline/similarity.py`):
+  - temperatura: sobreposição das faixas mín–máx (interseção ÷ união);
+  - gelo: escala ordinal de 0 a 4;
+  - iluminação: altura máxima do Sol, calculada pela latitude e pela obliquidade, mais a fração do
+    tempo iluminado;
+  - regolito e relevo: categorias comparadas por uma matriz de similaridade no `config.yaml`.
+- **Ligações:** o pipeline compara todo análogo com todo alvo e mantém, para cada alvo, os 3 de maior
+  nota que passem do mínimo do `config.yaml`.
+- **Pontos fortes e limitações:** saem das notas por dimensão (≥ 0,7 e ≤ 0,4), e cada ligação recebe
+  ainda as limitações físicas do corpo (gravidade, atmosfera), por isso `limits` nunca fica vazio.
+- O JSON é validado contra `pipeline/schema.json` e os ids das ligações são conferidos antes de
+  escrever. Se algo falhar, o comando sai com código 1 e não escreve nada.
+- Cada link guarda em `sources` as fontes do alvo e do análogo, para citarmos na entrega.
 
 ## 5. Front-end 3D (Three.js)
 

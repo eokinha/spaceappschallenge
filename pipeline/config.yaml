@@ -1,0 +1,115 @@
+# Configuração do pipeline de análogos.
+# Fórmulas de cada nota: pipeline/similarity.py.
+
+paths:
+  sites: pipeline/sites.yaml
+  schema: pipeline/schema.json
+  output: web/data/analogs.json
+
+# Ordem e rótulos das dimensões no JSON.
+dimensions:
+  - { id: gelo,        label: "Gelo / água" }
+  - { id: temperatura, label: "Temperatura" }
+  - { id: regolito,    label: "Regolito / materiais" }
+  - { id: iluminacao,  label: "Iluminação" }
+  - { id: relevo,      label: "Relevo" }
+
+# Pesos da nota geral (média ponderada só das dimensões com dado nos dois locais).
+weights:
+  gelo: 1.0
+  temperatura: 1.0
+  regolito: 1.0
+  iluminacao: 1.0
+  relevo: 1.0
+
+# Quais pares viram ligação: para cada alvo, os N análogos de maior nota geral, desde que
+# a nota passe do mínimo e haja pelo menos `min_dimensions` dimensões comparadas.
+links:
+  top_n_per_target: 3
+  min_score: 0.35
+  min_dimensions: 3
+
+# Textos automáticos: uma dimensão com nota >= strength vira ponto forte; <= limit vira limitação.
+thresholds:
+  strength: 0.7
+  limit: 0.4
+
+# Obliquidade (graus), usada para a altura máxima do Sol ao meio-dia: min(90, 90 - |lat| + obliquidade).
+obliquity_deg:
+  earth: 23.44
+  moon: 1.54
+  mars: 25.19
+
+# Fração do tempo iluminado quando o local não informa (média anual sem considerar relevo).
+default_sunlit_fraction: 0.5
+
+# Escala ordinal de gelo/água (índice = valor no sites.yaml).
+ice_levels:
+  - "sem gelo nem água"
+  - "minerais hidratados ou traços de água"
+  - "geada sazonal ou gelo pontual"
+  - "gelo no subsolo / permafrost"
+  - "gelo maciço raso ou exposto"
+
+# Limitações físicas que valem para qualquer análogo terrestre do corpo (entram em todo link).
+body_limits:
+  moon:
+    - "Gravidade lunar é 1/6 da terrestre"
+    - "Sem atmosfera: vácuo, radiação cósmica e micrometeoritos direto na superfície"
+  mars:
+    - "Gravidade marciana é 0,38 da terrestre"
+    - "Atmosfera de CO₂ com cerca de 0,6% da pressão terrestre e radiação UV muito maior"
+
+# Categorias de material. Similaridade entre categorias diferentes: tabela `similar` (simétrica);
+# categorias iguais valem 1 e pares ausentes valem 0.
+regolito:
+  labels:
+    anortosito: "anortosito (crosta lunar clara)"
+    basalto: "basalto"
+    tefra_vulcanica: "tefra / cinza vulcânica"
+    regolito_impacto: "regolito fino de impacto"
+    brecha_impacto: "brecha de impacto"
+    sedimento_lacustre: "sedimentos de lago ou rio"
+    argila: "argilominerais"
+    sulfato: "sulfatos"
+    carbonato: "carbonatos"
+    sal_perclorato: "sais e percloratos"
+    oxido_ferro: "óxidos de ferro"
+    solo_gelo: "solo cimentado por gelo"
+  similar:
+    - [basalto, tefra_vulcanica, 0.8]
+    - [regolito_impacto, brecha_impacto, 0.7]
+    - [regolito_impacto, tefra_vulcanica, 0.5]
+    - [anortosito, basalto, 0.3]
+    - [anortosito, regolito_impacto, 0.3]
+    - [basalto, oxido_ferro, 0.4]
+    - [sulfato, sal_perclorato, 0.5]
+    - [argila, sedimento_lacustre, 0.6]
+    - [carbonato, sedimento_lacustre, 0.5]
+    - [argila, sulfato, 0.3]
+
+relevo:
+  labels:
+    borda_cratera: "borda de cratera"
+    interior_cratera: "interior de cratera"
+    macico: "maciço montanhoso"
+    planicie: "planície"
+    poligonos_periglaciais: "terreno poligonal periglacial"
+    glaciar_detritos: "geleira coberta de detritos"
+    mesa_escarpa: "mesas e escarpas"
+    delta_fluvial: "delta ou leque aluvial"
+    sedimentos_estratificados: "camadas sedimentares"
+    campo_vulcanico: "campo vulcânico"
+    tubo_lava: "tubo de lava / fosso de colapso"
+  similar:
+    - [borda_cratera, interior_cratera, 0.6]
+    - [borda_cratera, macico, 0.6]
+    - [macico, campo_vulcanico, 0.4]
+    - [macico, mesa_escarpa, 0.4]
+    - [planicie, poligonos_periglaciais, 0.6]
+    - [planicie, campo_vulcanico, 0.4]
+    - [poligonos_periglaciais, glaciar_detritos, 0.5]
+    - [mesa_escarpa, sedimentos_estratificados, 0.5]
+    - [mesa_escarpa, glaciar_detritos, 0.4]
+    - [delta_fluvial, sedimentos_estratificados, 0.6]
+    - [tubo_lava, campo_vulcanico, 0.5]

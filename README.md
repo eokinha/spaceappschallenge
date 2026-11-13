@@ -17,8 +17,13 @@ Abrir o `index.html` direto (`file://`) não funciona, porque o JSON é carregad
 ## Gerar os dados
 
 ```bash
-python3 -m pipeline.export   # escreve web/data/analogs.json (em construção)
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/python -m pipeline.export                 # escreve web/data/analogs.json
+.venv/bin/python -m unittest discover -s tests -t .  # testes do pipeline
 ```
+
+Os valores de cada local estão em `pipeline/sites.yaml`, com as fontes. Pesos, regras de ligação e
+matrizes de similaridade estão em `pipeline/config.yaml`.
 
 ## Deploy de testes na Vercel
 
