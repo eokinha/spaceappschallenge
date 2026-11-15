@@ -34,10 +34,13 @@ a { color: #9fd3ff; }
 /* Três colunas: título à esquerda, logos no centro da tela (fora das colunas laterais) e status/idioma/botão à direita. */
 header { position: fixed; top: 0; left: 0; right: 0; height: var(--top); padding: var(--top-pad) 16px 0; pointer-events: none;
   display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; z-index: 3; }
-/* Título em duas linhas, alinhado e com a mesma largura da lista logo abaixo (#site-list). */
+/* Título em duas linhas, alinhado e com a mesma largura da lista logo abaixo (#site-list); src/title-fit.js
+   aumenta a fonte até onde o texto ainda cabe em 2 linhas. */
 header h1 { justify-self: start; width: calc(var(--list-w) - var(--gap)); margin-left: calc(var(--gap) - 16px);
   font-size: 12px; font-weight: 600; line-height: 1.35; text-wrap: balance; pointer-events: auto;
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+/* Enquanto src/title-fit.js mede (maior fonte que cabe em 2 linhas), o corte sai para a altura real aparecer. */
+header h1.is-fitting { display: block; }
 .header-right { justify-self: end; display: flex; align-items: center; gap: 12px; pointer-events: auto; }
 .logos { display: flex; align-items: center; gap: 12px; padding: 0 16px; }
 .logos img { display: block; width: auto; height: 68px; }

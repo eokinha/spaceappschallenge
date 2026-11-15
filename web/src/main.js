@@ -10,6 +10,7 @@ import { createList } from './list.js';
 import { createPanel } from './panel.js';
 import { isLightboxOpen } from './lightbox.js';
 import { createPanelResizers } from './resize-panels.js';
+import { fitTitle } from './title-fit.js';
 import { el, isMobile } from './dom.js';
 import { LEVELS, fmtOutOf3, levelInfo } from './format.js';
 import { applyStaticTexts, lang, t, setLang, takeRestore, translateData } from './i18n.js';
@@ -72,6 +73,7 @@ const legendEl = document.getElementById('legend');
 const tooltipEl = document.getElementById('tooltip');
 const listToggle = document.getElementById('list-toggle');
 const headerEl = document.querySelector('header');
+fitTitle(headerEl.querySelector('h1'));
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
