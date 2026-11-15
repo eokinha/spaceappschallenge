@@ -393,8 +393,9 @@ FONTES_NOVAS = {
             "Perclorato no solo do sítio do Phoenix", "nasa_mission"),
     "N17": ("NASA POWER – climatologia no ponto 36,25 N, −116,75 (MERRA-2)", "https://power.larc.nasa.gov/",
             "Vale da Morte: temperatura média de 19,2 °C no pixel (~50 km, altitude média de 846 m)", "nasa"),
-    "N18": ("NASA Science – Mars 2020 Perseverance", "https://science.nasa.gov/mission/mars-2020-perseverance/",
-            "Perseverance em Jezero desde fevereiro de 2021", "nasa"),
+    "N18": ("NASA – Touchdown! NASA's Mars Perseverance Rover Safely Lands on Red Planet (release 21-018, 2021)",
+            "https://www.nasa.gov/news-release/touchdown-nasas-mars-perseverance-rover-safely-lands-on-red-planet/",
+            "Perseverance pousou em Jezero em 18/02/2021; a cratera tem ~45 km", "nasa"),
 }
 
 # Correções de link/referência de fontes mantidas (notícia trocada pelo artigo original).
@@ -403,6 +404,25 @@ FONTES_LINK = {
     "F12": ("Hassler et al. 2014, Science 343 (Curiosity RAD)", "https://doi.org/10.1126/science.1244797"),
     "H12": ("Base de referência v1.1 – dose de radiação (F11, F12)", None),
     "H7": ("Luna et al. 2012, Geomorphology 159 (preprint arXiv 1109.0278)", "https://arxiv.org/abs/1109.0278"),
+    # O link da planilha (journals.uair.arizona.edu) redireciona para a página inicial do periódico; o registro
+    # no NASA ADS leva direto ao artigo (DOI 10.1111/j.1945-5100.2005.tb00144.x, pp. 1755–1758).
+    "F2": ("Lee & Osinski 2005, Meteoritics & Planetary Science 40(12) (NASA ADS)",
+           "https://ui.adsabs.harvard.edu/abs/2005M%26PS...40.1755L/abstract"),
+}
+
+# Fontes cujo link é a página inicial de um portal de dados (abre o portal vazio, sem o dado citado). Cada local
+# que cita uma delas ganha uma fonte própria (P1, P2, ..., na ordem dos locais), da mesma classe, com o link
+# para a consulta do portal nas coordenadas do local. {nome}, {lat} e {lon} vêm de locais.json.
+# NASA POWER: a climatologia 2001–2025 do ponto devolve, no campo ANN, os seis valores das planilhas (média,
+# menor mínima, maior temperatura do solo, chuva anual, maior rajada e UV). Conferido em 15/11/2026 nos 13
+# locais; Mauna Kea difere porque a planilha corrige o pixel pela altitude (está na observação do valor).
+POWER_CLIMATOLOGIA = (
+    "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,"
+    "WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude={lon}&latitude={lat}&start=2001&end=2025&format=JSON"
+)
+FONTES_POR_LOCAL = {
+    fid: ("NASA POWER – climatologia 2001–2025 em {nome} ({coord})", POWER_CLIMATOLOGIA)
+    for fid in ("G1", "H1", "N17")
 }
 
 # Fonte descartada: motivo e fontes que a substituem. A substituta precisa confirmar o MESMO dado; quando a

@@ -10,7 +10,8 @@ Gerado por `python -m etl build` a partir das planilhas em `data/raw/`. Este arq
 - **Ids estáveis** em slug: `local_id` (`vale-da-morte`), `alvo_id` (`lua`, `marte`), `categoria_id`
   (`pouso-e-mobilidade`), `variavel_id` (`temperatura-media`), `conjunto_id` (`base-v1-1`, `lotes-v1-1`).
   Utilidades mantêm o código da planilha (`U01`–`U19`). Fontes mantêm o código com prefixo por planilha
-  (`F`, `G`, `H`, `R`); `N` são as fontes acrescentadas na curadoria (`etl/config.py` › `FONTES_NOVAS`).
+  (`F`, `G`, `H`, `R`); `N` são as fontes acrescentadas na curadoria (`etl/config.py` › `FONTES_NOVAS`) e `P`
+  as fontes por local criadas a partir de um link de portal (`FONTES_POR_LOCAL`).
 - **`null` = ausente / a medir**. Nunca é zero e não entra em média.
 - Números são números (ponto decimal no JSON e no CSV). Textos em português ficam como na planilha.
 - Escala das notas: **0 a 3** (0 = não serve, 3 = forte).
@@ -178,7 +179,13 @@ regras de `etl/config.py`:
   fica vazia e o valor vai para `VALORES_CORRIGIDOS`. Os ids descartados são trocados em `fonte_ids` e nos
   textos (`(H10, H11)` → `(H11, N14)`); `fontes.json` guarda a fonte descartada com `classe: "descartada"`,
   `descarte` e `substituida_por`, mas ela nunca vai para o site.
-- `FONTES_NOVAS` e `FONTES_LINK`: fontes novas (`N…`) e notícias trocadas pelo artigo original.
+- `FONTES_NOVAS` e `FONTES_LINK`: fontes novas (`N…`) e links trocados (notícia pelo artigo original; link
+  que caía na página inicial do periódico pelo registro do artigo no NASA ADS).
+- `FONTES_POR_LOCAL`: fontes cujo link é a página inicial de um portal de dados (o NASA POWER: G1, H1, N17)
+  e abria o portal vazio. Cada local que as cita ganha uma fonte `P…` (mesma classe) com o link da consulta
+  nas coordenadas dele — a climatologia 2001–2025 do POWER, cujo campo `ANN` traz os valores usados. A troca
+  vale para locais, valores (inclusive os de `VALORES_CORRIGIDOS`), catálogo e validação; a fonte de portal
+  fica em `fontes.json`, mas não é mais citada.
 - `VALORES_CORRIGIDOS`: valores que perderam a fonte; `valores.json` ganha `correcao` (o motivo). Erro se
   um valor com dado ficar sem nenhuma fonte válida.
 - `OBSERVACOES_CORRIGIDAS` e `DATASETS_REMOVIDOS`: trechos de observação que citavam dado descartado e

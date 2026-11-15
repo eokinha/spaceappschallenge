@@ -26,7 +26,7 @@ def fmt(x):
 
 
 def _ordem_fonte(fid):
-    return ("FGHRN".index(fid[0]), int(fid[1:]))
+    return ("FGHRNP".index(fid[0]), int(fid[1:]))
 
 
 def _fontes_do_local(local, model):

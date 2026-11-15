@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at": "2026-11-15T17:32:16Z",
+  "generated_at": "2026-11-15T22:50:26Z",
   "model": {
     "name": "Base de referência v1.1 – 14/11/2026",
     "data_date": "2026-11-14",
@@ -1527,8 +1527,8 @@
         },
         {
           "id": "F2",
-          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science",
-          "url": "https://journals.uair.arizona.edu/index.php/maps/article/download/15108/15084",
+          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science 40(12) (NASA ADS)",
+          "url": "https://ui.adsabs.harvard.edu/abs/2005M%26PS...40.1755L/abstract",
           "kind": "peer_reviewed"
         },
         {
@@ -1677,8 +1677,8 @@
         },
         {
           "id": "N18",
-          "label": "NASA Science – Mars 2020 Perseverance",
-          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+          "label": "NASA – Touchdown! NASA's Mars Perseverance Rover Safely Lands on Red Planet (release 21-018, 2021)",
+          "url": "https://www.nasa.gov/news-release/touchdown-nasas-mars-perseverance-rover-safely-lands-on-red-planet/",
           "kind": "nasa"
         }
       ]
@@ -2896,8 +2896,8 @@
         },
         {
           "id": "F2",
-          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science",
-          "url": "https://journals.uair.arizona.edu/index.php/maps/article/download/15108/15084",
+          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science 40(12) (NASA ADS)",
+          "url": "https://ui.adsabs.harvard.edu/abs/2005M%26PS...40.1755L/abstract",
           "kind": "peer_reviewed"
         },
         {
@@ -3046,8 +3046,8 @@
         },
         {
           "id": "N18",
-          "label": "NASA Science – Mars 2020 Perseverance",
-          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+          "label": "NASA – Touchdown! NASA's Mars Perseverance Rover Safely Lands on Red Planet (release 21-018, 2021)",
+          "url": "https://www.nasa.gov/news-release/touchdown-nasas-mars-perseverance-rover-safely-lands-on-red-planet/",
           "kind": "nasa"
         }
       ]
@@ -4069,8 +4069,8 @@
         },
         {
           "id": "F2",
-          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science",
-          "url": "https://journals.uair.arizona.edu/index.php/maps/article/download/15108/15084",
+          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science 40(12) (NASA ADS)",
+          "url": "https://ui.adsabs.harvard.edu/abs/2005M%26PS...40.1755L/abstract",
           "kind": "peer_reviewed"
         },
         {
@@ -4201,8 +4201,8 @@
         },
         {
           "id": "N18",
-          "label": "NASA Science – Mars 2020 Perseverance",
-          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+          "label": "NASA – Touchdown! NASA's Mars Perseverance Rover Safely Lands on Red Planet (release 21-018, 2021)",
+          "url": "https://www.nasa.gov/news-release/touchdown-nasas-mars-perseverance-rover-safely-lands-on-red-planet/",
           "kind": "nasa"
         }
       ]
@@ -5421,8 +5421,8 @@
         },
         {
           "id": "F2",
-          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science",
-          "url": "https://journals.uair.arizona.edu/index.php/maps/article/download/15108/15084",
+          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science 40(12) (NASA ADS)",
+          "url": "https://ui.adsabs.harvard.edu/abs/2005M%26PS...40.1755L/abstract",
           "kind": "peer_reviewed"
         },
         {
@@ -5553,8 +5553,8 @@
         },
         {
           "id": "N18",
-          "label": "NASA Science – Mars 2020 Perseverance",
-          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+          "label": "NASA – Touchdown! NASA's Mars Perseverance Rover Safely Lands on Red Planet (release 21-018, 2021)",
+          "url": "https://www.nasa.gov/news-release/touchdown-nasas-mars-perseverance-rover-safely-lands-on-red-planet/",
           "kind": "nasa"
         }
       ]
@@ -5648,7 +5648,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Revisão das fontes: o valor de 18,5 °C da planilha vinha de site sem revisão; trocado pelo NASA POWER no mesmo ponto (19,2 °C).",
               "sources": [
-                "N17"
+                "P1"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -5878,7 +5878,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Revisão das fontes: o valor de 18,5 °C da planilha vinha de site sem revisão; trocado pelo NASA POWER no mesmo ponto (19,2 °C).",
               "sources": [
-                "N17"
+                "P1"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -5971,7 +5971,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Revisão das fontes: o valor de 18,5 °C da planilha vinha de site sem revisão; trocado pelo NASA POWER no mesmo ponto (19,2 °C).",
               "sources": [
-                "N17"
+                "P1"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -6583,8 +6583,8 @@
         },
         {
           "id": "F2",
-          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science",
-          "url": "https://journals.uair.arizona.edu/index.php/maps/article/download/15108/15084",
+          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science 40(12) (NASA ADS)",
+          "url": "https://ui.adsabs.harvard.edu/abs/2005M%26PS...40.1755L/abstract",
           "kind": "peer_reviewed"
         },
         {
@@ -6721,8 +6721,8 @@
         },
         {
           "id": "N18",
-          "label": "NASA Science – Mars 2020 Perseverance",
-          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+          "label": "NASA – Touchdown! NASA's Mars Perseverance Rover Safely Lands on Red Planet (release 21-018, 2021)",
+          "url": "https://www.nasa.gov/news-release/touchdown-nasas-mars-perseverance-rover-safely-lands-on-red-planet/",
           "kind": "nasa"
         }
       ]
@@ -6816,7 +6816,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Revisão das fontes: o valor de 18,5 °C da planilha vinha de site sem revisão; trocado pelo NASA POWER no mesmo ponto (19,2 °C).",
               "sources": [
-                "N17"
+                "P1"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -7067,7 +7067,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Revisão das fontes: o valor de 18,5 °C da planilha vinha de site sem revisão; trocado pelo NASA POWER no mesmo ponto (19,2 °C).",
               "sources": [
-                "N17"
+                "P1"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -7160,7 +7160,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Revisão das fontes: o valor de 18,5 °C da planilha vinha de site sem revisão; trocado pelo NASA POWER no mesmo ponto (19,2 °C).",
               "sources": [
-                "N17"
+                "P1"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -7922,8 +7922,8 @@
         },
         {
           "id": "F2",
-          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science",
-          "url": "https://journals.uair.arizona.edu/index.php/maps/article/download/15108/15084",
+          "label": "Lee & Osinski 2005, Meteoritics & Planetary Science 40(12) (NASA ADS)",
+          "url": "https://ui.adsabs.harvard.edu/abs/2005M%26PS...40.1755L/abstract",
           "kind": "peer_reviewed"
         },
         {
@@ -8060,8 +8060,8 @@
         },
         {
           "id": "N18",
-          "label": "NASA Science – Mars 2020 Perseverance",
-          "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+          "label": "NASA – Touchdown! NASA's Mars Perseverance Rover Safely Lands on Red Planet (release 21-018, 2021)",
+          "url": "https://www.nasa.gov/news-release/touchdown-nasas-mars-perseverance-rover-safely-lands-on-red-planet/",
           "kind": "nasa"
         }
       ]
@@ -8155,7 +8155,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -8178,7 +8178,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -8221,7 +8221,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -8305,7 +8305,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -8372,7 +8372,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -8460,7 +8460,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -9024,12 +9024,6 @@
       "exploration_use": "Réplica em escala 1:1 de parte do Mare Tranquillitatis; treino das equipes Apollo e teste de veículos e equipamentos",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -9088,6 +9082,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P2",
+          "label": "NASA POWER – climatologia 2001–2025 em Cinder Lake (35,3° N, 111,45° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-111.45&latitude=35.3&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -9180,7 +9180,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -9203,7 +9203,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -9287,7 +9287,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -9353,7 +9353,7 @@
               "target_value": "0",
               "observation": null,
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -9420,7 +9420,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -9508,7 +9508,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -9830,7 +9830,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "G1"
+                "P2"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -10208,12 +10208,6 @@
       "exploration_use": "Réplica em escala 1:1 de parte do Mare Tranquillitatis; treino das equipes Apollo e teste de veículos e equipamentos",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -10272,6 +10266,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P2",
+          "label": "NASA POWER – climatologia 2001–2025 em Cinder Lake (35,3° N, 111,45° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-111.45&latitude=35.3&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -10364,7 +10364,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -10387,7 +10387,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -10430,7 +10430,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -10514,7 +10514,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -10581,7 +10581,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -10669,7 +10669,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -11233,12 +11233,6 @@
       "exploration_use": "Cratera de impacto jovem e preservada; treino de astronautas desde a era Apollo",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -11297,6 +11291,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P3",
+          "label": "NASA POWER – climatologia 2001–2025 em Meteor Crater (35,0275° N, 111,0225° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-111.0225&latitude=35.0275&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -11389,7 +11389,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -11412,7 +11412,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -11496,7 +11496,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -11562,7 +11562,7 @@
               "target_value": "0",
               "observation": null,
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -11629,7 +11629,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -11717,7 +11717,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -12039,7 +12039,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "G1"
+                "P3"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -12409,12 +12409,6 @@
       "exploration_use": "Cratera de impacto jovem e preservada; treino de astronautas desde a era Apollo",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -12473,6 +12467,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P3",
+          "label": "NASA POWER – climatologia 2001–2025 em Meteor Crater (35,0275° N, 111,0225° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-111.0225&latitude=35.0275&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -12565,7 +12565,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -12588,7 +12588,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -12631,7 +12631,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -12715,7 +12715,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -12782,7 +12782,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -12870,7 +12870,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -13434,12 +13434,6 @@
       "exploration_use": "Basalto de inundação, como os mares lunares; estudado como análogo de Elysium Planitia (Marte)",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -13498,6 +13492,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P4",
+          "label": "NASA POWER – climatologia 2001–2025 em Holuhraun (64,87° N, 16,83° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-16.83&latitude=64.87&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -13590,7 +13590,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -13613,7 +13613,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -13697,7 +13697,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -13763,7 +13763,7 @@
               "target_value": "0",
               "observation": null,
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -13830,7 +13830,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -13918,7 +13918,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -14240,7 +14240,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "G1"
+                "P4"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -14618,12 +14618,6 @@
       "exploration_use": "Basalto de inundação, como os mares lunares; estudado como análogo de Elysium Planitia (Marte)",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -14682,6 +14676,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P4",
+          "label": "NASA POWER – climatologia 2001–2025 em Holuhraun (64,87° N, 16,83° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-16.83&latitude=64.87&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -14774,7 +14774,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "20,9 °C do pixel − 6,5 °C/km × 2,16 km (estimado).",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -14797,7 +14797,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -14840,7 +14840,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -14924,7 +14924,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -14991,7 +14991,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "20,9 °C do pixel − 6,5 °C/km × 2,16 km (estimado).",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -15079,7 +15079,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "20,9 °C do pixel − 6,5 °C/km × 2,16 km (estimado).",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -15651,12 +15651,6 @@
       "exploration_use": "Material vulcânico fino; testes de extração de recursos, escavação e mobilidade",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -15715,6 +15709,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P5",
+          "label": "NASA POWER – climatologia 2001–2025 em Mauna Kea (19,761° N, 155,471° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-155.471&latitude=19.761&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -15807,7 +15807,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "20,9 °C do pixel − 6,5 °C/km × 2,16 km (estimado).",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -15830,7 +15830,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -15914,7 +15914,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -15980,7 +15980,7 @@
               "target_value": "0",
               "observation": "pixel litorâneo, superestima o local",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -16047,7 +16047,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "20,9 °C do pixel − 6,5 °C/km × 2,16 km (estimado).",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -16135,7 +16135,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "20,9 °C do pixel − 6,5 °C/km × 2,16 km (estimado).",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -16457,7 +16457,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "G1"
+                "P5"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -16843,12 +16843,6 @@
       "exploration_use": "Material vulcânico fino; testes de extração de recursos, escavação e mobilidade",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -16907,6 +16901,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P5",
+          "label": "NASA POWER – climatologia 2001–2025 em Mauna Kea (19,761° N, 155,471° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-155.471&latitude=19.761&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -17022,7 +17022,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P6"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -17065,7 +17065,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P6"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -17149,7 +17149,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P6"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -17860,12 +17860,6 @@
       "exploration_use": "Deserto frio e seco; permafrost seco sobre solo cimentado por gelo; análogo do sítio do Phoenix",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -17936,6 +17930,12 @@
           "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
           "url": "https://pubs.usgs.gov/publication/70024247",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P6",
+          "label": "NASA POWER – climatologia 2001–2025 em McMurdo (77,52° S, 161,85° L)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=161.85&latitude=-77.52&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -18051,7 +18051,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P6"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -18135,7 +18135,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P6"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -18678,7 +18678,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "G1"
+                "P6"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -19056,12 +19056,6 @@
       "exploration_use": "Deserto frio e seco; permafrost seco sobre solo cimentado por gelo; análogo do sítio do Phoenix",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -19132,6 +19126,12 @@
           "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
           "url": "https://pubs.usgs.gov/publication/70024247",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P6",
+          "label": "NASA POWER – climatologia 2001–2025 em McMurdo (77,52° S, 161,85° L)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=161.85&latitude=-77.52&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -19224,7 +19224,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -19247,7 +19247,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -19290,7 +19290,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -19374,7 +19374,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -19441,7 +19441,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -19529,7 +19529,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -20100,12 +20100,6 @@
       "exploration_use": "Água ácida (pH ~2,3) e rica em ferro; jarosita e hematita, como em Meridiani Planum",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -20164,6 +20158,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P7",
+          "label": "NASA POWER – climatologia 2001–2025 em Rio Tinto (37,69° N, 6,59° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-6.59&latitude=37.69&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -20256,7 +20256,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -20279,7 +20279,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -20363,7 +20363,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -20429,7 +20429,7 @@
               "target_value": "0",
               "observation": null,
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -20496,7 +20496,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -20584,7 +20584,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -20906,7 +20906,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "G1"
+                "P7"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -21292,12 +21292,6 @@
       "exploration_use": "Água ácida (pH ~2,3) e rica em ferro; jarosita e hematita, como em Meridiani Planum",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -21356,6 +21350,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P7",
+          "label": "NASA POWER – climatologia 2001–2025 em Rio Tinto (37,69° N, 6,59° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-6.59&latitude=37.69&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -21448,7 +21448,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -21471,7 +21471,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -21514,7 +21514,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -21598,7 +21598,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -21665,7 +21665,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -21753,7 +21753,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": null,
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -22325,12 +22325,6 @@
       "exploration_use": "Vulcanismo, gelo e água no mesmo lugar; treino Apollo em 1965 e 1967",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -22389,6 +22383,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P8",
+          "label": "NASA POWER – climatologia 2001–2025 em Askja (65,03° N, 16,75° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-16.75&latitude=65.03&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -22481,7 +22481,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -22504,7 +22504,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel; Mauna Kea corrigido pela altitude",
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -22588,7 +22588,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "Na mesma fonte, o Atacama (Yungay) dá 2,2",
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -22654,7 +22654,7 @@
               "target_value": "0",
               "observation": null,
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -22721,7 +22721,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -22809,7 +22809,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": null,
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -23131,7 +23131,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "G1"
+                "P8"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -23509,12 +23509,6 @@
       "exploration_use": "Vulcanismo, gelo e água no mesmo lugar; treino Apollo em 1965 e 1967",
       "sources": [
         {
-          "id": "G1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "G3",
           "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
           "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -23573,6 +23567,12 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
+        },
+        {
+          "id": "P8",
+          "label": "NASA POWER – climatologia 2001–2025 em Askja (65,03° N, 16,75° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-16.75&latitude=65.03&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -23665,7 +23665,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -23688,7 +23688,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -23731,7 +23731,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -23815,7 +23815,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "O Atacama (Yungay) dá 2,2 na mesma fonte",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -23879,7 +23879,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -23964,7 +23964,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -24526,12 +24526,6 @@
       "exploration_use": "Uma das duas únicas crateras da Terra em basalto bem exposto, como a crosta de Marte; sistema hidrotermal gerado pelo impacto (H2, H3, H4)",
       "sources": [
         {
-          "id": "H1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "H2",
           "label": "Alsemgeest 2024, tese VU Amsterdam – sistemas hidrotermais de impacto em basalto",
           "url": "https://research.vu.nl/en/publications/impact-generated-hydrothermal-systems-in-terrestrial-basalt-as-an/",
@@ -24584,6 +24578,12 @@
           "label": "Klimchouk et al. 2016, Geomorphology 253",
           "url": "https://doi.org/10.1016/j.geomorph.2015.11.002",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P9",
+          "label": "NASA POWER – climatologia 2001–2025 em Vargeão (26,8167° S, 52,1667° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-52.1667&latitude=-26.8167&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -24676,7 +24676,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -24699,7 +24699,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -24783,7 +24783,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "O Atacama (Yungay) dá 2,2 na mesma fonte",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -24847,7 +24847,7 @@
               "target_value": "0",
               "observation": "Média diária (PRECTOTCORR) × 365",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -24911,7 +24911,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -24996,7 +24996,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -25306,7 +25306,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "H1"
+                "P9"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -25692,12 +25692,6 @@
       "exploration_use": "Uma das duas únicas crateras da Terra em basalto bem exposto, como a crosta de Marte; sistema hidrotermal gerado pelo impacto (H2, H3, H4)",
       "sources": [
         {
-          "id": "H1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "H2",
           "label": "Alsemgeest 2024, tese VU Amsterdam – sistemas hidrotermais de impacto em basalto",
           "url": "https://research.vu.nl/en/publications/impact-generated-hydrothermal-systems-in-terrestrial-basalt-as-an/",
@@ -25750,6 +25744,12 @@
           "label": "Klimchouk et al. 2016, Geomorphology 253",
           "url": "https://doi.org/10.1016/j.geomorph.2015.11.002",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P9",
+          "label": "NASA POWER – climatologia 2001–2025 em Vargeão (26,8167° S, 52,1667° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-52.1667&latitude=-26.8167&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -25842,7 +25842,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -25865,7 +25865,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -25908,7 +25908,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -25992,7 +25992,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "O Atacama (Yungay) dá 2,2 na mesma fonte",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -26056,7 +26056,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -26141,7 +26141,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -26703,12 +26703,6 @@
       "exploration_use": "Cratera complexa com anel de pico, brechas e rochas fundidas pelo impacto (H5, H6)",
       "sources": [
         {
-          "id": "H1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "H2",
           "label": "Alsemgeest 2024, tese VU Amsterdam – sistemas hidrotermais de impacto em basalto",
           "url": "https://research.vu.nl/en/publications/impact-generated-hydrothermal-systems-in-terrestrial-basalt-as-an/",
@@ -26755,6 +26749,12 @@
           "label": "Klimchouk et al. 2016, Geomorphology 253",
           "url": "https://doi.org/10.1016/j.geomorph.2015.11.002",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P10",
+          "label": "NASA POWER – climatologia 2001–2025 em Araguainha (16,78° S, 52,99° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-52.99&latitude=-16.78&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -26847,7 +26847,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -26870,7 +26870,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -26954,7 +26954,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "O Atacama (Yungay) dá 2,2 na mesma fonte",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -27018,7 +27018,7 @@
               "target_value": "0",
               "observation": "Média diária (PRECTOTCORR) × 365",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -27082,7 +27082,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -27167,7 +27167,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -27477,7 +27477,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "H1"
+                "P10"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -27863,12 +27863,6 @@
       "exploration_use": "Cratera complexa com anel de pico, brechas e rochas fundidas pelo impacto (H5, H6)",
       "sources": [
         {
-          "id": "H1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "H2",
           "label": "Alsemgeest 2024, tese VU Amsterdam – sistemas hidrotermais de impacto em basalto",
           "url": "https://research.vu.nl/en/publications/impact-generated-hydrothermal-systems-in-terrestrial-basalt-as-an/",
@@ -27915,6 +27909,12 @@
           "label": "Klimchouk et al. 2016, Geomorphology 253",
           "url": "https://doi.org/10.1016/j.geomorph.2015.11.002",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P10",
+          "label": "NASA POWER – climatologia 2001–2025 em Araguainha (16,78° S, 52,99° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-52.99&latitude=-16.78&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -28007,7 +28007,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -28030,7 +28030,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -28073,7 +28073,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -28157,7 +28157,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "O Atacama (Yungay) dá 2,2 na mesma fonte",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -28221,7 +28221,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -28306,7 +28306,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -28868,12 +28868,6 @@
       "exploration_use": "Dunas barcanas usadas para entender dunas de Marte; lagoas sazonais entre dunas lembram um Marte com água intermitente (H7, H8, N13)",
       "sources": [
         {
-          "id": "H1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "H2",
           "label": "Alsemgeest 2024, tese VU Amsterdam – sistemas hidrotermais de impacto em basalto",
           "url": "https://research.vu.nl/en/publications/impact-generated-hydrothermal-systems-in-terrestrial-basalt-as-an/",
@@ -28932,6 +28926,12 @@
           "label": "Klimchouk et al. 2016, Geomorphology 253",
           "url": "https://doi.org/10.1016/j.geomorph.2015.11.002",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P11",
+          "label": "NASA POWER – climatologia 2001–2025 em Lençóis Maranhenses (2,5° S, 43,1° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-43.1&latitude=-2.5&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -29024,7 +29024,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -29047,7 +29047,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -29131,7 +29131,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "O Atacama (Yungay) dá 2,2 na mesma fonte",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -29195,7 +29195,7 @@
               "target_value": "0",
               "observation": "Média diária (PRECTOTCORR) × 365",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -29259,7 +29259,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -29344,7 +29344,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -29654,7 +29654,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "H1"
+                "P11"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -30040,12 +30040,6 @@
       "exploration_use": "Dunas barcanas usadas para entender dunas de Marte; lagoas sazonais entre dunas lembram um Marte com água intermitente (H7, H8, N13)",
       "sources": [
         {
-          "id": "H1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "H2",
           "label": "Alsemgeest 2024, tese VU Amsterdam – sistemas hidrotermais de impacto em basalto",
           "url": "https://research.vu.nl/en/publications/impact-generated-hydrothermal-systems-in-terrestrial-basalt-as-an/",
@@ -30104,6 +30098,12 @@
           "label": "Klimchouk et al. 2016, Geomorphology 253",
           "url": "https://doi.org/10.1016/j.geomorph.2015.11.002",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P11",
+          "label": "NASA POWER – climatologia 2001–2025 em Lençóis Maranhenses (2,5° S, 43,1° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-43.1&latitude=-2.5&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -30196,7 +30196,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -30219,7 +30219,7 @@
               "target_value": "≈−233 (PSR, ~40 K)",
               "observation": "Menor mínima diária de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -30262,7 +30262,7 @@
               "target_value": ">100 (equador lunar)",
               "observation": "Maior temperatura de superfície de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -30346,7 +30346,7 @@
               "target_value": "Máximo (sem atmosfera)",
               "observation": "O Atacama (Yungay) dá 2,2 na mesma fonte",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -30410,7 +30410,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -30495,7 +30495,7 @@
               "target_value": "≈−236 (PSR, 37 K)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -31057,12 +31057,6 @@
       "exploration_use": "Maior caverna da América do Sul (~114 km de galerias): treino de operação subterrânea, como em tubos de lava da Lua e de Marte (H11, N14)",
       "sources": [
         {
-          "id": "H1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "H2",
           "label": "Alsemgeest 2024, tese VU Amsterdam – sistemas hidrotermais de impacto em basalto",
           "url": "https://research.vu.nl/en/publications/impact-generated-hydrothermal-systems-in-terrestrial-basalt-as-an/",
@@ -31121,6 +31115,12 @@
           "label": "Auler & Smart 2003, Earth Surface Processes and Landforms 28",
           "url": "https://doi.org/10.1002/esp.443",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P12",
+          "label": "NASA POWER – climatologia 2001–2025 em Toca da Boa Vista (10,1625° S, 40,8597° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-40.8597&latitude=-10.1625&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     },
@@ -31213,7 +31213,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -31236,7 +31236,7 @@
               "target_value": "≈−83 (solo, Jezero)",
               "observation": "Menor mínima diária de 2001–2025 no pixel",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST",
@@ -31320,7 +31320,7 @@
               "target_value": "Muito alto (sem ozônio)",
               "observation": "O Atacama (Yungay) dá 2,2 na mesma fonte",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "CERES, OMI/TROPOMI (UV)",
@@ -31384,7 +31384,7 @@
               "target_value": "0",
               "observation": "Média diária (PRECTOTCORR) × 365",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "GPM IMERG",
@@ -31448,7 +31448,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -31533,7 +31533,7 @@
               "target_value": "≈−55 (Jezero)",
               "observation": "Pixel do NASA POWER (~50 km)",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -31843,7 +31843,7 @@
               "target_value": "Redemoinhos de poeira",
               "observation": "Maior velocidade diária a 10 m em 2001–2025",
               "sources": [
-                "H1"
+                "P12"
               ],
               "sources_scope": "local",
               "dataset_earth": "MERRA-2 (vento, poeira), MODIS AOD",
@@ -32231,12 +32231,6 @@
       "exploration_use": "Maior caverna da América do Sul (~114 km de galerias): treino de operação subterrânea, como em tubos de lava da Lua e de Marte (H11, N14)",
       "sources": [
         {
-          "id": "H1",
-          "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "H2",
           "label": "Alsemgeest 2024, tese VU Amsterdam – sistemas hidrotermais de impacto em basalto",
           "url": "https://research.vu.nl/en/publications/impact-generated-hydrothermal-systems-in-terrestrial-basalt-as-an/",
@@ -32295,6 +32289,12 @@
           "label": "Auler & Smart 2003, Earth Surface Processes and Landforms 28",
           "url": "https://doi.org/10.1002/esp.443",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "P12",
+          "label": "NASA POWER – climatologia 2001–2025 em Toca da Boa Vista (10,1625° S, 40,8597° O)",
+          "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-40.8597&latitude=-10.1625&start=2001&end=2025&format=JSON",
+          "kind": "nasa"
         }
       ]
     }
@@ -32306,8 +32306,8 @@
       "kind": "nasa"
     },
     "F2": {
-      "label": "Lee & Osinski 2005, Meteoritics & Planetary Science",
-      "url": "https://journals.uair.arizona.edu/index.php/maps/article/download/15108/15084",
+      "label": "Lee & Osinski 2005, Meteoritics & Planetary Science 40(12) (NASA ADS)",
+      "url": "https://ui.adsabs.harvard.edu/abs/2005M%26PS...40.1755L/abstract",
       "kind": "peer_reviewed"
     },
     "F3": {
@@ -32375,11 +32375,6 @@
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7008933",
       "kind": "nasa_mission"
     },
-    "G1": {
-      "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-      "url": "https://power.larc.nasa.gov/",
-      "kind": "nasa"
-    },
     "G3": {
       "label": "USGS – Making craters: Mare Tranquillitatis in Flagstaff",
       "url": "https://www.usgs.gov/media/videos/usgs-astrogeology-making-craters-mare-tranquillitatis-flagstaff-arizona",
@@ -32429,11 +32424,6 @@
       "label": "Base de referência v1.1 (planilha anterior)",
       "url": null,
       "kind": "team"
-    },
-    "H1": {
-      "label": "NASA POWER – climatologia 2001–2025 (MERRA-2/CERES)",
-      "url": "https://power.larc.nasa.gov/",
-      "kind": "nasa"
     },
     "H2": {
       "label": "Alsemgeest 2024, tese VU Amsterdam – sistemas hidrotermais de impacto em basalto",
@@ -32550,14 +32540,69 @@
       "url": "https://doi.org/10.1126/science.1172466",
       "kind": "nasa_mission"
     },
-    "N17": {
-      "label": "NASA POWER – climatologia no ponto 36,25 N, −116,75 (MERRA-2)",
-      "url": "https://power.larc.nasa.gov/",
+    "N18": {
+      "label": "NASA – Touchdown! NASA's Mars Perseverance Rover Safely Lands on Red Planet (release 21-018, 2021)",
+      "url": "https://www.nasa.gov/news-release/touchdown-nasas-mars-perseverance-rover-safely-lands-on-red-planet/",
       "kind": "nasa"
     },
-    "N18": {
-      "label": "NASA Science – Mars 2020 Perseverance",
-      "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+    "P1": {
+      "label": "NASA POWER – climatologia 2001–2025 em Vale da Morte (36,25° N, 116,75° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-116.75&latitude=36.25&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P2": {
+      "label": "NASA POWER – climatologia 2001–2025 em Cinder Lake (35,3° N, 111,45° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-111.45&latitude=35.3&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P3": {
+      "label": "NASA POWER – climatologia 2001–2025 em Meteor Crater (35,0275° N, 111,0225° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-111.0225&latitude=35.0275&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P4": {
+      "label": "NASA POWER – climatologia 2001–2025 em Holuhraun (64,87° N, 16,83° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-16.83&latitude=64.87&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P5": {
+      "label": "NASA POWER – climatologia 2001–2025 em Mauna Kea (19,761° N, 155,471° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-155.471&latitude=19.761&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P6": {
+      "label": "NASA POWER – climatologia 2001–2025 em McMurdo (77,52° S, 161,85° L)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=161.85&latitude=-77.52&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P7": {
+      "label": "NASA POWER – climatologia 2001–2025 em Rio Tinto (37,69° N, 6,59° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-6.59&latitude=37.69&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P8": {
+      "label": "NASA POWER – climatologia 2001–2025 em Askja (65,03° N, 16,75° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-16.75&latitude=65.03&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P9": {
+      "label": "NASA POWER – climatologia 2001–2025 em Vargeão (26,8167° S, 52,1667° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-52.1667&latitude=-26.8167&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P10": {
+      "label": "NASA POWER – climatologia 2001–2025 em Araguainha (16,78° S, 52,99° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-52.99&latitude=-16.78&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P11": {
+      "label": "NASA POWER – climatologia 2001–2025 em Lençóis Maranhenses (2,5° S, 43,1° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-43.1&latitude=-2.5&start=2001&end=2025&format=JSON",
+      "kind": "nasa"
+    },
+    "P12": {
+      "label": "NASA POWER – climatologia 2001–2025 em Toca da Boa Vista (10,1625° S, 40,8597° O)",
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,T2M_MIN,TS_MAX,PRECTOTCORR_SUM,WS10M_MAX,ALLSKY_SFC_UV_INDEX&community=AG&longitude=-40.8597&latitude=-10.1625&start=2001&end=2025&format=JSON",
       "kind": "nasa"
     }
   },

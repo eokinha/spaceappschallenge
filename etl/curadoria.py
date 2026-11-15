@@ -24,7 +24,14 @@ def _troca(ids):
     return out
 
 
-_REF = re.compile(r"\b([FGHRN]\d+)\b")
+_REF = re.compile(r"\b([FGHRNP]\d+)\b")
+ORDEM = "FGHRNP"
+
+
+def _coord(lat, lon):
+    """65.03, -16.75 -> '65,03° N, 16,75° O'."""
+    f = lambda x: str(abs(x)).removesuffix(".0").replace(".", ",")
+    return f"{f(lat)}° {'N' if lat >= 0 else 'S'}, {f(lon)}° {'L' if lon >= 0 else 'O'}"
 
 
 def _troca_no_texto(texto):
@@ -35,7 +42,7 @@ def _troca_no_texto(texto):
     def grupo(m):
         ids = _troca(_REF.findall(m.group(1)))
         return f"({', '.join(ids)})" if ids else ""
-    texto = re.sub(r"\(((?:[FGHRN]\d+)(?:\s*,\s*[FGHRN]\d+)*)\)", grupo, texto)
+    texto = re.sub(r"\(((?:[FGHRNP]\d+)(?:\s*,\s*[FGHRNP]\d+)*)\)", grupo, texto)
     # id solto no meio do texto ("..., F24)"): troca pelas substitutas
     texto = _REF.sub(lambda m: ", ".join(_troca([m.group(1)])) if m.group(1) in config.FONTES_DESCARTADAS
                      else m.group(1), texto)
@@ -79,7 +86,6 @@ def aplicar(model):
             f["classe"], f["descarte"], f["substituida_por"] = classes[fid], None, []
         else:
             raise ModelError(f"Fonte {fid} ({f['referencia']}) sem classe em FONTES_CLASSE nem em FONTES_DESCARTADAS")
-    model["fontes"] = sorted(fontes.values(), key=lambda f: ("FGHRN".index(f["id"][0]), int(f["id"][1:])))
 
     for l in model["locais"]:
         l["fonte_ids"] = _troca(l["fonte_ids"])
@@ -118,6 +124,9 @@ def aplicar(model):
     if faltam:
         raise ModelError(f"VALORES_CORRIGIDOS cita valores que não existem: {faltam}")
 
+    _desdobra_por_local(model, fontes)
+    model["fontes"] = sorted(fontes.values(), key=lambda f: (ORDEM.index(f["id"][0]), int(f["id"][1:])))
+
     # Nenhum id descartado pode sobrar em lugar nenhum.
     usados = set()
     for coll in ("locais", "catalogo_referencia", "validacao_casos", "valores"):
@@ -136,6 +145,41 @@ def aplicar(model):
     return {"por_classe": por_classe, "descartadas": [
         {"id": f["id"], "referencia": f["referencia"], "motivo": f["descarte"], "substituida_por": f["substituida_por"]}
         for f in model["fontes"] if f["classe"] == "descartada"], "valores_corrigidos": corrigidos}
+
+
+def _desdobra_por_local(model, fontes):
+    """FONTES_POR_LOCAL: troca a fonte de portal (link para a página inicial) por uma fonte por local, com o
+    link para a consulta nas coordenadas dele. Roda depois de VALORES_CORRIGIDOS, que também cita essas fontes."""
+    if not config.FONTES_POR_LOCAL:
+        return
+    # (registro, local_id) de tudo que cita fontes: locais, valores, catálogo (entidade = local) e validação.
+    registros = [(l, l["id"]) for l in model["locais"]]
+    registros += [(v, v["local_id"]) for v in model["valores"]]
+    registros += [(c, c["entidade_id"]) for c in model["catalogo_referencia"]]
+    registros += [(v, v["local_id"]) for v in model["validacao_casos"]]
+    locais = {l["id"]: l for l in model["locais"]}
+    novo = {}  # (fonte de portal, local_id) -> id P
+    for l in model["locais"]:
+        citadas = {fid for r, lid in registros if lid == l["id"] for fid in r["fonte_ids"]}
+        for fid in config.FONTES_POR_LOCAL:
+            if fid in citadas:
+                novo[(fid, l["id"])] = f"P{len(novo) + 1}"
+    for (fid, lid), pid in novo.items():
+        rotulo, link = config.FONTES_POR_LOCAL[fid]
+        l, base = locais[lid], fontes[fid]
+        fontes[pid] = {**base, "id": pid, "planilha_id": "curadoria", "planilha": "etl/config.py",
+                       "referencia": rotulo.format(nome=l["nome"], coord=_coord(l["lat"], l["lon"])),
+                       "link": link.format(lat=l["lat"], lon=l["lon"]),
+                       "observacao": f"Link direto para a consulta de {fid} nas coordenadas de {l['nome']}"}
+    for r, lid in registros:
+        ids = []
+        for fid in r["fonte_ids"]:
+            pid = novo.get((fid, lid), fid)
+            if pid in config.FONTES_POR_LOCAL:
+                raise ModelError(f"{fid} citada por {lid}, que não é local (sem coordenadas para o link)")
+            if pid not in ids:
+                ids.append(pid)
+        r["fonte_ids"] = ids
 
 
 def notas_alteradas(antes, depois):

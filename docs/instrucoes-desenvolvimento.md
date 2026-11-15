@@ -197,6 +197,10 @@ Regras:
   `source_index[id].kind` e `links[].sources[].kind` dizem a classe: `nasa`, `nasa_mission`,
   `peer_reviewed`, `agency` ou `team`; o card mostra a etiqueta (NASA, Missão NASA, Artigo revisado, Órgão
   público, Planilha) e o front não decide a classe.
+- Todo link de fonte leva direto ao conteúdo citado, nunca à página inicial de um portal. Link de portal
+  (o NASA POWER) vira uma fonte por local (`P…`) com a consulta nas coordenadas do local
+  (`etl/config.py` › `FONTES_POR_LOCAL`); link quebrado é trocado em `FONTES_LINK`, de preferência por um
+  registro da NASA (NTRS, ADS).
 - `narrative` é o parágrafo de "Por que é análogo" escrito a partir do dossiê
   (`docs/referencia-analogos-pitch.md`) e das planilhas, só com números das planilhas
   (`etl/config.py` › `NARRATIVAS`); `null` nos locais sem texto curado, que usam `description`.

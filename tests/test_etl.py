@@ -234,11 +234,46 @@ def test_curadoria_valores_corrigidos_sem_mudar_notas(etl, curado):
     res0 = etl[2]
     _, model, res, rel = curado
     vals = {(v["local_id"], v["variavel_id"]): v for v in model["valores"]}
+    fontes = {f["id"]: f for f in model["fontes"]}
     for key, cor in config.VALORES_CORRIGIDOS.items():
-        assert vals[key]["valor"] == cor["valor"] and vals[key]["fonte_ids"] == cor["fonte_ids"]
+        assert vals[key]["valor"] == cor["valor"]
+        # Fonte de portal (FONTES_POR_LOCAL) vira a fonte própria do local, com o link nas coordenadas dele.
+        esperado = [fid if fid not in config.FONTES_POR_LOCAL else
+                    f"consulta de {fid} nas coordenadas de {_local_nome(model, key[0])}"
+                    for fid in cor["fonte_ids"]]
+        obtido = [fid if not fid.startswith("P") else fontes[fid]["observacao"].removeprefix("Link direto para a ")
+                  for fid in vals[key]["fonte_ids"]]
+        assert obtido == esperado
     # As correções foram escolhidas de forma conservadora: nenhuma nota muda em relação à planilha.
     assert curadoria.notas_alteradas(res0, res) == []
     assert {(v["local_id"], v["variavel_id"]) for v in rel["valores_corrigidos"]} == set(config.VALORES_CORRIGIDOS)
+
+
+def _local_nome(model, local_id):
+    return next(l["nome"] for l in model["locais"] if l["id"] == local_id)
+
+
+def test_curadoria_fonte_de_portal_vira_link_por_local(curado):
+    """G1/H1/N17 apontavam para a página inicial do NASA POWER: cada local cita a consulta nas suas coordenadas."""
+    _, model, _, _ = curado
+    locais = {l["id"]: l for l in model["locais"]}
+    fontes = {f["id"]: f for f in model["fontes"]}
+    citadas = set()
+    for coll, chave in (("locais", "id"), ("valores", "local_id"), ("catalogo_referencia", "entidade_id"),
+                        ("validacao_casos", "local_id")):
+        for r in model[coll]:
+            assert not set(r["fonte_ids"]) & set(config.FONTES_POR_LOCAL), (coll, r[chave])
+            for fid in r["fonte_ids"]:
+                if fid.startswith("P"):
+                    l = locais[r[chave]]
+                    assert f"latitude={l['lat']}&" in fontes[fid]["link"] and f"longitude={l['lon']}&" in fontes[fid]["link"]
+                    citadas.add(fid)
+    assert citadas and all(fontes[fid]["classe"] == "nasa" for fid in citadas)
+    # Nenhuma fonte usada aponta para a página inicial de um portal.
+    usadas = {fid for coll in ("locais", "valores", "catalogo_referencia", "validacao_casos")
+              for r in model[coll] for fid in r["fonte_ids"]}
+    assert not any((fontes[fid]["link"] or "").rstrip("/").count("/") <= 2 for fid in usadas
+                   if (fontes[fid]["link"] or "").startswith("http"))
 
 
 def test_curadoria_falha_se_valor_ficar_sem_fonte(etl, monkeypatch):
