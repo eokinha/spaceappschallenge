@@ -3,7 +3,10 @@ import json
 
 import pytest
 
-from etl import config, extract, load, scoring, site, transform, validate
+import copy
+import re
+
+from etl import config, curadoria, extract, load, scoring, site, transform, validate
 
 pytestmark = pytest.mark.skipif(
     not all((config.RAW_DIR / p["arquivo"]).exists() for p in config.PLANILHAS.values()),
@@ -26,6 +29,15 @@ def etl():
     model = transform.build(books, arquivos)
     res = scoring.compute(model)
     return books, model, res
+
+
+@pytest.fixture(scope="module")
+def curado(etl):
+    """Modelo depois da curadoria das fontes (é o que vai para o site)."""
+    books, model, _ = etl
+    m = copy.deepcopy(model)
+    rel = curadoria.aplicar(m)
+    return books, m, scoring.compute(m), rel
 
 
 def test_tabela_da_secao_6(etl):
@@ -98,8 +110,8 @@ def test_pegadinhas(etl):
     assert {v["id"]: v["unidade"] for v in model["variaveis"]}["rugosidade-do-terreno"] == "m"
 
 
-def test_site_json_valido_e_ligado_aos_dados(etl):
-    _, model, res = etl
+def test_site_json_valido_e_ligado_aos_dados(curado):
+    _, model, res, _ = curado
     s = site.build(model, res, "2026-11-15T00:00:00Z")
     load.validar_site(s)
     assert {t["id"] for t in s["targets"]} == {"lua", "marte"}
@@ -120,8 +132,8 @@ def test_site_json_valido_e_ligado_aos_dados(etl):
     assert {"cinder-lake", "meteor-crater", "holuhraun", "vargeao", "toca-da-boa-vista"} <= empatados_lua
 
 
-def test_site_imagens_dos_locais(etl):
-    _, model, res = etl
+def test_site_imagens_dos_locais(curado):
+    _, model, res, _ = curado
     s = site.build(model, res, "2026-11-15T00:00:00Z")
     assert set(config.IMAGENS) == set(config.LOCAIS)
     for a in s["analogs"]:
@@ -134,15 +146,15 @@ def test_site_imagens_dos_locais(etl):
     assert next(a for a in s["analogs"] if a["id"] == "vargeao")["image"]["kind"] == "satelite"
 
 
-def test_site_falha_sem_arquivo_de_imagem(etl, monkeypatch, tmp_path):
-    _, model, res = etl
+def test_site_falha_sem_arquivo_de_imagem(curado, monkeypatch, tmp_path):
+    _, model, res, _ = curado
     monkeypatch.setattr(config, "IMAGENS_DIR", tmp_path)
     with pytest.raises(FileNotFoundError):
         site.build(model, res, "2026-11-15T00:00:00Z")
 
 
-def test_site_niveis_pontos_e_evidencias(etl):
-    _, model, res = etl
+def test_site_niveis_pontos_e_evidencias(curado):
+    _, model, res, _ = curado
     s = site.build(model, res, "2026-11-15T00:00:00Z")
     load.validar_site(s)
     for l in s["links"]:
@@ -185,3 +197,61 @@ def test_observacao_so_do_local():
         "Igual em toda a superfície da Terra"
     misto = "Cinder, Meteor e Askja: treino das equipes Apollo. McMurdo: estação ocupada o ano todo"
     assert site._observacao_do_local(misto, "meteor-crater") == "treino das equipes Apollo."
+
+
+DESCARTADAS = set(config.FONTES_DESCARTADAS)
+
+
+def test_curadoria_toda_fonte_tem_classe_ou_foi_descartada(curado):
+    _, model, _, rel = curado
+    for f in model["fontes"]:
+        assert f["classe"] in curadoria.KINDS + ("descartada",), f["id"]
+        if f["classe"] == "descartada":
+            assert f["descarte"]
+    # Wikipedia, imprensa e afins nunca ficam como fonte válida
+    for f in model["fontes"]:
+        if re.search(r"wikipedia|eurekalert|phys\.org|sciencedaily|space\.com|nbcnews|britannica|pbs\.org",
+                     f["link"] or "", re.I):
+            assert f["classe"] == "descartada", f["id"]
+    assert len(rel["descartadas"]) == len(DESCARTADAS)
+
+
+def test_curadoria_nao_deixa_fonte_descartada_no_site(curado):
+    _, model, res, _ = curado
+    s = site.build(model, res, "2026-11-15T00:00:00Z")
+    texto = json.dumps({k: v for k, v in s.items() if k != "analogs"}, ensure_ascii=False)
+    texto += json.dumps([{k: v for k, v in a.items() if k != "image"} for a in s["analogs"]], ensure_ascii=False)
+    assert not (set(re.findall(r"\b[FGHRN]\d+\b", texto)) & DESCARTADAS)
+    assert "wikipedia.org" not in texto
+    assert all(src["kind"] in curadoria.KINDS for src in s["source_index"].values())
+    for l in s["links"]:
+        assert all(src["kind"] in curadoria.KINDS for src in l["sources"])
+    for d in config.DATASETS_REMOVIDOS:
+        assert d not in texto
+
+
+def test_curadoria_valores_corrigidos_sem_mudar_notas(etl, curado):
+    res0 = etl[2]
+    _, model, res, rel = curado
+    vals = {(v["local_id"], v["variavel_id"]): v for v in model["valores"]}
+    for key, cor in config.VALORES_CORRIGIDOS.items():
+        assert vals[key]["valor"] == cor["valor"] and vals[key]["fonte_ids"] == cor["fonte_ids"]
+    # As correções foram escolhidas de forma conservadora: nenhuma nota muda em relação à planilha.
+    assert curadoria.notas_alteradas(res0, res) == []
+    assert {(v["local_id"], v["variavel_id"]) for v in rel["valores_corrigidos"]} == set(config.VALORES_CORRIGIDOS)
+
+
+def test_curadoria_falha_se_valor_ficar_sem_fonte(etl, monkeypatch):
+    _, model, _ = etl
+    m = copy.deepcopy(model)
+    monkeypatch.setattr(config, "VALORES_CORRIGIDOS",
+                        {k: v for k, v in config.VALORES_CORRIGIDOS.items() if k[0] != "mcmurdo"})
+    with pytest.raises(transform.ModelError, match="sem fonte válida"):
+        curadoria.aplicar(m)
+
+
+def test_curadoria_troca_ids_nos_textos():
+    assert curadoria._troca_no_texto("Maior caverna (H10, H11)") == "Maior caverna (H11, N14)"
+    assert curadoria._troca_no_texto("estimado (a Lua é ~200× a Terra, F24)") == "estimado (a Lua é ~200× a Terra, F11)"
+    assert curadoria._limpa_dataset("Terra: MERRA-2 / ERA5 | Marte: MEDA") == "Terra: MERRA-2 | Marte: MEDA"
+    assert curadoria._limpa_dataset("Terra: GPM IMERG / CHIRPS") == "Terra: GPM IMERG"

@@ -238,8 +238,10 @@ APELIDOS_OBSERVACAO = {
 # Texto de "Por que é análogo" no site. Não vem pronto das planilhas: foi escrito a partir do dossiê
 # (docs/referencia-analogos-pitch.md) e conferido, frase por frase, com as planilhas (recorte e
 # justificativa da aba Locais, observações da aba Valores, referências F/G/H). Fica só o que as
-# planilhas sustentam, e todo número é o da planilha. Afirmações do dossiê sem respaldo nas planilhas ou
-# em desacordo com elas foram retiradas (ex.: Toca com 120 km, idade de Vargeão, Apollo 11 a 17).
+# planilhas sustentam. Afirmações do dossiê sem respaldo nas planilhas ou em desacordo com elas foram
+# retiradas (ex.: Toca com 120 km, idade de Vargeão, Apollo 11 a 17). Na curadoria das fontes (fim deste
+# arquivo), o que dependia de fonte descartada foi reconferido nas fontes oficiais que a substituem
+# (ex.: McMurdo −15 a −30 °C, Doran et al. 2002; Toca, Klimchouk et al. 2016 e Auler & Smart 2003).
 # Local sem entrada usa a justificativa da planilha.
 NARRATIVAS = {
     "atacama": (
@@ -258,14 +260,14 @@ NARRATIVAS = {
         "de 40 °C mais quente que Jezero e tem a pressão e a proteção contra radiação da Terra."),
     "vale-da-morte": (
         "No Vale da Morte, dois processos diferentes ficam lado a lado: o salar de Badwater é o que restou de um "
-        "lago que evaporou, como os lagos antigos de Marte, e a cratera Ubehebe é um maar, aberto por explosões "
-        "de magma em contato com água. O ar extremamente seco, com umidade que pode cair abaixo de 1%, e o "
-        "terreno sem vegetação serviram para testar o rover Marsokhod (1992) e o sistema de visão de pouso do "
-        "Perseverance (2019). Para a Lua, vale como banco de calor: o solo passa de 90 °C, como ao meio-dia "
+        "lago que evaporou, como os lagos antigos de Marte, e a cratera Ubehebe é um maar de ~180 m de "
+        "profundidade, aberto por explosões de vapor quando o magma encontrou a água do subsolo. O clima "
+        "extremamente seco, com cerca de 50 mm de chuva por ano, e o terreno sem vegetação serviram para testar "
+        "o rover Marsokhod (1992) e o sistema de visão de pouso do Perseverance (2019). Para a Lua, vale como banco de calor: o solo passa de 90 °C, como ao meio-dia "
         "lunar perto do equador. É, porém, muito mais quente que Marte, tem chuva ocasional e tem vida."),
     "mcmurdo": (
-        "O Vale Wright, nos vales secos de McMurdo, é um deserto frio e seco: média anual de cerca de −20 °C, "
-        "mínimas abaixo de −50 °C na região e permafrost seco sobre solo cimentado por gelo a menos de 1 m de "
+        "O Vale Wright, nos vales secos de McMurdo, é um deserto frio e seco: as médias anuais no fundo dos "
+        "vales vão de −15 a −30 °C, as mínimas na região passam de −50 °C, e há permafrost seco sobre solo cimentado por gelo a menos de 1 m de "
         "profundidade, o mesmo arranjo do sítio de pouso da Phoenix em Marte. Por isso serve para estudar e "
         "prospectar gelo raso num solo parecido com o marciano, a partir de uma estação de pesquisa ocupada o "
         "ano todo. O solo tem perclorato, mas em teores muito menores que os do Phoenix, e a analogia falha na "
@@ -300,18 +302,20 @@ NARRATIVAS = {
         "alteração hidrotermal ainda precisa ser verificada."),
     "lencois-maranhenses": (
         "Os Lençóis Maranhenses formam um grande campo de dunas barcanas e barcanoides, de até 30 m, o mesmo "
-        "tipo de duna em meia-lua que cobre áreas de Marte; modelos de como o vento move as barcanas valem "
-        "tanto para os Lençóis quanto para as dunas marcianas. As lagoas de água doce que se formam entre as "
+        "tipo de duna em meia-lua que cobre áreas de Marte. Um modelo de dunas com lençol freático exposto "
+        "reproduz a forma e o tamanho das dunas dos Lençóis, e experimentos com barcanas em laboratório buscam "
+        "prever a evolução tanto delas quanto das dunas marcianas. As lagoas de água doce que se formam entre as "
         "dunas na estação chuvosa lembram um Marte com água intermitente no passado. A semelhança é de forma e "
         "de processo eólico: aqui chove cerca de 1.400 mm por ano, ao contrário do Marte atual, e o modelo "
         "ainda não mede as dunas."),
     "toca-da-boa-vista": (
-        "A Toca da Boa Vista, em Campo Formoso (BA), é a maior caverna do Brasil e da América do Sul, com cerca "
-        "de 114 km de galerias mapeadas em calcário e dolomito. Cavernas são candidatas a abrigar bases na Lua e "
+        "A Toca da Boa Vista, em Campo Formoso (BA), é a maior caverna do Brasil e da América do Sul, com mais "
+        "de 100 km de galerias mapeadas em rochas carbonáticas (cerca de 114 km nos levantamentos recentes). Cavernas são candidatas a abrigar bases na Lua e "
         "em Marte, porque o teto de rocha protege da radiação, dos micrometeoritos e das grandes variações de "
         "temperatura; a Toca serve para treinar operação, navegação e mapeamento debaixo da terra, com acesso "
-        "controlado. A diferença está na origem: é uma caverna hipogênica, escavada por fluidos que subiram das "
-        "profundezas e dissolveram a rocha, enquanto as cavernas da Lua e de Marte são tubos de lava."),
+        "controlado. A diferença está na origem: ela foi dissolvida por ácido sulfúrico, vindo da oxidação de "
+        "sulfetos da própria rocha, e por fluidos que subiram das profundezas, enquanto as cavernas da Lua e de "
+        "Marte são tubos de lava."),
 }
 
 
@@ -401,7 +405,9 @@ FONTES_LINK = {
     "H7": ("Luna et al. 2012, Geomorphology 159 (preprint arXiv 1109.0278)", "https://arxiv.org/abs/1109.0278"),
 }
 
-# Fonte descartada: motivo e fontes que a substituem (lista vazia = o dado fica sem fonte e é revisto).
+# Fonte descartada: motivo e fontes que a substituem. A substituta precisa confirmar o MESMO dado; quando a
+# fonte oficial dá outro número, a lista fica vazia e o valor é revisto em VALORES_CORRIGIDOS (o ETL falha se
+# um valor ficar sem nenhuma fonte válida).
 FONTES_DESCARTADAS = {
     "F4": ("Wikipedia", ["N1", "F2"]),
     "F5": ("Enciclopédia (Britannica)", ["N9"]),
@@ -411,7 +417,7 @@ FONTES_DESCARTADAS = {
     "F15": ("Wikipedia", ["N2", "N3"]),
     "F19": ("Site de TV (PBS)", ["F18"]),
     "F21": ("Site de notícias (National Parks Traveler); 'umidade abaixo de 1%' não foi confirmada", []),
-    "F22": ("Wikipedia", ["N9"]),
+    "F22": ("Wikipedia; os 38 mm de Badwater não foram confirmados (ver VALORES_CORRIGIDOS)", []),
     "F23": ("Site de notícias (Phys.org)", ["N4"]),
     "F24": ("Site de notícias (ScienceDaily)", ["F11"]),
     "F25": ("Wikipedia", ["F16", "N18"]),
@@ -419,11 +425,11 @@ FONTES_DESCARTADAS = {
     "F28": ("Cópia em arquivo aberto sem referência verificável", ["N16"]),
     "F29": ("Blog de jornalista", ["N7"]),
     "F31": ("Site de notícias (Space.com)", ["N8"]),
-    "F33": ("Site agregador sem revisão (WorldSpecies)", ["N17"]),
+    "F33": ("Site agregador sem revisão (WorldSpecies); valor trocado pelo NASA POWER (VALORES_CORRIGIDOS)", []),
     "G2": ("Wikipedia", ["N10"]),
     "G4": ("Site de notícias (NBC/Space.com)", ["N11"]),
     "G5": ("Site de museu", ["N10"]),
-    "G12": ("Wikipedia", ["N12"]),
+    "G12": ("Wikipedia; a média de −19,8 °C não foi confirmada (ver VALORES_CORRIGIDOS)", []),
     "H9": ("Site de notícias (FAPESP/Phys.org)", ["N13"]),
     "H10": ("Wikipedia", ["H11", "N14"]),
 }

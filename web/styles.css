@@ -281,6 +281,9 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
 .util-reading-label { color: var(--muted); }
 .sources { display: grid; gap: 6px; margin-top: 6px; font-size: 12.5px; overflow-wrap: anywhere; }
 .src-id { color: var(--muted); }
+.src-kind { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 999px; font-size: 10.5px; line-height: 16px;
+  vertical-align: 1px; white-space: nowrap; color: var(--muted); border: 1px solid var(--border); }
+.src-kind.kind-nasa, .src-kind.kind-nasa_mission { color: #9fd3ff; border-color: rgba(159, 211, 255, 0.45); }
 
 /* ---------- Celular ---------- */
 @media (max-width: 767px) {

@@ -2,7 +2,7 @@ import { el } from './dom.js';
 import { openLightbox } from './lightbox.js';
 import {
   A_MEDIR, barWidth, fmtNoteOutOf3, fmtOutOf3, fmtRank, fmtThresholds, fmtValue, levelInfo, plural, targetOf,
-  targetShort, targetsOf,
+  targetShort, targetsOf, sourceKind,
 } from './format.js';
 
 // Card de detalhes do local selecionado (direita; gaveta no celular). Não é modal.
@@ -106,9 +106,11 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
     const src = sourceIndex[id];
     const label = compact || !src ? id : `${id} · ${src.label}`;
     const cls = `src-chip${compact ? ' is-compact' : ''}`;
+    const kind = sourceKind(src?.kind);
+    const title = [src?.label, kind?.label].filter(Boolean).join(' · ');
     return src?.url
-      ? el('a', { class: cls, href: src.url, target: '_blank', rel: 'noopener', title: src.label }, label)
-      : el('span', { class: cls, title: src?.label ?? '' }, label);
+      ? el('a', { class: cls, href: src.url, target: '_blank', rel: 'noopener', title }, label)
+      : el('span', { class: cls, title }, label);
   }
 
   /** Uma variável que decidiu a nota: valor no local, nota, faixas, valor no alvo, fontes e dataset. */
@@ -290,7 +292,9 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
       el('summary', {}, el('h3', {}, 'Fontes dos dados deste local'), el('span', { class: 'count' }, String(link.sources?.length ?? 0))),
       el('ul', { class: 'sources' }, (link.sources ?? []).map((s) =>
         el('li', {}, el('span', { class: 'src-id' }, s.id), ' ',
-          el('a', { href: s.url, target: '_blank', rel: 'noopener' }, s.label)))));
+          el('a', { href: s.url, target: '_blank', rel: 'noopener' }, s.label),
+          sourceKind(s.kind) ? el('span', { class: `src-kind kind-${s.kind}`, title: sourceKind(s.kind).title },
+            sourceKind(s.kind).label) : null))));
     sources.addEventListener('toggle', () => { open.sources = sources.open; });
     parts.push(sources);
 

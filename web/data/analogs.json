@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at": "2026-11-15T17:28:37Z",
+  "generated_at": "2026-11-15T17:29:14Z",
   "model": {
     "name": "Base de referência v1.1 – 14/11/2026",
     "data_date": "2026-11-14",
@@ -135,7 +135,7 @@
       "lon": -116.75,
       "approximate_coords": true,
       "description": "Dois processos distintos: evaporação de lago e vulcanismo explosivo com água",
-      "narrative": "No Vale da Morte, dois processos diferentes ficam lado a lado: o salar de Badwater é o que restou de um lago que evaporou, como os lagos antigos de Marte, e a cratera Ubehebe é um maar, aberto por explosões de magma em contato com água. O ar extremamente seco, com umidade que pode cair abaixo de 1%, e o terreno sem vegetação serviram para testar o rover Marsokhod (1992) e o sistema de visão de pouso do Perseverance (2019). Para a Lua, vale como banco de calor: o solo passa de 90 °C, como ao meio-dia lunar perto do equador. É, porém, muito mais quente que Marte, tem chuva ocasional e tem vida.",
+      "narrative": "No Vale da Morte, dois processos diferentes ficam lado a lado: o salar de Badwater é o que restou de um lago que evaporou, como os lagos antigos de Marte, e a cratera Ubehebe é um maar de ~180 m de profundidade, aberto por explosões de vapor quando o magma encontrou a água do subsolo. O clima extremamente seco, com cerca de 50 mm de chuva por ano, e o terreno sem vegetação serviram para testar o rover Marsokhod (1992) e o sistema de visão de pouso do Perseverance (2019). Para a Lua, vale como banco de calor: o solo passa de 90 °C, como ao meio-dia lunar perto do equador. É, porém, muito mais quente que Marte, tem chuva ocasional e tem vida.",
       "clipping": "Salar de Badwater (evaporitos) + cratera Ubehebe (maar)",
       "data_notes": null,
       "listed_as": [
@@ -290,7 +290,7 @@
       "lon": 161.85,
       "approximate_coords": false,
       "description": "Deserto frio e seco; permafrost seco sobre solo cimentado por gelo; análogo do sítio do Phoenix",
-      "narrative": "O Vale Wright, nos vales secos de McMurdo, é um deserto frio e seco: média anual de cerca de −20 °C, mínimas abaixo de −50 °C na região e permafrost seco sobre solo cimentado por gelo a menos de 1 m de profundidade, o mesmo arranjo do sítio de pouso da Phoenix em Marte. Por isso serve para estudar e prospectar gelo raso num solo parecido com o marciano, a partir de uma estação de pesquisa ocupada o ano todo. O solo tem perclorato, mas em teores muito menores que os do Phoenix, e a analogia falha na pressão do ar e na radiação, que continuam sendo as da Terra.",
+      "narrative": "O Vale Wright, nos vales secos de McMurdo, é um deserto frio e seco: as médias anuais no fundo dos vales vão de −15 a −30 °C, as mínimas na região passam de −50 °C, e há permafrost seco sobre solo cimentado por gelo a menos de 1 m de profundidade, o mesmo arranjo do sítio de pouso da Phoenix em Marte. Por isso serve para estudar e prospectar gelo raso num solo parecido com o marciano, a partir de uma estação de pesquisa ocupada o ano todo. O solo tem perclorato, mas em teores muito menores que os do Phoenix, e a analogia falha na pressão do ar e na radiação, que continuam sendo as da Terra.",
       "clipping": "Vale Wright",
       "data_notes": "Temperatura média e chuva da literatura local; o resto do POWER",
       "listed_as": [
@@ -446,7 +446,7 @@
       "lon": -43.1,
       "approximate_coords": false,
       "description": "Dunas barcanas usadas para entender dunas de Marte; lagoas sazonais entre dunas lembram um Marte com água intermitente (H7, H8, N13)",
-      "narrative": "Os Lençóis Maranhenses formam um grande campo de dunas barcanas e barcanoides, de até 30 m, o mesmo tipo de duna em meia-lua que cobre áreas de Marte; modelos de como o vento move as barcanas valem tanto para os Lençóis quanto para as dunas marcianas. As lagoas de água doce que se formam entre as dunas na estação chuvosa lembram um Marte com água intermitente no passado. A semelhança é de forma e de processo eólico: aqui chove cerca de 1.400 mm por ano, ao contrário do Marte atual, e o modelo ainda não mede as dunas.",
+      "narrative": "Os Lençóis Maranhenses formam um grande campo de dunas barcanas e barcanoides, de até 30 m, o mesmo tipo de duna em meia-lua que cobre áreas de Marte. Um modelo de dunas com lençol freático exposto reproduz a forma e o tamanho das dunas dos Lençóis, e experimentos com barcanas em laboratório buscam prever a evolução tanto delas quanto das dunas marcianas. As lagoas de água doce que se formam entre as dunas na estação chuvosa lembram um Marte com água intermitente no passado. A semelhança é de forma e de processo eólico: aqui chove cerca de 1.400 mm por ano, ao contrário do Marte atual, e o modelo ainda não mede as dunas.",
       "clipping": "Campo de dunas barcanas com lagoas entre as dunas (MA)",
       "data_notes": "Clima do NASA POWER; chuva alta, ao contrário de Marte",
       "listed_as": [
@@ -477,7 +477,7 @@
       "lon": -40.8597,
       "approximate_coords": false,
       "description": "Maior caverna da América do Sul (~114 km de galerias): treino de operação subterrânea, como em tubos de lava da Lua e de Marte (H11, N14)",
-      "narrative": "A Toca da Boa Vista, em Campo Formoso (BA), é a maior caverna do Brasil e da América do Sul, com cerca de 114 km de galerias mapeadas em calcário e dolomito. Cavernas são candidatas a abrigar bases na Lua e em Marte, porque o teto de rocha protege da radiação, dos micrometeoritos e das grandes variações de temperatura; a Toca serve para treinar operação, navegação e mapeamento debaixo da terra, com acesso controlado. A diferença está na origem: é uma caverna hipogênica, escavada por fluidos que subiram das profundezas e dissolveram a rocha, enquanto as cavernas da Lua e de Marte são tubos de lava.",
+      "narrative": "A Toca da Boa Vista, em Campo Formoso (BA), é a maior caverna do Brasil e da América do Sul, com mais de 100 km de galerias mapeadas em rochas carbonáticas (cerca de 114 km nos levantamentos recentes). Cavernas são candidatas a abrigar bases na Lua e em Marte, porque o teto de rocha protege da radiação, dos micrometeoritos e das grandes variações de temperatura; a Toca serve para treinar operação, navegação e mapeamento debaixo da terra, com acesso controlado. A diferença está na origem: ela foi dissolvida por ácido sulfúrico, vindo da oxidação de sulfetos da própria rocha, e por fluidos que subiram das profundezas, enquanto as cavernas da Lua e de Marte são tubos de lava.",
       "clipping": "Caverna em dolomito, Campo Formoso (BA)",
       "data_notes": "Clima do NASA POWER (superfície, não o interior da caverna)",
       "listed_as": [

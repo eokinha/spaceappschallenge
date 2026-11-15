@@ -97,3 +97,16 @@ export function fmtThresholds(thresholds, direction, unit) {
   const u = unit && unit !== '%' ? ` ${unit}` : unit === '%' ? '%' : '';
   return `nota 3 se ${op} ${fmtNote(thresholds['3'])}${u} · 2 se ${op} ${fmtNote(thresholds['2'])} · 1 se ${op} ${fmtNote(thresholds['1'])}`;
 }
+
+// Classe da fonte (vem pronta do JSON: source_index[id].kind e links[].sources[].kind; etl/config.py › FONTES_CLASSE).
+export const SOURCE_KINDS = {
+  nasa: { label: 'NASA', title: 'Documento, dado ou página oficial da NASA' },
+  nasa_mission: { label: 'Missão NASA', title: 'Artigo revisado por pares com dados de missão da NASA' },
+  peer_reviewed: { label: 'Artigo revisado', title: 'Artigo científico revisado por pares' },
+  agency: { label: 'Órgão público', title: 'Órgão público ou repositório científico (NPS, USGS, SGB, PANGAEA)' },
+  team: { label: 'Planilha', title: 'Planilha da equipe' },
+};
+
+export function sourceKind(kind) {
+  return SOURCE_KINDS[kind] ?? null;
+}
