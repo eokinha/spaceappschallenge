@@ -1,4 +1,5 @@
 import { el } from './dom.js';
+import { openLightbox } from './lightbox.js';
 import {
   A_MEDIR, barWidth, fmtNoteOutOf3, fmtOutOf3, fmtRank, plural, targetOf, targetShort, targetsOf,
 } from './format.js';
@@ -60,7 +61,9 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
   root.removeAttribute('aria-live');
   root.setAttribute('aria-labelledby', 'panel-title');
   root.hidden = true;
+  const photo = el('figure', { class: 'card-photo', hidden: true });
   root.replaceChildren(
+    photo,
     el('div', { class: 'card-head' },
       el('div', { class: 'card-title' }, title, subtitle, approx),
       el('div', { class: 'card-actions' }, expand, close)),
@@ -193,6 +196,34 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
     body.replaceChildren(...parts);
   }
 
+  /** Foto do local (analogs[].image) no topo do card; sem imagem ou com erro de carga, o card segue sem ela. */
+  function renderPhoto(analog) {
+    const img = analog.image;
+    if (!img) { photo.hidden = true; photo.replaceChildren(); return; }
+    const picture = el('img', { src: img.src, alt: img.alt, decoding: 'async', width: '1200', height: '800',
+      onerror: () => { photo.hidden = true; } });
+    const name = analog.full_name ?? analog.name;
+    photo.replaceChildren(
+      el('button', { type: 'button', class: 'photo-open', 'aria-label': `Ampliar a foto: ${img.caption}`,
+        title: 'Ampliar a foto', onclick: () => openLightbox(img, name, creditLine) },
+        picture, el('span', { class: 'photo-zoom', 'aria-hidden': 'true' }, '⤢')),
+      img.kind === 'satelite' ? el('span', { class: 'photo-kind' }, 'Imagem de satélite') : null,
+      el('figcaption', {},
+        el('span', { class: 'photo-caption' }, img.caption),
+        el('span', { class: 'photo-credit' }, creditLine(img))));
+    photo.hidden = false;
+  }
+
+  /** "Foto: autor · licença · fonte", com links; usada no card e no modal. */
+  function creditLine(img) {
+    const { author, license, license_url: licenseUrl, source_url: sourceUrl } = img.credit;
+    const ext = (href, text) => el('a', { href, target: '_blank', rel: 'noopener' }, text);
+    const frag = document.createDocumentFragment();
+    frag.append(img.kind === 'satelite' ? 'Imagem: ' : 'Foto: ', author, ' · ',
+      licenseUrl ? ext(licenseUrl, license) : license, ' · ', ext(sourceUrl, 'fonte'));
+    return frag;
+  }
+
   function render(state, prev) {
     const analog = state.analogId ? analogById.get(state.analogId) : null;
     const wasHidden = root.hidden;
@@ -205,6 +236,7 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
     const target = targetById.get(state.targetId);
     const link = linkOf(analog.id, target.id);
 
+    if (!prev || prev.analogId !== state.analogId) renderPhoto(analog);
     title.textContent = analog.full_name ?? analog.name;
     subtitle.textContent = [analog.country, analog.batch].filter(Boolean).join(' · ');
     approx.hidden = !analog.approximate_coords;

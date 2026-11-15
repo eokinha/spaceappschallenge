@@ -76,10 +76,12 @@ ETL Python (etl/) ──gera──▶ data/processed/  (tabelas normalizadas, CS
 │   │   ├── arcs.js           # arcos entre corpos (Line2)
 │   │   ├── interaction.js    # raycasting, hover, clique, tooltip
 │   │   ├── list.js           # painel lateral: seletor de alvo e lista de locais
+│   │   ├── lightbox.js       # modal da foto ampliada
 │   │   ├── panel.js          # card de detalhes
 │   │   ├── format.js         # formatação pt-BR, "a medir" e rótulos
 │   │   └── dom.js            # criação de elementos sem innerHTML
 │   ├── textures/             # earth.jpg, moon.jpg, mars.jpg
+│   ├── images/analogs/       # foto de cada local (crédito em etl/config.py › IMAGENS)
 │   └── data/analogs.json     # gerado pelo ETL (vai pro git: é o que a Vercel publica)
 └── docs/
 ```
@@ -108,7 +110,11 @@ e refletidas em `etl/analogs.schema.json`. Os ids são os mesmos de `data/proces
     { "id": "haughton", "name": "Haughton", "full_name": "Haughton", "country": "Canadá",
       "lat": 75.383, "lon": -89.667, "approximate_coords": false, "description": "...", "clipping": "...",
       "data_notes": null, "listed_as": ["marte"], "batch": "Base v1.1",
-      "model_indicates": "marte", "matches_listing": true }
+      "model_indicates": "marte", "matches_listing": true,
+      "image": { "src": "images/analogs/haughton.jpg", "alt": "Encosta coberta de fragmentos...",
+                 "caption": "Borda da cratera de impacto de Haughton, ilha Devon", "kind": "foto",
+                 "credit": { "author": "Haughton-Mars Project", "license": "Domínio público",
+                             "license_url": null, "source_url": "https://commons.wikimedia.org/wiki/File:..." } } }
   ],
   "links": [
     {
@@ -156,6 +162,11 @@ Regras:
 - `sources` traz as fontes com link citadas nos dados daquele análogo. É a mesma lista nos dois links do
   análogo e, como as planilhas citam a fonte por variável (não por local), ela é quase a lista inteira do
   lote. Pendência do ETL: separar as fontes gerais do lote das específicas do local.
+- `image` é a foto do local mostrada no topo do card. Não vem das planilhas: a escolha (arquivo, legenda,
+  texto alternativo, autor, licença e link da fonte) fica em `etl/config.py` › `IMAGENS`, e o arquivo em
+  `web/images/analogs/<id>.jpg` (máx. 1200 px de largura). `kind` é `foto` (de campo) ou `satelite`.
+  `license_url` é `null` em domínio público. O ETL falha se um local não tiver entrada ou arquivo.
+  O schema aceita `null`, e o front mostra o card sem foto nesse caso.
 
 ## 4. ETL Python
 
@@ -324,6 +335,12 @@ país, lote e aviso de coordenada aproximada) e as abas ficam fixos; o corpo rol
 
 As abas `Lua | Marte` são o mesmo controle do seletor da lista. A aba do alvo em que a equipe listou o
 local leva a marca "listado"; se o card estiver no outro alvo, uma linha discreta avisa e oferece a troca.
+
+No topo do card, acima do nome, fica a foto do local (`image`), com a legenda e o crédito ("Foto: autor ·
+licença", com links para a licença e para a página da imagem). Ela carrega sob demanda; se faltar ou não
+carregar, o card aparece sem ela. Clicar na foto (ou `Enter` com ela em foco) abre a imagem ampliada num modal
+(`<dialog>`, `web/src/lightbox.js`), com legenda e crédito; fecha com ✕, `Esc` ou clique fora da imagem, e o
+`Esc` nesse caso não fecha o card. No celular a foto fica mais baixa, para sobrar espaço na gaveta.
 
 Conteúdo da aba (link `analog × target`), nesta ordem:
 

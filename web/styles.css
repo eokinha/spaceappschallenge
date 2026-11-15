@@ -94,6 +94,40 @@ header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hi
 #panel { position: fixed; z-index: 2; top: var(--top); right: var(--gap); bottom: var(--gap);
   width: calc(var(--card-w) - var(--gap)); display: flex; flex-direction: column; background: var(--panel);
   border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+/* Foto do local no topo do card: altura fixa, recorte central, legenda e crédito sobre um degradê. */
+.card-photo { position: relative; flex: none; height: 168px; margin: 0; background: #0b0f1a; overflow: hidden; }
+.card-photo[hidden] { display: none; }
+.card-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.card-photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 12px 7px;
+  display: flex; flex-direction: column; gap: 1px; font-size: 11px; line-height: 1.35; color: #f2f5fb;
+  background: linear-gradient(to top, rgba(5, 7, 13, 0.92), rgba(5, 7, 13, 0.55) 60%, transparent); }
+.photo-caption { font-weight: 500; }
+.photo-credit { color: #c3cad8; font-size: 10.5px; }
+.photo-credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.photo-credit a:hover { color: #fff; }
+.photo-kind { position: absolute; top: 8px; left: 8px; padding: 2px 7px; border-radius: 999px; font-size: 10.5px;
+  color: #f2f5fb; background: rgba(5, 7, 13, 0.7); border: 1px solid rgba(255, 255, 255, 0.18); }
+.photo-open { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.photo-open:focus-visible { outline: 2px solid var(--fg); outline-offset: -3px; }
+.photo-zoom { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; display: grid; place-items: center;
+  border-radius: 8px; font-size: 15px; color: #f2f5fb; background: rgba(5, 7, 13, 0.6);
+  opacity: 0.75; transition: opacity 0.15s; pointer-events: none; }
+.photo-open:hover .photo-zoom, .photo-open:focus-visible .photo-zoom { opacity: 1; }
+.card-photo figcaption { pointer-events: none; }
+.card-photo figcaption a { pointer-events: auto; }
+
+/* Modal da foto ampliada (<dialog> nativo). */
+.lightbox { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  background: rgba(3, 5, 10, 0.97); color: var(--fg); display: none; }
+.lightbox[open] { display: flex; flex-direction: column; }
+.lightbox::backdrop { background: rgba(3, 5, 10, 0.6); }
+.lightbox-stage { flex: 1; min-height: 0; display: grid; place-items: center; padding: 56px 16px 8px; }
+.lightbox-stage img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
+.lightbox-caption { flex: none; max-width: 960px; width: 100%; margin: 0 auto; padding: 8px 16px 18px;
+  font-size: 13px; line-height: 1.45; text-align: center; }
+.lightbox-caption .photo-credit { margin-top: 2px; font-size: 12px; }
+.lightbox-close { position: absolute; top: 8px; right: 8px; color: #f2f5fb; background: rgba(255, 255, 255, 0.08); }
 .card-head { display: flex; gap: 8px; justify-content: space-between; align-items: flex-start; padding: 12px 8px 8px 14px; }
 .card-title h2 { font-size: 17px; font-weight: 600; line-height: 1.25; }
 .card-sub { color: var(--muted); font-size: 12px; }
@@ -171,6 +205,7 @@ header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hi
   #panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 60%; border-radius: 14px 14px 0 0;
     border-width: 1px 0 0; }
   #panel.is-expanded { height: calc(100% - var(--top)); }
+  .card-photo { height: 120px; }
   .card-expand { display: block; }
   .link-btn { min-height: 44px; }
   .fold summary { min-height: 44px; }

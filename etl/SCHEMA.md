@@ -167,3 +167,5 @@ só nos 3 locais da base).
 
 Gerado junto, com o contrato descrito em `docs/instrucoes-desenvolvimento.md` (seção 3) e validado contra
 `etl/analogs.schema.json`. Usa os mesmos ids (`analogs[].id` = `local_id`, `targets[].id` = `alvo_id`).
+`analogs[].image` (foto e crédito de cada local) não vem das planilhas: vem de `etl/config.py` › `IMAGENS`
+e dos arquivos em `web/images/analogs/`.

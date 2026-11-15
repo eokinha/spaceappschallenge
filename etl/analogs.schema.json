@@ -60,7 +60,7 @@
         "type": "object",
         "additionalProperties": false,
         "required": ["id", "name", "full_name", "country", "lat", "lon", "approximate_coords", "description",
-                     "clipping", "data_notes", "listed_as", "batch", "model_indicates", "matches_listing"],
+                     "clipping", "data_notes", "listed_as", "batch", "model_indicates", "matches_listing", "image"],
         "properties": {
           "id": { "$ref": "#/$defs/id" },
           "name": { "type": "string", "minLength": 1 },
@@ -75,7 +75,29 @@
           "listed_as": { "type": "array", "items": { "$ref": "#/$defs/id" } },
           "batch": { "type": "string" },
           "model_indicates": { "enum": ["lua", "marte", "empate", null] },
-          "matches_listing": { "type": ["boolean", "null"] }
+          "matches_listing": { "type": ["boolean", "null"] },
+          "image": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "required": ["src", "alt", "caption", "kind", "credit"],
+            "properties": {
+              "src": { "type": "string", "pattern": "^images/analogs/[a-z0-9-]+\\.jpg$" },
+              "alt": { "type": "string", "minLength": 1 },
+              "caption": { "type": "string", "minLength": 1 },
+              "kind": { "enum": ["foto", "satelite"] },
+              "credit": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["author", "license", "license_url", "source_url"],
+                "properties": {
+                  "author": { "type": "string", "minLength": 1 },
+                  "license": { "type": "string", "minLength": 1 },
+                  "license_url": { "type": ["string", "null"], "format": "uri" },
+                  "source_url": { "type": "string", "format": "uri" }
+                }
+              }
+            }
+          }
         }
       }
     },

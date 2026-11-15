@@ -2,7 +2,7 @@
 
 O front-end não calcula nada: cada número e cada frase que aparece na tela sai daqui.
 - targets  = os 2 alvos (Lua – Shackleton, Marte – Jezero), pontos nos globos da Lua e de Marte.
-- analogs  = os 14 locais da Terra, pontos no globo da Terra.
+- analogs  = os 14 locais da Terra, pontos no globo da Terra (com a foto e o crédito de config.IMAGENS).
 - links    = 14 × 2 ligações (todo local é avaliado contra os dois alvos). `score` = aderência ÷ 3.
 - dimensions = as categorias de utilidade; "Limitações universais" aparece, mas não entra no score.
 Os ids são os mesmos de data/processed (local_id, alvo_id, utilidade_id), para cruzar os dois.
@@ -48,6 +48,22 @@ def _fontes_do_local(local, model):
     return out
 
 
+def _imagem(local_id):
+    """Foto do local (etl/config.py › IMAGENS) no formato do site. Falha se faltar entrada ou arquivo."""
+    img = config.IMAGENS.get(local_id)
+    if img is None:
+        raise ValueError(f"Local sem imagem em config.IMAGENS: {local_id}")
+    arquivo = config.IMAGENS_DIR / f"{local_id}.jpg"
+    if not arquivo.is_file():
+        raise FileNotFoundError(f"Imagem do local {local_id} não encontrada: {arquivo}")
+    return {
+        "src": f"{config.IMAGENS_URL}/{local_id}.jpg", "alt": img["alt"], "caption": img["legenda"],
+        "kind": img["tipo"],
+        "credit": {"author": img["autor"], "license": img["licenca"], "license_url": img["licenca_url"],
+                   "source_url": img["fonte"]},
+    }
+
+
 def build(model, res, gerado_em):
     utils = {u["id"]: u for u in model["utilidades"]}
     cats = {c["id"]: c for c in model["categorias"]}
@@ -72,6 +88,7 @@ def build(model, res, gerado_em):
             "clipping": l["recorte"], "data_notes": l["obs_dados"],
             "listed_as": l["listado_como"], "batch": config.PLANILHAS[l["lote"]]["rotulo"],
             "model_indicates": a0["modelo_indica"], "matches_listing": a0["bate"],
+            "image": _imagem(l["id"]),
         })
         fontes = _fontes_do_local(l, model)
         leituras = {q["alvo_id"]: q for q in l["leitura_qualitativa"]}

@@ -118,3 +118,24 @@ def test_site_json_valido_e_ligado_aos_dados(etl):
     assert hau["rank_tied"] is False
     empatados_lua = {l["analog"] for l in s["links"] if l["target"] == "lua" and l["rank_tied"]}
     assert {"cinder-lake", "meteor-crater", "holuhraun", "vargeao", "toca-da-boa-vista"} <= empatados_lua
+
+
+def test_site_imagens_dos_locais(etl):
+    _, model, res = etl
+    s = site.build(model, res, "2026-11-15T00:00:00Z")
+    assert set(config.IMAGENS) == set(config.LOCAIS)
+    for a in s["analogs"]:
+        img = a["image"]
+        assert img["src"] == f"images/analogs/{a['id']}.jpg"
+        assert (config.ROOT / "web" / img["src"]).is_file()
+        assert img["credit"]["author"] and img["credit"]["source_url"].startswith("https://commons.wikimedia.org/")
+        # licença CC precisa de link; domínio público não tem
+        assert (img["credit"]["license_url"] is None) == (img["credit"]["license"] == "Domínio público")
+    assert next(a for a in s["analogs"] if a["id"] == "vargeao")["image"]["kind"] == "satelite"
+
+
+def test_site_falha_sem_arquivo_de_imagem(etl, monkeypatch, tmp_path):
+    _, model, res = etl
+    monkeypatch.setattr(config, "IMAGENS_DIR", tmp_path)
+    with pytest.raises(FileNotFoundError):
+        site.build(model, res, "2026-11-15T00:00:00Z")

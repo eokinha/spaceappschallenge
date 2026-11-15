@@ -7,6 +7,7 @@ import { createArcLayer, scoreColor, ARC_WIDTH } from './arcs.js';
 import { createInteraction } from './interaction.js';
 import { createList } from './list.js';
 import { createPanel } from './panel.js';
+import { isLightboxOpen } from './lightbox.js';
 import { el, isMobile } from './dom.js';
 import { fmtOutOf3 } from './format.js';
 
@@ -250,6 +251,7 @@ async function loadData() {
 
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
+    if (isLightboxOpen()) return; // o <dialog> da foto fecha sozinho; o card continua aberto
     if (listEl.classList.contains('is-open')) closeSheet();
     else selection.clear();
   });

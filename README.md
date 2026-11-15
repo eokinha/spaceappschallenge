@@ -50,5 +50,6 @@ npx vercel --prod   # publica em produção
 
 ## Créditos
 
-Texturas: ver [`web/textures/CREDITS.md`](web/textures/CREDITS.md). Fontes dos dados: abas Fontes das planilhas
+Texturas: ver [`web/textures/CREDITS.md`](web/textures/CREDITS.md). Fotos dos locais: ver
+[`web/images/analogs/CREDITS.md`](web/images/analogs/CREDITS.md). Fontes dos dados: abas Fontes das planilhas
 (`data/processed/fontes.json`), citadas em `sources` de cada ligação do `analogs.json`.

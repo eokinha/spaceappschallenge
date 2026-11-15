@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at": "2026-11-15T15:29:48Z",
+  "generated_at": "2026-11-15T16:01:47Z",
   "model": {
     "name": "Base de referência v1.1 – 14/11/2026",
     "data_date": "2026-11-14",
@@ -80,7 +80,19 @@
       ],
       "batch": "Base v1.1",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/atacama.jpg",
+        "alt": "Planície de cascalho escuro sem vegetação até o horizonte, sob céu azul",
+        "caption": "Chão pedregoso e sem vegetação no núcleo hiperárido do Atacama",
+        "kind": "foto",
+        "credit": {
+          "author": "Chris Hunkeler",
+          "license": "CC BY-SA 2.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Desert_Ground_(32097822997).jpg"
+        }
+      }
     },
     {
       "id": "haughton",
@@ -98,7 +110,19 @@
       ],
       "batch": "Base v1.1",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/haughton.jpg",
+        "alt": "Encosta coberta de fragmentos de rocha clara, com planalto árido ao fundo",
+        "caption": "Borda da cratera de impacto de Haughton, ilha Devon",
+        "kind": "foto",
+        "credit": {
+          "author": "Haughton-Mars Project",
+          "license": "Domínio público",
+          "license_url": null,
+          "source_url": "https://commons.wikimedia.org/wiki/File:Edge_of_Haughton_Crater_(2672692755).jpg"
+        }
+      }
     },
     {
       "id": "vale-da-morte",
@@ -116,7 +140,19 @@
       ],
       "batch": "Base v1.1",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/vale-da-morte.jpg",
+        "alt": "Crosta de sal branca com poças rasas e montanhas ao fundo",
+        "caption": "Salina de Badwater, o ponto mais baixo da América do Norte",
+        "kind": "foto",
+        "credit": {
+          "author": "King of Hearts",
+          "license": "CC BY-SA 3.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Badwater_Basin_Death_Valley_December_2013_001.jpg"
+        }
+      }
     },
     {
       "id": "cinder-lake",
@@ -134,7 +170,19 @@
       ],
       "batch": "Lote 2",
       "model_indicates": "marte",
-      "matches_listing": false
+      "matches_listing": false,
+      "image": {
+        "src": "images/analogs/cinder-lake.jpg",
+        "alt": "Foto em preto e branco de uma explosão levantando cinza vulcânica num campo plano, com montanhas ao fundo",
+        "caption": "Criação do campo de crateras de Cinder Lake pelo USGS para treinar os astronautas da Apollo",
+        "kind": "foto",
+        "credit": {
+          "author": "U.S. Geological Survey",
+          "license": "Domínio público",
+          "license_url": null,
+          "source_url": "https://commons.wikimedia.org/wiki/File:Cinder_Lake_Crater_Field.jpg"
+        }
+      }
     },
     {
       "id": "meteor-crater",
@@ -152,7 +200,19 @@
       ],
       "batch": "Lote 2",
       "model_indicates": "marte",
-      "matches_listing": false
+      "matches_listing": false,
+      "image": {
+        "src": "images/analogs/meteor-crater.jpg",
+        "alt": "Cratera de impacto circular com paredes de rocha avermelhada no deserto",
+        "caption": "Meteor Crater (cratera Barringer), Arizona",
+        "kind": "foto",
+        "credit": {
+          "author": "Librarybell",
+          "license": "CC0",
+          "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Meteor_crater_site_in_Arizona_2019.jpg"
+        }
+      }
     },
     {
       "id": "holuhraun",
@@ -170,7 +230,19 @@
       ],
       "batch": "Lote 2",
       "model_indicates": "marte",
-      "matches_listing": false
+      "matches_listing": false,
+      "image": {
+        "src": "images/analogs/holuhraun.jpg",
+        "alt": "Vista aérea de um campo de lava escuro com lava incandescente e uma coluna de vapor",
+        "caption": "Erupção de Holuhraun em 2014, vista do alto",
+        "kind": "foto",
+        "credit": {
+          "author": "Milan Nykodym",
+          "license": "CC BY-SA 2.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Bárðarbunga_V_-_Holuhraun_(14971316014).jpg"
+        }
+      }
     },
     {
       "id": "mauna-kea",
@@ -188,7 +260,19 @@
       ],
       "batch": "Lote 2",
       "model_indicates": "marte",
-      "matches_listing": false
+      "matches_listing": false,
+      "image": {
+        "src": "images/analogs/mauna-kea.jpg",
+        "alt": "Cones vulcânicos avermelhados sobre terreno árido, acima das nuvens",
+        "caption": "Cones de cinza (pu'u) no cume do Mauna Kea",
+        "kind": "foto",
+        "credit": {
+          "author": "S P Schmidt",
+          "license": "CC BY 4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Pu'u_on_Mauna_Kea.jpg"
+        }
+      }
     },
     {
       "id": "mcmurdo",
@@ -206,7 +290,19 @@
       ],
       "batch": "Lote 2",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/mcmurdo.jpg",
+        "alt": "Rochas escuras e esculpidas pelo vento em primeiro plano, vale seco e montanhas com gelo ao fundo",
+        "caption": "Gargoyle Ridge, nos vales secos de McMurdo",
+        "kind": "foto",
+        "credit": {
+          "author": "U.S. Department of State",
+          "license": "Domínio público",
+          "license_url": null,
+          "source_url": "https://commons.wikimedia.org/wiki/File:Gargoyle_Ridge_in_the_McMurdo_Dry_Valleys_in_Antarctica_(30877661786).jpg"
+        }
+      }
     },
     {
       "id": "rio-tinto",
@@ -224,7 +320,19 @@
       ],
       "batch": "Lote 2",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/rio-tinto.jpg",
+        "alt": "Rio de água alaranjada entre margens de rocha clara e pinheiros",
+        "caption": "Margens do Rio Tinto, de água ácida e rica em ferro",
+        "kind": "foto",
+        "credit": {
+          "author": "David Mata Verdejo",
+          "license": "CC BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:P71012-115351_ribera_Rio_Tinto_(Huelva-Andalucía._Spain).jpg"
+        }
+      }
     },
     {
       "id": "askja",
@@ -242,7 +350,19 @@
       ],
       "batch": "Lote 2",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/askja.jpg",
+        "alt": "Vista aérea de um grande lago numa caldeira vulcânica e de uma cratera menor com água azul-clara",
+        "caption": "Caldeira do Askja: lago Öskjuvatn e a cratera Víti",
+        "kind": "foto",
+        "credit": {
+          "author": "Areuland",
+          "license": "CC BY 4.0",
+          "license_url": "https://creativecommons.org/licenses/by/4.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Öskjuvatn_und_Viti.jpg"
+        }
+      }
     },
     {
       "id": "vargeao",
@@ -260,7 +380,19 @@
       ],
       "batch": "Lote 3",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/vargeao.jpg",
+        "alt": "Imagem de satélite de uma estrutura circular de cerca de 12 km entre plantações e mata",
+        "caption": "Domo de Vargeão visto pelo Landsat: o anel da estrutura de impacto",
+        "kind": "satelite",
+        "credit": {
+          "author": "USGS/NASA Landsat (recorte: Szczureq)",
+          "license": "Domínio público",
+          "license_url": null,
+          "source_url": "https://commons.wikimedia.org/wiki/File:Vargeao_Dome_-_Landsat_OLI_222.jpg"
+        }
+      }
     },
     {
       "id": "araguainha",
@@ -279,7 +411,19 @@
       ],
       "batch": "Lote 3",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/araguainha.jpg",
+        "alt": "Afloramento de camadas de rocha inclinadas e fraturadas",
+        "caption": "Rochas deformadas no domo de Araguainha, a maior cratera de impacto da América do Sul",
+        "kind": "foto",
+        "credit": {
+          "author": "Geraldo C F Valadare…",
+          "license": "CC BY 3.0",
+          "license_url": "https://creativecommons.org/licenses/by/3.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Araguainha_-_State_of_Mato_Grosso,_Brazil_-_panoramio_(801).jpg"
+        }
+      }
     },
     {
       "id": "lencois-maranhenses",
@@ -297,7 +441,19 @@
       ],
       "batch": "Lote 3",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/lencois-maranhenses.jpg",
+        "alt": "Campo de dunas de areia clara até o horizonte, com uma pessoa caminhando",
+        "caption": "Dunas dos Lençóis Maranhenses",
+        "kind": "foto",
+        "credit": {
+          "author": "Joao lara mesquita",
+          "license": "CC BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Os_lencois.jpg"
+        }
+      }
     },
     {
       "id": "toca-da-boa-vista",
@@ -316,7 +472,19 @@
       ],
       "batch": "Lote 3",
       "model_indicates": "marte",
-      "matches_listing": true
+      "matches_listing": true,
+      "image": {
+        "src": "images/analogs/toca-da-boa-vista.jpg",
+        "alt": "Salão de caverna com paredes de rocha clara esculpidas e uma pessoa pequena na entrada de uma galeria",
+        "caption": "Toca da Barriguda, caverna vizinha do mesmo sistema (Campo Formoso, BA)",
+        "kind": "foto",
+        "credit": {
+          "author": "Diego de Medeiros Bento",
+          "license": "CC BY-SA 4.0",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "source_url": "https://commons.wikimedia.org/wiki/File:Área_de_Proteção_Ambiental_do_Boqueirão_da_Onça_Diego_Bento_(01).jpg"
+        }
+      }
     }
   ],
   "links": [
