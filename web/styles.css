@@ -7,7 +7,10 @@
   --accent: #5dffa0;
   --warn: #ffb347;
   --bar: #7fa6d9;
-  --list-w: 300px;
+  /* Desktop com local selecionado: proporção fixa 25% lista | 25% cena 3D | 50% card de detalhes. --list-w é
+     a largura da lista + o --gap; --card-left é onde o card começa (PANEL_LEFT em main.js). */
+  --list-w: 25vw;
+  --card-left: 50vw;
   /* Patamares de aderência (iguais a LEVEL_COLORS em arcs.js): ≥ 2 forte, entre 1 e 2 parcial, ≤ 1 fraca. */
   --lv-high: #4ade80;
   --lv-moderate: #fbbf24;
@@ -86,7 +89,7 @@ header h1.is-fitting { display: block; }
 @container legend (max-width: 240px) {
   .legend-tiers, .legend-arc { display: none !important; }
 }
-.has-selection #legend { left: calc(var(--list-w) + var(--gap)); right: var(--gap); bottom: 14px; }
+.has-selection #legend { left: calc(var(--list-w) + var(--gap)); right: calc(100vw - var(--card-left) + var(--gap)); bottom: 14px; }
 .legend-tiers, .legend-arc { display: flex; justify-content: center; align-items: center; gap: 4px 12px; flex-wrap: wrap; }
 .legend-tier { display: inline-flex; align-items: center; gap: 5px; color: #c3cad8; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--lv); }
@@ -127,16 +130,6 @@ header h1.is-fitting { display: block; }
 #site-list, #panel { overflow-wrap: break-word; }
 .card-body p, .card-body li, .card-body dd, .card-body h3, .card-body h4 { overflow-wrap: anywhere; hyphens: auto; }
 .card-title h2, .site-name { overflow-wrap: anywhere; }
-
-/* Bordas arrastáveis da lista (direita) e do card (esquerda). */
-.resizer { position: absolute; top: 0; bottom: 0; width: 10px; z-index: 3; cursor: ew-resize; touch-action: none; }
-.resizer-list { right: 0; }
-.resizer-card { left: 0; }
-.resizer::after { content: ""; position: absolute; top: 50%; width: 4px; height: 44px; margin-top: -22px; left: 3px;
-  border-radius: 2px; background: rgba(255, 255, 255, 0.14); transition: background 0.15s, height 0.15s; }
-.resizer:hover::after, .resizer:focus-visible::after, .is-resizing .resizer::after { background: #9fd3ff; height: 64px; margin-top: -32px; }
-.resizer:focus-visible { outline: none; }
-.is-resizing, .is-resizing * { cursor: ew-resize !important; user-select: none; }
 
 /* Barras de rolagem (lista, card e demais roláveis): trilho transparente, polegar fino na cor da borda.
    WebKit/Chromium usam os pseudo-elementos (permitem hover); Firefox usa as propriedades padrão. */
@@ -181,13 +174,12 @@ header h1.is-fitting { display: block; }
 .site-score .site-adh { font-weight: 600; }
 .site-score .tag-status { align-self: flex-end; }
 
-/* ---------- Card de detalhes: modal ao lado da lista ----------
-   Abre depois da animação do foco (panel.js, openDelay) e ocupa toda a área à direita da lista, abaixo do
-   cabeçalho: a tela fica "lista | dados". O fundo (#panel-backdrop) cobre a cena enquanto o modal está
-   aberto (.modal-open); cabeçalho e lista ficam por cima e continuam usáveis. */
+/* ---------- Card de detalhes: metade direita da tela ----------
+   Abre depois da animação do foco (panel.js, openDelay) e ocupa a metade direita, abaixo do cabeçalho: a tela
+   fica "lista | cena 3D | dados" (25% | 25% | 50%). No desktop a cena continua visível e usável entre a lista
+   e o card; o fundo escurecido (#panel-backdrop) só existe no modo compacto, onde a gaveta cobre a cena. */
 #panel-backdrop { display: none; position: fixed; inset: 0; z-index: 4; background: rgba(3, 5, 10, 0.88); }
-.modal-open #panel-backdrop { display: block; animation: fade-in 0.25s ease-out; }
-#panel { position: fixed; z-index: 5; top: var(--top); bottom: var(--gap); left: calc(var(--list-w) + var(--gap));
+#panel { position: fixed; z-index: 5; top: var(--top); bottom: var(--gap); left: var(--card-left);
   right: var(--gap);
   display: flex; flex-direction: column; background: var(--panel);
   border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
@@ -362,7 +354,7 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
   /* Sem espaço para o texto ao lado do idioma + "Locais": fica só o ícone (o title e o leitor de tela dizem o resto). */
   #reset-view { min-height: 44px; min-width: 44px; padding: 0 8px; font-size: 16px; }
   #reset-view .reset-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .resizer { display: none; }
+  .modal-open #panel-backdrop { display: block; animation: fade-in 0.25s ease-out; }
   .labels { left: 0; font-size: 11px; gap: 10px; }
   .has-selection .labels, .has-selection #legend { display: none; }
   #legend { left: 0; right: 0; }

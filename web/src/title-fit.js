@@ -1,5 +1,5 @@
 // Título do cabeçalho: a maior fonte em que o texto ainda cabe em duas linhas na largura do <h1>
-// (que segue a largura da lista, inclusive quando ela é redimensionada). O CSS mantém 12px e o corte
+// (que segue a largura da lista, 25% da janela). O CSS mantém 12px e o corte
 // em duas linhas como reserva caso este ajuste não rode.
 
 const MIN = 12;

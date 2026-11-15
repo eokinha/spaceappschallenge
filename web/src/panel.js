@@ -1,4 +1,4 @@
-import { el, prefersReducedMotion } from './dom.js';
+import { el, isMobile, prefersReducedMotion } from './dom.js';
 import { openLightbox } from './lightbox.js';
 import {
   A_MEDIR, barWidth, fmtNoteOutOf3, fmtOutOf3, fmtRank, fmtThresholds, fmtValue, levelInfo, plural, targetOf,
@@ -6,10 +6,10 @@ import {
 } from './format.js';
 import { t } from './i18n.js';
 
-// Card de detalhes do local selecionado: ocupa a área à direita da lista, sobre um fundo que cobre a cena
-// (#panel-backdrop, styles.css); gaveta no celular. Ao selecionar um local ele só abre depois de
+// Card de detalhes do local selecionado: no desktop ocupa a metade direita da tela, com a cena 3D visível
+// entre ele e a lista; no modo compacto é uma gaveta sobre um fundo que cobre a cena (#panel-backdrop, styles.css). Ao selecionar um local ele só abre depois de
 // `openDelay` ms, para a animação do foco aparecer antes; a cada troca de local ele fecha e reabre assim.
-// A lista continua usável ao lado; os elementos de `inertWhileOpen` (a cena) ficam inertes enquanto ele está aberto.
+// A lista continua usável ao lado; no modo compacto os elementos de `inertWhileOpen` (a cena) ficam inertes enquanto ele está aberto.
 // O cabeçalho e as abas são criados uma vez; só o corpo é refeito a cada mudança de seleção.
 // Textos visíveis passam por t() (i18n.js); o que vem do analogs.json já chega traduzido.
 
@@ -21,7 +21,7 @@ import { t } from './i18n.js';
  * @param {ReturnType<import('./selection.js').createSelection>} opts.selection
  * @param {() => void} [opts.onLayout]  o card abriu, fechou ou mudou de tamanho
  * @param {number} [opts.openDelay]     ms entre a seleção e a abertura do modal (0 com movimento reduzido)
- * @param {HTMLElement[]} [opts.inertWhileOpen]  ficam inertes (fora do Tab) com o modal aberto
+ * @param {HTMLElement[]} [opts.inertWhileOpen]  ficam inertes (fora do Tab) com o modal aberto no modo compacto
  */
 export function createPanel({ root, data, linkOf, selection, onLayout, openDelay = 0, inertWhileOpen = [] }) {
   const analogById = new Map(data.analogs.map((a) => [a.id, a]));
@@ -348,7 +348,7 @@ export function createPanel({ root, data, linkOf, selection, onLayout, openDelay
     openTimer = null;
     root.hidden = false;
     document.body.classList.add('modal-open');
-    for (const node of inertWhileOpen) node.inert = true;
+    for (const node of inertWhileOpen) node.inert = isMobile();
     onLayout?.();
   }
 

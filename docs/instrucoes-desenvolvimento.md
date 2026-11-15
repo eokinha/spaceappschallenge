@@ -78,7 +78,6 @@ ETL Python (etl/) ──gera──▶ data/processed/  (tabelas normalizadas, CS
 │   │   ├── interaction.js    # raycasting, hover, clique, tooltip
 │   │   ├── list.js           # painel lateral: seletor de alvo e lista de locais
 │   │   ├── lightbox.js       # modal da foto ampliada
-│   │   ├── resize-panels.js  # borda arrastável da lista
 │   │   ├── i18n.js           # idioma (EN padrão, PT-BR): t(), tradução dos dados, troca
 │   │   ├── panel.js          # card de detalhes
 │   │   ├── format.js         # formatação pt-BR, "a medir" e rótulos
@@ -350,21 +349,20 @@ redesenhar lista e card.
   - a Terra gira (slerp de quaternion; 2,6 s a cada local selecionado, `FOCUS_ANIM_MS` em `main.js`, e
     600 ms ao trocar só o alvo) até o análogo ficar virado para a câmera, com o norte para
     cima; o globo do alvo ativo faz o mesmo com o alvo;
-  - a câmera enquadra a Terra e o globo do alvo ativo na área livre da tela (à direita da lista, atrás do
-    modal de detalhes, que não entra na conta; no celular, acima da gaveta), usando `camera.setViewOffset` para deslocar o centro. O foco nunca afasta a
+  - a câmera enquadra a Terra e o globo do alvo ativo na área livre da tela (no desktop, a faixa entre a
+    lista e o card, que começa na metade da tela — `PANEL_LEFT` em `main.js`, `--card-left` em `styles.css` —,
+    já durante a animação; no celular, acima da gaveta), usando `camera.setViewOffset` para deslocar o centro. O foco nunca afasta a
     câmera além do enquadramento inicial nem aproxima mais que 88% dessa distância (`FOCUS_MIN_RATIO` em
     `main.js`), para manter os globos e o arco num enquadramento aberto; em telas estreitas a distância
     fica igual e a cena só é recentralizada;
-  - no desktop, a borda direita da lista pode ser arrastada (ou ajustada com as setas, com foco na borda;
-    duplo clique volta ao padrão). A largura vira `--list-w` no `:root`, fica salva no navegador e sempre
-    sobram 420 px à direita da lista. O modal de detalhes não tem borda arrastável; A cada mudança a câmera
-    reenquadra a Terra e o alvo na área livre e se afasta o quanto for preciso para eles não saírem de
-    vista (o foco não tem mais o limite de "não afastar além do enquadramento inicial");
+  - no desktop a proporção é fixa (lista 25% | cena 25% | card 50%; `--list-w` e `--card-left` em
+    `styles.css`), sem bordas arrastáveis; ao redimensionar a janela a câmera reenquadra a Terra e o alvo
+    na faixa do meio e se afasta o quanto for preciso para eles não saírem de vista;
   - durante a animação da câmera o `OrbitControls` fica desligado e volta para o usuário no fim;
   - os outros marcadores ficam com opacidade 0,15 e um anel de destaque aparece no análogo e no alvo;
   - a câmera voa no mesmo tempo da rotação (2,6 s a cada local selecionado, 700 ms ao trocar só o alvo);
   - terminada a animação (`MODAL_DELAY_MS = 3000` em `main.js`; sem atraso com movimento reduzido), o card
-    abre ao lado da lista, com a cena escurecida por trás.
+    abre na metade direita da tela, com a cena visível entre ele e a lista.
 - Limpar a seleção devolve a câmera ao enquadramento dos três globos (o cálculo de `resize()`).
 - Sem local selecionado, depois de 10 s sem mexer na cena (arrastar ou dar zoom; passar o mouse não conta),
   cada globo volta à orientação inicial e a câmera ao enquadramento dos três globos, com uma animação de
@@ -391,12 +389,12 @@ redesenhar lista e card.
 ### Card de detalhes (`#panel`, ao lado da lista)
 
 Ao selecionar um local, primeiro a cena anima o foco (Terra e alvo girando, câmera enquadrando) por cerca de
-3 s com a tela livre; depois de `MODAL_DELAY_MS` o card abre. No desktop ele ocupa toda a área à direita da
-lista, do cabeçalho até a borda de baixo: a tela fica "lista | dados". O `#panel-backdrop` (quase opaco)
-cobre a cena e a legenda, que ficam inertes; cabeçalho e lista ficam por cima e continuam usáveis. Escolher
+3 s com a tela livre; depois de `MODAL_DELAY_MS` o card abre. No desktop ele ocupa a metade direita da tela,
+do cabeçalho até a borda de baixo: a tela fica "lista | cena 3D | dados", na proporção 25% | 25% | 50%. A cena
+(Terra e alvo enquadrados na faixa do meio) e a legenda continuam visíveis e usáveis; não há fundo escurecido. Escolher
 outro local fecha o card, roda a animação do foco de novo e reabre o card com o novo local; trocar só a aba
 Lua | Marte atualiza o card na hora. Fecha com o ✕ (botão redondo no canto superior direito do card, por cima da foto),
-`Esc` ou clique no fundo. No modo
+`Esc` ou clique no vazio da cena. No modo
 compacto continua sendo a gaveta (ou a coluna, no celular deitado), também com o atraso e o fundo, e o botão
 "Locais" fecha o card antes de abrir a lista. O cabeçalho (nome completo,
 país, lote e aviso de coordenada aproximada) e as abas ficam fixos; o corpo rola.
@@ -486,8 +484,8 @@ A página abre em inglês; o botão `EN | PT` no canto superior direito troca pa
 - [ ] Os pontos de teste caem no lugar certo nos três globos (`?debug=1`).
 - [ ] Os 14 locais aparecem na lista (esquerda), ordenados pelo `rank` do alvo ativo.
 - [ ] Clicar num item, num marcador ou dar `Enter` gira a Terra e o alvo, desenha o arco do link ativo com
-      largura e cor coerentes com a legenda, esmaece o resto, enquadra a câmera e abre o card (modal sobre a
-      cena, fundo escurecido).
+      largura e cor coerentes com a legenda, esmaece o resto, enquadra a câmera e abre o card (metade direita
+      da tela, com a Terra e o alvo visíveis na faixa entre a lista e o card).
 - [ ] Lista e card mostram sempre o mesmo alvo; o clique no 3D segue a tabela de sincronia da seção 5.
 - [ ] O card mostra as categorias, as utilidades, os pontos fortes, os limites (sempre visíveis) e as
       fontes; "a medir" nunca aparece como 0 e nenhum número é calculado no front.

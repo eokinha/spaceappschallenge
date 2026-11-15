@@ -119,13 +119,9 @@ const EN = {
   'Imagem: ': 'Image: ', 'Foto: ': 'Photo: ',
   'fonte': 'source',
   'Sem ligação com {name} nos dados: {v}.': 'No link to {name} in the data: {v}.',
-  // lightbox.js / resize-panels.js
+  // lightbox.js
   'Foto ampliada': 'Enlarged photo',
   'Fechar a foto': 'Close the photo',
-  'Largura da lista de locais': 'Width of the site list',
-  '{label} (arraste, ou use as setas; duplo clique volta ao padrão)':
-    '{label} (drag, or use the arrow keys; double-click resets to the default)',
-  'Arraste para redimensionar · duplo clique volta ao padrão': 'Drag to resize · double-click resets to the default',
 };
 
 /** Texto da interface no idioma ativo. A chave é o texto em português; `{nome}` é trocado por vars.nome. */
