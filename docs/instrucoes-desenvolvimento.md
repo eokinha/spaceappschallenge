@@ -11,42 +11,54 @@ Uma página web com três globos 3D (Terra, Lua e Marte) que mostra os análogos
 candidatos na Lua e em Marte e explica por que eles se parecem e onde a analogia falha.
 
 - **Layout:** a Terra fica grande no centro, com a Lua e Marte como globos menores dos lados.
-- **Locais:** cada local candidato na Lua ou em Marte aparece como um ponto no globo dele.
-  Os análogos na Terra também são pontos.
-- **Arcos:** saem de cada análogo na Terra até o local correspondente na Lua ou em Marte.
-  A espessura e a cor do arco mostram o grau de semelhança.
+- **Locais:** os dois alvos — Lua (polo sul, Shackleton) e Marte (cratera Jezero) — aparecem como pontos
+  nos globos deles. Os 14 análogos na Terra também são pontos.
+- **Arcos:** saem de cada análogo na Terra até cada alvo (14 × 2 ligações).
+  A espessura e a cor do arco mostram a aderência do análogo àquele alvo.
 - **Seleção:** ao clicar num local, os três globos destacam o grupo dele e um painel explica a
-  semelhança por dimensão: gelo, temperatura, regolito, iluminação e relevo.
+  aderência por categoria de utilidade (Engenharia, Ciência, Recursos, Pouso e mobilidade, Operações
+  humanas e Limitações universais) e por utilidade (U01–U19).
 
 O desafio exige dizer **onde a analogia falha**. O painel precisa mostrar isso, não só os pontos fortes.
 
 ## 2. Arquitetura
 
 ```
-pipeline Python  ──gera──▶  web/data/analogs.json  ──lido por──▶  web/index.html (Three.js)
+planilhas da equipe (data/raw/*.xlsx)
+        │  python -m etl build
+        ▼
+ETL Python (etl/) ──gera──▶ data/processed/  (tabelas normalizadas, CSV, relatório de validação)
+                  └─gera──▶ web/data/analogs.json  ──lido por──▶  web/index.html (Three.js)
 ```
 
-- **Python** faz toda a análise: lê os dados da NASA e das outras agências, calcula as semelhanças e
-  escreve um único JSON.
+- **Python** faz toda a análise: lê as planilhas do modelo de aderência, recalcula todas as notas com a
+  mesma lógica das fórmulas do Excel, confere o resultado célula a célula com o Excel e escreve os JSON.
 - **Front-end** é estático: um HTML que carrega Three.js e lê o JSON. Não há back-end.
 - O front-end não calcula semelhança. Se um número aparece na tela, ele veio do JSON.
 - **Deploy de testes:** Vercel, como site estático. O `vercel.json` publica só a pasta `web/`, sem build.
-  O pipeline não roda na Vercel: gere o `analogs.json` localmente e commite. Cada branch ou PR ganha uma
+  O ETL não roda na Vercel: gere o `analogs.json` localmente e commite. Cada branch ou PR ganha uma
   URL de preview (ver README).
 
 ### Estrutura de pastas
 
 ```
 .
-├── pipeline/                 # Python
-│   ├── config.yaml           # pesos, regras de ligação, escalas e matrizes de similaridade
-│   ├── sites.yaml            # tabela curada: alvos e análogos com valores e fontes
-│   ├── features.py           # carrega e valida a tabela, extrai as 5 dimensões
-│   ├── similarity.py         # notas por dimensão e nota geral (fórmulas na docstring)
-│   ├── export.py             # escolhe as ligações, monta e valida o analogs.json
-│   └── schema.json           # JSON Schema do analogs.json
-├── tests/                    # unittest do pipeline
-├── data/                     # reservado para rasters, se um dia usarmos (fora do git)
+├── etl/                      # Python: ETL das planilhas
+│   ├── __main__.py           # CLI: python -m etl build | check
+│   ├── config.py             # ids estáveis, aliases, conjuntos de critérios e decisões de modelagem
+│   ├── text.py               # slugs, aliases, números em pt-BR, códigos de fonte
+│   ├── extract.py            # lê as abas (openpyxl, valores em cache do Excel)
+│   ├── transform.py          # normaliza em tabelas longas (locais, critérios, valores...)
+│   ├── scoring.py            # o modelo de aderência (fórmulas na docstring)
+│   ├── validate.py           # compara o recalculado com o cache do Excel, célula a célula
+│   ├── site.py               # monta o web/data/analogs.json
+│   ├── load.py               # grava data/processed/ e o JSON do site
+│   ├── analogs.schema.json   # JSON Schema do analogs.json
+│   └── SCHEMA.md             # dicionário de dados de data/processed/
+├── tests/                    # pytest (regras do modelo + regressão com as planilhas)
+├── data/
+│   ├── raw/                  # planilhas da equipe (fora do git; copie antes de rodar o ETL)
+│   └── processed/            # saída do ETL (fora do git; regenerável)
 ├── web/
 │   ├── index.html
 │   ├── src/
@@ -56,99 +68,106 @@ pipeline Python  ──gera──▶  web/data/analogs.json  ──lido por─�
 │   │   ├── interaction.js    # raycasting, hover, clique, seleção
 │   │   └── panel.js          # painel lateral
 │   ├── textures/             # earth.jpg, moon.jpg, mars.jpg
-│   └── data/analogs.json     # gerado pelo pipeline (pode ir pro git para a demo)
+│   └── data/analogs.json     # gerado pelo ETL (vai pro git: é o que a Vercel publica)
 └── docs/
 ```
 
-## 3. Contrato de dados: `analogs.json`
+## 3. Contrato de dados: `analogs.json` (versão 2)
 
 Este arquivo é a fronteira entre Python e front-end. Mudanças nele precisam ser combinadas entre os dois lados
-e refletidas em `pipeline/schema.json`.
+e refletidas em `etl/analogs.schema.json`. Os ids são os mesmos de `data/processed/`
+(`analogs[].id` = `local_id`, `targets[].id` = `alvo_id`, `utilities[].id` = `U01`…`U19`).
 
 ```json
 {
-  "version": 1,
-  "generated_at": "2026-11-14T12:00:00Z",
+  "version": 2,
+  "generated_at": "2026-11-15T12:00:00Z",
+  "model": { "name": "Base de referência v1.1 – 14/11/2026", "data_date": "2026-11-14",
+             "scale": "Aderência de 0 a 3 ...; score = aderência ÷ 3", "excluded_from_score": ["limitacoes-universais"] },
   "dimensions": [
-    { "id": "gelo",        "label": "Gelo / água" },
-    { "id": "temperatura", "label": "Temperatura" },
-    { "id": "regolito",    "label": "Regolito / materiais" },
-    { "id": "iluminacao",  "label": "Iluminação" },
-    { "id": "relevo",      "label": "Relevo" }
+    { "id": "engenharia", "label": "Engenharia", "in_score": true },
+    { "id": "limitacoes-universais", "label": "Limitações universais", "in_score": false }
   ],
   "targets": [
-    {
-      "id": "moon-shackleton",
-      "body": "moon",
-      "name": "Borda da cratera Shackleton",
-      "lat": -89.9,
-      "lon": 0.0,
-      "description": "Candidato a base no polo sul lunar."
-    }
+    { "id": "marte", "body": "mars", "name": "Marte – Jezero", "short_name": "Jezero",
+      "lat": 18.38, "lon": 77.58, "description": "Tem rover em solo...", "clipping": "Cratera Jezero e seu delta" }
   ],
   "analogs": [
-    {
-      "id": "earth-exemplo-1",
-      "name": "Local terrestre de exemplo",
-      "lat": 75.4,
-      "lon": -89.7,
-      "description": "Texto curto sobre o local."
-    }
+    { "id": "haughton", "name": "Haughton", "full_name": "Haughton", "country": "Canadá",
+      "lat": 75.383, "lon": -89.667, "approximate_coords": false, "description": "...", "clipping": "...",
+      "data_notes": null, "listed_as": ["marte"], "batch": "Base v1.1",
+      "model_indicates": "marte", "matches_listing": true }
   ],
   "links": [
     {
-      "analog": "earth-exemplo-1",
-      "target": "moon-shackleton",
-      "score": 0.72,
-      "dimensions": {
-        "gelo":        { "score": 0.85, "earth": "permafrost contínuo", "target": "gelo em crateras sombreadas", "note": "..." },
-        "temperatura": { "score": 0.40, "earth": "-50 a 10 °C", "target": "-230 a 50 °C", "note": "..." },
-        "regolito":    { "score": 0.60, "earth": "...", "target": "...", "note": "..." },
-        "iluminacao":  { "score": 0.90, "earth": "sol baixo no horizonte", "target": "sol rasante quase contínuo", "note": "..." },
-        "relevo":      { "score": 0.75, "earth": "...", "target": "...", "note": "..." }
-      },
-      "strengths": ["Iluminação rasante parecida", "Gelo no subsolo"],
-      "limits": ["Atmosfera e gravidade terrestres", "Faixa de temperatura bem menor"],
-      "exploration_use": "Testar rovers e perfuração em gelo sob luz rasante.",
-      "sources": [{ "label": "Nome do dataset", "url": "https://..." }]
+      "analog": "haughton", "target": "marte",
+      "score": 0.5128, "adherence": 1.5385, "rank": 1, "listed_as_target": true,
+      "dimensions": { "ciencia": { "score": 0.8, "adherence": 2.4, "evaluated": 5, "total": 5 } },
+      "utilities": [
+        { "id": "U06", "name": "Prospecção de gelo", "category": "recursos", "adherence": 2, "score": 0.6667,
+          "status": "avaliada", "variables_evaluated": 2, "variables_total": 2, "best_in_network": true,
+          "reading": "Permafrost contínuo e polígonos..." }
+      ],
+      "strengths": ["Parecido em: ...", "Operações humanas e EVA (3/3)"],
+      "limits": ["Diferente em: ...", "Proteção contra radiação (0/3): Nenhum lugar da Terra reproduz..."],
+      "to_measure": ["Ciclagem térmica", "Mobilidade em encostas"],
+      "best_in_network_count": 6,
+      "exploration_use": "...",
+      "sources": [{ "id": "F2", "label": "Lee & Osinski 2005, ...", "url": "https://..." }]
     }
-  ]
+  ],
+  "network": {
+    "coverage": [{ "target": "marte", "evaluated": 15, "covered": 13, "gaps": 2, "to_measure": 2 }],
+    "best_by_utility": [{ "utility": "U01", "name": "Frio extremo", "target": "lua", "best_score": 0.5,
+                          "best": ["mcmurdo"], "status": "Lacuna" }],
+    "conclusions": ["..."], "caveats": ["..."]
+  }
 }
 ```
 
 Regras:
 
 - `lat` em graus, de -90 a 90. `lon` em graus, de -180 a 180, positivo para leste, no sistema de coordenadas
-  planetocêntrico de cada corpo. Converta longitudes 0–360 (comuns em dados de Marte) no Python.
-- Todas as notas (`score`) ficam entre 0 e 1. A nota geral do link é calculada no Python, como média
-  ponderada das dimensões com os pesos do `config.yaml`.
-- Uma dimensão sem dado fica de fora do objeto `dimensions`. Nunca invente valor.
-- Um análogo pode ter links para mais de um alvo (Lua e Marte).
-- `limits` é obrigatório e não pode ser vazio.
-- Os valores do exemplo acima são ilustrativos, não são resultado da análise.
+  planetocêntrico de cada corpo.
+- `adherence` vai de 0 a 3 (escala das planilhas). `score` = `adherence ÷ 3`, de 0 a 1, para largura e cor
+  dos arcos. A aderência do link é a média das notas de utilidade do alvo **sem** a categoria
+  "Limitações universais" (ela aparece em `dimensions`, mas com `in_score: false`).
+- Utilidade sem nota tem `adherence: null` e `status: "a_medir"`; mostre "a medir", nunca zero.
+  Categoria sem nenhuma utilidade avaliada fica fora do objeto `dimensions`. Nunca invente valor.
+- Todo análogo tem um link para cada alvo (Lua e Marte). `rank` é a posição do análogo entre os 14 para
+  aquele alvo.
+- `strengths` = utilidades com nota ≥ 2 (e, nos 3 locais da base, o "é similar em" da Leitura preliminar).
+  `limits` = utilidades com nota ≤ 1 (e o "é diferente em"); é obrigatório e nunca vazio, porque a radiação
+  (U15) é uma limitação universal.
+- `sources` traz as fontes com link citadas nos dados daquele análogo.
 
-## 4. Pipeline Python
+## 4. ETL Python
 
-- Python 3.11+. Dependências em `requirements.txt` (`pyyaml`, `jsonschema`, `pillow`). Ambiente:
+- Python 3.11+. Dependências em `requirements.txt` (`openpyxl`, `jsonschema`, `pytest`). Ambiente:
   `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`.
-- Comando único: `python -m pipeline.export` gera `web/data/analogs.json` (`--check` só valida).
-  Testes: `python -m unittest discover -s tests -t .`.
-- **Os dados vêm de uma tabela curada** (`pipeline/sites.yaml`), não de rasters. Cada local traz os
-  valores das dimensões e as fontes (artigo, página da missão ou Wikipedia). Valores estimados ficam
-  listados no campo `revisar` e o export avisa quais faltam confirmar.
-- Como cada dimensão vira nota (detalhes em `pipeline/similarity.py`):
-  - temperatura: sobreposição das faixas mín–máx (interseção ÷ união);
-  - gelo: escala ordinal de 0 a 4;
-  - iluminação: altura máxima do Sol, calculada pela latitude e pela obliquidade, mais a fração do
-    tempo iluminado;
-  - regolito e relevo: categorias comparadas por uma matriz de similaridade no `config.yaml`.
-- **Ligações:** o pipeline compara todo análogo com todo alvo e mantém, para cada alvo, os 3 de maior
-  nota que passem do mínimo do `config.yaml`.
-- **Pontos fortes e limitações:** saem das notas por dimensão (≥ 0,7 e ≤ 0,4), e cada ligação recebe
-  ainda as limitações físicas do corpo (gravidade, atmosfera), por isso `limits` nunca fica vazio.
-- O JSON é validado contra `pipeline/schema.json` e os ids das ligações são conferidos antes de
-  escrever. Se algo falhar, o comando sai com código 1 e não escreve nada.
-- Cada link guarda em `sources` as fontes do alvo e do análogo, para citarmos na entrega.
+- **Entrada:** as planilhas da equipe em `data/raw/` (fora do git): `Base_referencia_v1.1.xlsx`,
+  `Lote2_7_locais.xlsx`, `Lote3_locais_brasileiros.xlsx` e `Rede_de_analogos.xlsx`.
+- Comando único: `python -m etl build` gera `data/processed/` e `web/data/analogs.json`
+  (`python -m etl check` só recalcula e valida, sem gravar). Testes: `python -m pytest`.
+- **O ETL recalcula, não copia.** As notas são refeitas em Python (`etl/scoring.py`) a partir dos critérios e
+  dos valores de entrada, e depois comparadas célula a célula com os valores em cache do Excel
+  (tolerância 1e-9). Se houver divergência, o comando sai com código 1 e não grava nada
+  (`--allow-divergences` grava mesmo assim). O relatório fica em `data/processed/relatorio_validacao.md`.
+- Modelo (fórmulas na docstring de `etl/scoring.py`):
+  - nota da variável 0–3 pelas faixas do critério (`maior`/`menor`); vazio = a medir (`null`, nunca 0);
+  - nota da utilidade = média das notas de variável não vazias; categoria = média das utilidades;
+  - aderência do local ao alvo = média das utilidades do alvo, sem "Limitações universais";
+  - rede: melhor local por utilidade, empates, segunda nota e situação (Coberta ≥ 2, Lacuna < 2, A medir).
+  - Todos os pesos valem 1; o código já aceita pesos.
+- **Conjuntos de critérios:** a base v1.1 e os lotes usam critérios um pouco diferentes (UV em escala 0–3 na
+  base, índice UV do NASA POWER nos lotes; radiação em uma ou duas variáveis). Cada planilha aponta para um
+  conjunto (`base-v1-1` ou `lotes-v1-1`) em `etl/config.py`; o ETL confere que os lotes 2 e 3 têm critérios
+  idênticos.
+- Decisões que não vêm das planilhas (aliases dos locais, coordenada aproximada do Vale da Morte,
+  unidade da rugosidade, variáveis renomeadas) ficam todas em `etl/config.py`.
+- Dicionário de dados de `data/processed/`: `etl/SCHEMA.md` (copiado para a pasta a cada build).
+- O JSON do site é validado contra `etl/analogs.schema.json` e os ids das ligações são conferidos antes de
+  gravar.
 
 ## 5. Front-end 3D (Three.js)
 
@@ -248,15 +267,16 @@ de longitude e é preciso girar a esfera, não a fórmula.
 
 Para o link selecionado (se o grupo tiver vários, mostre uma lista ordenada por nota e deixe trocar):
 
-1. Nome do análogo na Terra → nome do alvo, com a nota geral.
-2. Uma barra por dimensão (gelo, temperatura, regolito, iluminação, relevo) com a nota e os valores
-   da Terra e do alvo lado a lado.
-3. **Pontos fortes** (`strengths`).
-4. **Onde a analogia falha** (`limits`), sempre visível.
-5. Uso na exploração (`exploration_use`).
-6. Fontes dos dados, com links.
+1. Nome do análogo na Terra → nome do alvo, com a aderência (0–3) e a posição na rede (`rank`).
+2. Uma barra por categoria (`dimensions`), com a nota e quantas utilidades a sustentam
+   (`evaluated` de `total`). "Limitações universais" aparece separada, como fora do score.
+3. A lista de utilidades (`utilities`), com nota, "a medir" e destaque quando o local é o melhor da rede.
+4. **Pontos fortes** (`strengths`).
+5. **Onde a analogia falha** (`limits`), sempre visível.
+6. Uso na exploração (`exploration_use`).
+7. Fontes dos dados, com links.
 
-Dimensão ausente no JSON aparece como "sem dado", não como zero.
+Categoria ausente no JSON e utilidade com `adherence: null` aparecem como "a medir", não como zero.
 
 ### Acessibilidade e desempenho
 
@@ -272,18 +292,18 @@ Dimensão ausente no JSON aparece como "sem dado", não como zero.
 4. Arcos com largura e cor pela nota, mais a legenda.
 5. Clique, destaque do grupo e rotação dos globos.
 6. Painel lateral.
-7. Pipeline Python gerando o JSON real (em paralelo aos passos 2–6).
+7. ETL Python gerando o JSON real a partir das planilhas (em paralelo aos passos 2–6).
 8. Lista acessível, ajustes de celular e polimento visual.
 9. README com como rodar, fontes de dados e créditos das texturas.
 
 ## 7. Critérios de pronto
 
-- [ ] `python -m pipeline.export` gera um JSON válido contra o schema.
+- [ ] `python -m etl build` gera um JSON válido contra o schema, com 0 divergência em relação ao Excel.
 - [ ] A página abre com `python -m http.server` sem erros no console.
 - [ ] Os pontos de teste caem no lugar certo nos três globos.
 - [ ] Todo link do JSON aparece como arco, com largura e cor coerentes com a legenda.
 - [ ] Clicar num alvo ou análogo destaca o grupo nos três globos e abre o painel.
-- [ ] O painel mostra as 5 dimensões, os pontos fortes, os limites e as fontes.
+- [ ] O painel mostra as categorias, as utilidades, os pontos fortes, os limites e as fontes.
 - [ ] Toda a interação funciona também pela lista de locais.
 - [ ] README cita todos os datasets e texturas usados.
 - [ ] O deploy na Vercel abre sem erros no console e mostra o mesmo que a versão local.

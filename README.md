@@ -16,14 +16,19 @@ Abrir o `index.html` direto (`file://`) não funciona, porque o JSON é carregad
 
 ## Gerar os dados
 
+Os dados vêm das planilhas do modelo de aderência (base v1.1, lotes 2 e 3 e a rede de análogos). Copie-as para
+`data/raw/` (a pasta não vai para o git) e rode:
+
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python -m pipeline.export                 # escreve web/data/analogs.json
-.venv/bin/python -m unittest discover -s tests -t .  # testes do pipeline
+.venv/bin/python -m etl build   # grava data/processed/ (JSON + CSV + relatório) e web/data/analogs.json
+.venv/bin/python -m etl check   # só recalcula e confere com o Excel, sem gravar
+.venv/bin/python -m pytest      # testes
 ```
 
-Os valores de cada local estão em `pipeline/sites.yaml`, com as fontes. Pesos, regras de ligação e
-matrizes de similaridade estão em `pipeline/config.yaml`.
+O ETL recalcula todas as notas em Python e compara, célula a célula, com os valores salvos no Excel.
+O resultado da comparação fica em `data/processed/relatorio_validacao.md`; o dicionário de dados, em
+[`etl/SCHEMA.md`](etl/SCHEMA.md).
 
 ## Deploy de testes na Vercel
 
@@ -45,5 +50,5 @@ npx vercel --prod   # publica em produção
 
 ## Créditos
 
-Texturas: ver [`web/textures/CREDITS.md`](web/textures/CREDITS.md). Fontes dos dados: listadas no painel de
-cada ligação e neste README quando o pipeline estiver pronto.
+Texturas: ver [`web/textures/CREDITS.md`](web/textures/CREDITS.md). Fontes dos dados: abas Fontes das planilhas
+(`data/processed/fontes.json`), citadas em `sources` de cada ligação do `analogs.json`.

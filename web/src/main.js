@@ -4,10 +4,13 @@ import { createGlobe, addMarker } from './globe.js';
 
 // Layout dos globos. Raios e posições configuráveis (ver docs/instrucoes-desenvolvimento.md, seção 5).
 // Rotação inicial: yaw para mostrar uma face útil e inclinação para deixar o polo sul lunar visível.
+// Um ponto de longitude λ fica de frente para a câmera com yaw = −(90° + λ) (ver latLonToVector3).
+// Marte começa com Jezero (λ ≈ 77,6° E, alvo do analogs.json) virado para a câmera.
+const yawFacing = (lonDeg) => -THREE.MathUtils.degToRad(90 + lonDeg);
 const LAYOUT = {
   earth: { radius: 1.0,  x: 0,    texture: 'textures/earth.jpg', rotation: [0.25, 0, 0] },
   moon:  { radius: 0.4,  x: -2.8, texture: 'textures/moon.jpg',  rotation: [-0.6, -Math.PI / 2, 0] },
-  mars:  { radius: 0.55, x: 2.8,  texture: 'textures/mars.jpg',  rotation: [0.2, 0, 0] },
+  mars:  { radius: 0.55, x: 2.8,  texture: 'textures/mars.jpg',  rotation: [0.2, yawFacing(77.58), 0] },
 };
 // Meia largura da cena que precisa caber na tela (Marte em x=2,8 + raio + folga).
 const SCENE_HALF_WIDTH = 3.6;
@@ -62,11 +65,14 @@ async function loadData() {
   if (!res.ok) throw new Error(`Falha ao carregar analogs.json: HTTP ${res.status}`);
   const data = await res.json();
 
+  // Alvos (Lua – Shackleton, Marte – Jezero) e os 14 análogos da Terra vêm do ETL (python -m etl build).
+  // Os ids dos marcadores são os mesmos de data/processed: alvo_id ('lua', 'marte') e local_id.
   for (const t of data.targets) addMarker(globes[t.body], t.lat, t.lon, 'target', t);
   for (const a of data.analogs) addMarker(globes.earth, a.lat, a.lon, 'analog', a);
 
   document.getElementById('status').textContent =
     `${data.targets.length} alvos · ${data.analogs.length} análogos · ${data.links.length} ligações`;
+  window.__app.data = data;
   return data;
 }
 
