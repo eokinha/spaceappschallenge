@@ -10,6 +10,10 @@ const SEGMENTS = 48;
 export const ARC_WIDTH = { min: 1, max: 6 };       // px, para score 0 e score 1
 export const ARC_COLORS = { weak: [107, 124, 153], strong: [255, 179, 71] }; // sRGB 0–255
 
+// Cores dos níveis de aderência (iguais aos tokens --lv-* de styles.css). O nível vem do JSON.
+export const LEVEL_COLORS = { high: '#4ade80', moderate: '#fbbf24', low: '#f87171', none: '#94a3b8' };
+export const levelColor = (level) => LEVEL_COLORS[level] ?? LEVEL_COLORS.none;
+
 /** Cor da rampa (cinza-azulado → amarelo-laranja) para um score 0–1, como string CSS. */
 export function scoreColor(score) {
   const k = Math.min(Math.max(score ?? 0, 0), 1);
@@ -75,7 +79,7 @@ export function createArcLayer(scene) {
       active = links.map((link, i) => {
         const line = pool[i];
         line.visible = true;
-        line.material.color.set(scoreColor(link.score));
+        line.material.color.set(link.level !== undefined ? levelColor(link.level) : scoreColor(link.score));
         line.material.linewidth = scoreWidth(link.score);
         return { line, from: link.from, to: link.to };
       });

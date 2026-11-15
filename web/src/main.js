@@ -3,13 +3,14 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { createGlobe, addMarker, createRing, setRing } from './globe.js';
 import { createSelection } from './selection.js';
 import { createFocus } from './focus.js';
-import { createArcLayer, scoreColor, ARC_WIDTH } from './arcs.js';
+import { createArcLayer, ARC_WIDTH } from './arcs.js';
 import { createInteraction } from './interaction.js';
 import { createList } from './list.js';
 import { createPanel } from './panel.js';
 import { isLightboxOpen } from './lightbox.js';
+import { createPanelResizers } from './resize-panels.js';
 import { el, isMobile } from './dom.js';
-import { fmtOutOf3 } from './format.js';
+import { LEVELS, fmtOutOf3, levelInfo } from './format.js';
 
 // Orquestrador: monta a cena, carrega o JSON e liga os módulos ao estado da seleção (selection.js).
 // Lista (list.js), card (panel.js) e cena não se chamam: cada um assina o estado e reage.
@@ -123,6 +124,8 @@ function frameFor(centerX, halfWidth, halfHeight, cardOpen) {
 }
 
 /** Sem seleção: os três globos. Com seleção: a Terra e o globo do alvo ativo. */
+const FOCUS_MIN_RATIO = 0.88;
+
 function currentFrame() {
   const state = app?.selection.state;
   const home = frameFor(0, SCENE_HALF_WIDTH, SCENE_HALF_HEIGHT, false);
@@ -132,9 +135,11 @@ function currentFrame() {
   const min = Math.min(-LAYOUT.earth.radius, other.x - other.radius);
   const max = Math.max(LAYOUT.earth.radius, other.x + other.radius);
   const frame = frameFor((min + max) / 2, (max - min) / 2 + FOCUS_MARGIN, LAYOUT.earth.radius + FOCUS_MARGIN, true);
-  // O foco nunca afasta a câmera além do enquadramento inicial. Em telas estreitas, onde lista e card
-  // deixam pouco espaço, isso pode pôr a borda de um globo sob um painel, mas os pontos em foco ficam à vista.
-  frame.position.z = Math.min(frame.position.z, home.position.z);
+  // Com lista e card largos a área livre encolhe e a câmera se afasta o necessário para a Terra e o alvo
+  // caberem inteiros (antes ela parava no enquadramento inicial e os globos ficavam sob os painéis).
+  // Também não aproxima demais: no máximo FOCUS_MIN_RATIO da distância inicial, para manter os globos e o
+  // arco num enquadramento aberto (em telas largas o encaixe exato colava a câmera nos planetas).
+  frame.position.z = Math.max(frame.position.z, home.position.z * FOCUS_MIN_RATIO);
   return frame;
 }
 
@@ -151,18 +156,23 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
+/** Legenda: os patamares da escala (sempre visível) e, com seleção, o que o arco significa. */
 function buildLegend() {
   const value = el('span', { class: 'legend-value' });
-  legendEl.replaceChildren(
-    el('span', { class: 'legend-title' }, 'Arco: aderência'),
-    el('span', { class: 'legend-scale' },
-      el('span', {}, '0'),
-      el('span', { class: 'legend-ramp', 'aria-hidden': 'true',
-        style: `--from:${scoreColor(0)};--to:${scoreColor(1)};--min:${ARC_WIDTH.min}px;--max:${ARC_WIDTH.max}px` }),
-      el('span', {}, '3')),
+  const arc = el('div', { class: 'legend-arc', hidden: true },
+    el('span', { class: 'legend-title' }, 'Arco:'),
+    el('span', { class: 'legend-ramp', 'aria-hidden': 'true', style: `--min:${ARC_WIDTH.min}px;--max:${ARC_WIDTH.max}px` }),
+    el('span', {}, 'cor = patamar · espessura = nota'),
     value);
-  legendEl.hidden = true;
-  return value;
+  legendEl.replaceChildren(
+    el('div', { class: 'legend-tiers' },
+      el('span', { class: 'legend-title' }, 'Aderência (0 a 3):'),
+      ['high', 'moderate', 'low', 'none'].map((k) => el('span', { class: `legend-tier ${LEVELS[k].cls}` },
+        el('span', { class: 'legend-dot', 'aria-hidden': 'true' }), `${LEVELS[k].label} `,
+        el('span', { class: 'legend-range' }, `(${LEVELS[k].range})`)))),
+    arc);
+  legendEl.hidden = false;
+  return { value, arc };
 }
 
 async function loadData() {
@@ -204,7 +214,10 @@ async function loadData() {
   // A ordem das assinaturas importa: lista e card primeiro (mudam o layout), cena depois (mede o layout).
   createList({ root: listEl, data, linkOf, selection, onPick: closeSheet });
   createPanel({ root: panelEl, data, linkOf, selection });
-  const legendValue = buildLegend();
+  // Bordas arrastáveis da lista e do card: a cada mudança, a câmera reenquadra os globos na área livre
+  // (e se afasta o quanto for preciso para eles não saírem de vista).
+  createPanelResizers({ listEl, panelEl, onChange: () => focus.jumpTo(currentFrame()) });
+  const legend = buildLegend();
 
   function syncScene(state, prev) {
     const analog = state.analogId ? analogById.get(state.analogId) : null;
@@ -219,9 +232,10 @@ async function loadData() {
     for (const t of data.targets) setRing(globes[t.body], analog && t.id === target.id ? targetMarkers.get(t.id) : null);
 
     // Só o arco do link ativo (a rede inteira seria arcs.setLinks com os 28 links).
-    arcs.setLinks(link ? [{ score: link.score, from: analogMarkers.get(analog.id), to: targetMarkers.get(target.id) }] : []);
-    legendEl.hidden = !link;
-    if (link) legendValue.textContent = `${analog.name} → ${target.short_name}: ${fmtOutOf3(link.adherence)}`;
+    arcs.setLinks(link ? [{ score: link.score, level: link.level, from: analogMarkers.get(analog.id), to: targetMarkers.get(target.id) }] : []);
+    legend.arc.hidden = !link;
+    legend.arc.className = `legend-arc ${levelInfo(link?.level).cls}`;
+    if (link) legend.value.textContent = `· ${analog.name} → ${target.short_name}: ${fmtOutOf3(link.adherence)} (${levelInfo(link.level).label.toLowerCase()})`;
 
     const frame = currentFrame();
     if (analog) {

@@ -64,3 +64,36 @@ export function targetOf(target) {
 export function targetsOf(ids, targetById) {
   return ids.map((id) => targetOf(targetById.get(id))).join(' e ');
 }
+
+// Níveis semânticos de aderência. O nível vem pronto do JSON (`level`, etl/config.py › nivel):
+// ≥ 2 forte, ≤ 1 fraco, entre os dois parcial, null = a medir. Aqui só há rótulo e classe CSS.
+export const LEVELS = {
+  high: { cls: 'lv-high', label: 'Forte', tag: 'Forte analogia', range: '2 a 3' },
+  moderate: { cls: 'lv-moderate', label: 'Parcial', tag: 'Analogia parcial', range: 'entre 1 e 2' },
+  low: { cls: 'lv-low', label: 'Fraca', tag: 'Baixa aderência', range: '0 a 1' },
+  none: { cls: 'lv-none', label: 'A medir', tag: 'A medir', range: 'sem dado' },
+};
+
+export function levelInfo(level) {
+  return LEVELS[level] ?? LEVELS.none;
+}
+
+/** Valor de uma variável com a unidade: "−16 °C", "13 mm/ano", "3 (escala 0–3)". */
+export function fmtValue(value, unit) {
+  if (value == null) return A_MEDIR;
+  const n = fmtNote(value);
+  if (!unit) return n;
+  if (/^escala/i.test(unit)) return `${n} (${unit})`;
+  if (unit === '%') return `${n}%`;
+  return `${n} ${unit}`;
+}
+
+const isScale = (unit) => /^escala/i.test(unit ?? '');
+
+/** Faixas do critério: "nota 3 se ≤ −45 °C · 2 se ≤ −25 · 1 se ≤ −10" (null se não houver faixa útil). */
+export function fmtThresholds(thresholds, direction, unit) {
+  if (!thresholds || thresholds['3'] == null || isScale(unit)) return null;
+  const op = direction === 'menor' ? '≤' : '≥';
+  const u = unit && unit !== '%' ? ` ${unit}` : unit === '%' ? '%' : '';
+  return `nota 3 se ${op} ${fmtNote(thresholds['3'])}${u} · 2 se ${op} ${fmtNote(thresholds['2'])} · 1 se ${op} ${fmtNote(thresholds['1'])}`;
+}

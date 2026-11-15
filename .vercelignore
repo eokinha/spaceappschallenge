@@ -1,7 +1,10 @@
 .venv/
-data/
+/data/
+!web/data/**
 docs/
+etl/
 pipeline/
+tests/
 **/__pycache__/
 *.tif
 *.tiff

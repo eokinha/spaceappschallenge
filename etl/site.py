@@ -7,7 +7,10 @@ O front-end não calcula nada: cada número e cada frase que aparece na tela sai
 - dimensions = as categorias de utilidade; "Limitações universais" aparece, mas não entra no score.
 Os ids são os mesmos de data/processed (local_id, alvo_id, utilidade_id), para cruzar os dois.
 """
+import re
+
 from . import config
+from .text import norm
 
 ROUND = 4
 
@@ -48,6 +51,94 @@ def _fontes_do_local(local, model):
     return out
 
 
+def _por_corpo(texto):
+    """'Terra: MODIS LST | Lua: Diviner | Marte: MEDA' -> {'terra': ..., 'lua': ..., 'marte': ...}.
+    Texto sem prefixo de corpo (ex.: 'Literatura') vale para a Terra."""
+    if not texto:
+        return {}
+    out = {}
+    for parte in texto.split("|"):
+        parte = parte.strip()
+        corpo, sep, resto = parte.partition(":")
+        chave = corpo.strip().lower()
+        if sep and chave in ("terra", "lua", "marte"):
+            out[chave] = resto.strip()
+        elif parte:
+            out.setdefault("terra", parte)
+    return out
+
+
+def _condicao_do_alvo(texto, alvo_id):
+    """'Lua: crateras a ~40 K. Marte: noites a −83 °C' -> só o trecho do alvo (ou o texto inteiro)."""
+    if not texto:
+        return None
+    partes = re.split(r"(?:^|[.;]\s*)(Lua|Marte)\s*:\s*", texto)
+    trechos = {partes[i].lower(): partes[i + 1].strip().rstrip(".;") for i in range(1, len(partes) - 1, 2)}
+    return trechos.get(alvo_id) or texto
+
+
+def _apelidos(local_id):
+    return [norm(n) for n in config.LOCAIS[local_id] + config.APELIDOS_OBSERVACAO.get(local_id, [])]
+
+
+def _observacao_do_local(texto, local_id):
+    """Só o trecho da observação que vale para o local. 'McMurdo: X. Mauna Kea: Y' -> 'X' para McMurdo.
+    Trechos sem prefixo de local valem para todos; trechos de outros locais saem. Sem nada -> None."""
+    if not texto:
+        return None
+    todos = {lid: _apelidos(lid) for lid in config.LOCAIS}
+    proprios, gerais = [], []
+    for trecho in re.split(r"(?<=[.;])\s+(?=[A-ZÁÉÍÓÚÂÊÔÃÕÇ])", texto.strip()):
+        prefixo, sep, resto = trecho.partition(":")
+        if sep and len(prefixo) <= 45:
+            p = norm(prefixo)
+            donos = {lid for lid, nomes in todos.items() if any(n and n in p for n in nomes)}
+            if donos:
+                if local_id in donos:
+                    proprios.append(resto.strip())
+                continue
+        gerais.append(trecho.strip())
+    out = " ".join(proprios + gerais).strip()
+    return out or None
+
+
+def _evidencias(local, alvo_id, utilidade_id, ctx):
+    """Uma linha por variável que entra na nota da utilidade: valor no local, valor no alvo, faixas,
+    nota da variável, fontes e dataset de referência. Tudo vem das planilhas."""
+    out = []
+    for c in ctx["criterios"].get((local["conjunto_criterios"], utilidade_id, alvo_id), []):
+        nv = ctx["notas_variavel"].get((local["id"], c["id"]))
+        val = ctx["valores"].get((local["id"], c["variavel_id"]))
+        cat_id = config.VARIAVEL_CATALOGO.get(c["variavel_id"])
+        if local["lote"] == "base-v1-1":
+            # Base: valores digitados na aba Critérios, sem fonte; as fontes da variável estão no Catálogo.
+            cat = ctx["catalogo"].get((local["id"], cat_id)) if cat_id else None
+            fonte_ids, escopo = (cat["fonte_ids"] if cat else []), "catalogo"
+        else:
+            fonte_ids, escopo = (val["fonte_ids"] if val else []), "local"
+        datasets = _por_corpo(ctx["dataset"].get(cat_id)) if cat_id else {}
+        fontes = [fid for fid in fonte_ids if fid in ctx["fontes"]]
+        ctx["usadas"].update(fontes)
+        faixas = c["faixas"] or {}
+        out.append({
+            "variable": c["variavel_nome"], "unit": c["unidade"],
+            "value": nv["valor"] if nv else None,
+            "value_note": (val or {}).get("status_texto") if not nv or nv["valor"] is None else None,
+            "note": nv["nota"] if nv else None,
+            "level": config.nivel(nv["nota"] if nv else None),
+            "status": nv["status"] if nv else "a_medir",
+            "direction": c["sentido"],
+            "thresholds": None if faixas.get("nota_3") is None else
+                {"3": faixas["nota_3"], "2": faixas["nota_2"], "1": faixas["nota_1"]},
+            "target_value": c["valor_no_alvo"],
+            "observation": _observacao_do_local((val or {}).get("observacao"), local["id"])
+                if local["lote"] != "base-v1-1" else None,
+            "sources": fontes, "sources_scope": escopo,
+            "dataset_earth": datasets.get("terra"), "dataset_target": datasets.get(alvo_id),
+        })
+    return out
+
+
 def _imagem(local_id):
     """Foto do local (etl/config.py › IMAGENS) no formato do site. Falha se faltar entrada ou arquivo."""
     img = config.IMAGENS.get(local_id)
@@ -72,6 +163,21 @@ def build(model, res, gerado_em):
     ad = {(a["local_id"], a["alvo_id"]): a for a in res["aderencia"]}
     melhor = {(m["utilidade_id"], m["alvo_id"]): m for m in res["melhor_por_utilidade"]}
     pares = [(m["utilidade_id"], m["alvo_id"]) for m in res["melhor_por_utilidade"]]
+    criterios = {}
+    for c in model["criterios"]:
+        criterios.setdefault((c["conjunto_id"], c["utilidade_id"], c["alvo_id"]), []).append(c)
+    dataset = {}
+    for c in model["catalogo_referencia"]:
+        dataset.setdefault(c["variavel_id"], c["dataset"])
+    ctx = {
+        "criterios": criterios,
+        "notas_variavel": {(n["local_id"], n["criterio_id"]): n for n in res["notas_variavel"]},
+        "valores": {(v["local_id"], v["variavel_id"]): v for v in model["valores"]},
+        "catalogo": {(c["entidade_id"], c["variavel_id"]): c for c in model["catalogo_referencia"]},
+        "dataset": dataset,
+        "fontes": {f["id"]: f for f in model["fontes"]},
+        "usadas": set(),
+    }
 
     targets = [{
         "id": a["id"], "body": a["corpo"], "name": a["nome"], "short_name": a["local_referencia"],
@@ -85,6 +191,7 @@ def build(model, res, gerado_em):
             "id": l["id"], "name": l["nome"], "full_name": l["nome_completo"], "country": l["pais"],
             "lat": l["lat"], "lon": l["lon"], "approximate_coords": l["coordenada_aproximada"],
             "description": l["justificativa"] or l["por_que_recorte"] or l["recorte"] or "",
+            "narrative": config.NARRATIVAS.get(l["id"]),
             "clipping": l["recorte"], "data_notes": l["obs_dados"],
             "listed_as": l["listado_como"], "batch": config.PLANILHAS[l["lote"]]["rotulo"],
             "model_indicates": a0["modelo_indica"], "matches_listing": a0["bate"],
@@ -101,7 +208,7 @@ def build(model, res, gerado_em):
             for cid in cats:
                 n = nc.get((l["id"], cid, a))
                 if n and n["nota"] is not None:
-                    dims[cid] = {"score": _r(n["nota"] / 3), "adherence": _r(n["nota"]),
+                    dims[cid] = {"score": _r(n["nota"] / 3), "adherence": _r(n["nota"]), "level": config.nivel(n["nota"]),
                                  "evaluated": n["n_avaliadas_local"], "total": n["n_utilidades"]}
             us = []
             for (u, al) in pares:
@@ -112,34 +219,42 @@ def build(model, res, gerado_em):
                 us.append({
                     "id": u, "name": utils[u]["nome_curto"], "category": utils[u]["categoria_id"],
                     "adherence": _r(n["nota"]), "score": _r(None if n["nota"] is None else n["nota"] / 3),
+                    "level": config.nivel(n["nota"]),
                     "status": n["status"],
                     "variables_evaluated": n["n_variaveis_avaliadas"], "variables_total": n["n_variaveis"],
                     "best_in_network": bool(m["melhor_nota"] is not None and m["melhor_nota"] >= 2
                                             and l["id"] in m["empatados"]),
                     "reading": n["leitura"],
+                    "meaning": {
+                        "purpose": utils[u]["nome"],
+                        "condition": _condicao_do_alvo(utils[u]["condicao"], a),
+                        "criterion": utils[u]["criterio_aderencia"],
+                    },
+                    "evidence": _evidencias(l, a, u, ctx),
                 })
             avaliadas = [x for x in us if x["adherence"] is not None]
             strengths, limits = [], []
             q = leituras.get(a)
+            ponto = lambda x: {"kind": "utility", "id": x["id"], "name": x["name"], "category": x["category"],
+                               "adherence": x["adherence"], "level": x["level"]}
             if q and q["similar_em"]:
-                strengths.append(f"Parecido em: {q['similar_em']}")
+                strengths.append({"kind": "reading", "label": "Parecido em", "text": q["similar_em"]})
             for x in sorted(avaliadas, key=lambda x: (-x["adherence"], x["id"])):
                 if x["adherence"] >= config.LIMIAR_FORTE:
-                    strengths.append(f"{x['name']} ({fmt(x['adherence'])}/3)")
+                    strengths.append(ponto(x))
             if q and q["diferente_em"]:
-                limits.append(f"Diferente em: {q['diferente_em']}")
+                limits.append({"kind": "reading", "label": "Diferente em", "text": q["diferente_em"]})
             for x in sorted(avaliadas, key=lambda x: (x["adherence"], x["id"])):
                 if x["adherence"] <= config.LIMIAR_FRACO:
-                    texto = f"{x['name']} ({fmt(x['adherence'])}/3)"
-                    if x["category"] in config.CATEGORIAS_FORA_DA_ADERENCIA:
-                        texto += f": {utils[x['id']]['criterio_aderencia']}"
-                    limits.append(texto)
+                    limits.append(ponto(x))
             if not limits:
-                limits.append("Nenhuma utilidade avaliada ficou com nota ≤ 1; veja as utilidades a medir.")
+                limits.append({"kind": "reading", "label": "Observação",
+                               "text": "Nenhuma utilidade avaliada ficou com nota ≤ 1; veja as utilidades a medir."})
             links.append({
                 "analog": l["id"], "target": a,
                 "score": _r(row["aderencia"] / 3),
                 "adherence": _r(row["aderencia"]),
+                "level": config.nivel(row["aderencia"]),
                 "rank": row["rank"],
                 "rank_tied": row["rank_empatado"],
                 "listed_as_target": a in l["listado_como"],
@@ -169,6 +284,9 @@ def build(model, res, gerado_em):
         "targets": targets,
         "analogs": analogs,
         "links": links,
+        "source_index": {fid: {"label": ctx["fontes"][fid]["referencia"],
+                               "url": ctx["fontes"][fid]["link"] if (ctx["fontes"][fid]["link"] or "").startswith("http") else None}
+                         for fid in sorted(ctx["usadas"], key=_ordem_fonte)},
         "network": {
             "coverage": [{"target": c["alvo_id"], "evaluated": c["avaliadas"], "covered": c["cobertas"],
                           "gaps": c["lacunas"], "to_measure": c["a_medir"]} for c in res["cobertura"]],

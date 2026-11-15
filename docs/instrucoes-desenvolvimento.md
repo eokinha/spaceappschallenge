@@ -77,6 +77,7 @@ ETL Python (etl/) ──gera──▶ data/processed/  (tabelas normalizadas, CS
 │   │   ├── interaction.js    # raycasting, hover, clique, tooltip
 │   │   ├── list.js           # painel lateral: seletor de alvo e lista de locais
 │   │   ├── lightbox.js       # modal da foto ampliada
+│   │   ├── resize-panels.js  # bordas arrastáveis da lista e do card
 │   │   ├── panel.js          # card de detalhes
 │   │   ├── format.js         # formatação pt-BR, "a medir" e rótulos
 │   │   └── dom.js            # criação de elementos sem innerHTML
@@ -124,10 +125,21 @@ e refletidas em `etl/analogs.schema.json`. Os ids são os mesmos de `data/proces
       "utilities": [
         { "id": "U06", "name": "Prospecção de gelo", "category": "recursos", "adherence": 2, "score": 0.6667,
           "status": "avaliada", "variables_evaluated": 2, "variables_total": 2, "best_in_network": true,
-          "reading": "Permafrost contínuo e polígonos..." }
+          "reading": "Permafrost contínuo e polígonos...", "level": "high",
+          "meaning": { "purpose": "Prospectar gelo no subsolo (radar, nêutrons)", "condition": "gelo raso em altas latitudes",
+                       "criterion": "Gelo em profundidade conhecida, para calibrar instrumentos" },
+          "evidence": [{ "variable": "Gelo no subsolo (0–3)", "unit": "escala 0–3", "value": 3, "value_note": null,
+                         "note": 3, "level": "high", "status": "avaliada", "direction": "maior",
+                         "thresholds": { "3": 3, "2": 2, "1": 1 }, "target_value": "Gelo raso em altas latitudes",
+                         "observation": null, "sources": ["F10", "F14"], "sources_scope": "catalogo",
+                         "dataset_earth": "SMAP, mapas de permafrost", "dataset_target": "Odyssey GRS, SHARAD" }] }
       ],
-      "strengths": ["Parecido em: ...", "Operações humanas e EVA (3/3)"],
-      "limits": ["Diferente em: ...", "Proteção contra radiação (0/3): Nenhum lugar da Terra reproduz..."],
+      "level": "moderate",
+      "strengths": [{ "kind": "reading", "label": "Parecido em", "text": "..." },
+                    { "kind": "utility", "id": "U10", "name": "Operações humanas e EVA", "category": "operacoes-humanas",
+                      "adherence": 3, "level": "high" }],
+      "limits": [{ "kind": "utility", "id": "U15", "name": "Proteção contra radiação", "category": "limitacoes-universais",
+                   "adherence": 0, "level": "low" }],
       "to_measure": ["Ciclagem térmica", "Mobilidade em encostas"],
       "best_in_network_count": 6,
       "exploration_use": "...",
@@ -156,12 +168,29 @@ Regras:
   aquele alvo. É uma posição única: aderências iguais são desempatadas pela ordem da rede, e `rank_tied`
   é `true` em todo link que divide a aderência com outro local do mesmo alvo (o front mostra a marca de
   empate a partir desse campo, sem comparar notas).
-- `strengths` = utilidades com nota ≥ 2 (e, nos 3 locais da base, o "é similar em" da Leitura preliminar).
+- `level` (no link, em `dimensions`, em `utilities` e em cada `evidence`) é o patamar da nota, calculado no
+  ETL (`etl/config.py` › `nivel`) com os mesmos limiares dos pontos fortes e fracos: `high` ≥ 2,
+  `low` ≤ 1, `moderate` entre os dois e `null` a medir. O front só pinta (verde, âmbar, coral, cinza).
+- `strengths` e `limits` são listas de objetos: `kind: "utility"` aponta para uma utilidade do link (`id`),
+  onde estão o significado (`meaning`: para que serve, condição no alvo, critério) e a evidência
+  (`evidence`: uma linha por variável, com valor no local, nota, faixas, valor no alvo, observação do
+  local, ids das fontes e dataset de referência); `kind: "reading"` é a leitura qualitativa da base
+  ("Parecido em" / "Diferente em").
+  `strengths` = utilidades com nota ≥ 2 (e, nos 3 locais da base, o "é similar em" da Leitura preliminar).
   `limits` = utilidades com nota ≤ 1 (e o "é diferente em"); é obrigatório e nunca vazio, porque a radiação
   (U15) é uma limitação universal.
 - `sources` traz as fontes com link citadas nos dados daquele análogo. É a mesma lista nos dois links do
   análogo e, como as planilhas citam a fonte por variável (não por local), ela é quase a lista inteira do
   lote. Pendência do ETL: separar as fontes gerais do lote das específicas do local.
+- Evidência: nos lotes, `sources` são as fontes daquele valor para aquele local (aba Valores,
+  `sources_scope: "local"`). Na base, os valores não têm fonte própria e vêm as fontes da variável no
+  Catálogo (`sources_scope: "catalogo"`), que valem para os 3 locais da base; o card avisa isso.
+  `dataset_earth` / `dataset_target` saem da coluna "Dataset para extrair" do Catálogo: são o dataset de
+  referência da variável, não necessariamente a origem do valor. As referências dos ids ficam em
+  `source_index` (topo do JSON). `observation` traz só o trecho da observação da planilha que fala do local.
+- `narrative` é o parágrafo de "Por que é análogo" escrito a partir do dossiê
+  (`docs/referencia-analogos-pitch.md`) e das planilhas, só com números das planilhas
+  (`etl/config.py` › `NARRATIVAS`); `null` nos locais sem texto curado, que usam `description`.
 - `image` é a foto do local mostrada no topo do card. Não vem das planilhas: a escolha (arquivo, legenda,
   texto alternativo, autor, licença e link da fonte) fica em `etl/config.py` › `IMAGENS`, e o arquivo em
   `web/images/analogs/<id>.jpg` (máx. 1200 px de largura). `kind` é `foto` (de campo) ou `satelite`.
@@ -270,10 +299,10 @@ de longitude e é preciso girar a esfera, não a fórmula.
   ponta), para o arco não atravessar os globos. Altura proporcional à distância entre os pontos.
 - Espessura: `linewidth` de `LineBasicMaterial` é ignorado no WebGL. Usamos `Line2` + `LineMaterial` dos
   addons (largura em pixels).
-- Escala visual da nota (`score` 0–1):
-  - largura de 1 px (0) a 6 px (1);
-  - cor numa rampa contínua, do cinza-azulado (fraco) ao amarelo-laranja (forte);
-  - a legenda (`#legend`) mostra essa escala e a nota do link ativo; só aparece quando há seleção.
+- Escala visual: largura de 1 px (score 0) a 6 px (score 1); cor pelo patamar do link (`level`: verde
+  forte, âmbar parcial, coral fraca, cinza a medir; `LEVEL_COLORS` em `arcs.js` = tokens `--lv-*` do CSS).
+- A legenda (`#legend`) mostra sempre os patamares da escala 0–3 e, com seleção, o que o arco significa e
+  a nota do link ativo.
 - Os globos giram, então as pontas mudam: as posições são reescritas a cada frame no buffer que já existe,
   sem recriar a geometria.
 - Para a rede completa: arcos que saem da face escondida de um globo precisam perder opacidade ou sumir,
@@ -308,8 +337,14 @@ redesenhar lista e card.
     cima; o globo do alvo ativo faz o mesmo com o alvo;
   - a câmera enquadra a Terra e o globo do alvo ativo na área livre da tela (entre a lista e o card; no
     celular, acima da gaveta), usando `camera.setViewOffset` para deslocar o centro. O foco nunca afasta a
-    câmera além do enquadramento inicial: em telas largas ele aproxima; em telas estreitas a distância
-    fica igual e a cena só é recentralizada;
+    câmera além do enquadramento inicial nem aproxima mais que 88% dessa distância (`FOCUS_MIN_RATIO` em
+    `main.js`), para manter os globos e o arco num enquadramento aberto; em telas estreitas a distância
+    fica igual e a cena só é recentralizada. O card tem `--card-w: clamp(380px, 38vw, 500px)`;
+  - no desktop, a borda direita da lista e a borda esquerda do card podem ser arrastadas (ou ajustadas com
+    as setas, com foco na borda; duplo clique volta ao padrão). A largura vira `--list-w` / `--card-w` no
+    `:root`, fica salva no navegador e sempre sobram 260 px para a cena. A cada mudança a câmera
+    reenquadra a Terra e o alvo na área livre e se afasta o quanto for preciso para eles não saírem de
+    vista (o foco não tem mais o limite de "não afastar além do enquadramento inicial");
   - durante a animação da câmera o `OrbitControls` fica desligado e volta para o usuário no fim;
   - os outros marcadores ficam com opacidade 0,15 e um anel de destaque aparece no análogo e no alvo;
   - o card abre.
@@ -320,7 +355,8 @@ redesenhar lista e card.
 
 - No topo, o seletor de alvo `Lua | Marte` (começa em Marte).
 - Os 14 análogos, ordenados pelo `rank` do link com o alvo ativo. Cada item mostra a posição, o nome, o
-  país, uma mini barra (largura = `score`; o trilho inteiro é a escala 0–3) e a aderência com uma casa.
+  país, uma mini barra (largura = `score`; o trilho inteiro é a escala 0–3), a aderência com duas casas e um
+  selo do patamar (Forte / Parcial / Fraca), tudo na cor do `level`.
 - Marcas: "listado" (`listed_as_target`), "≈ aprox." (`approximate_coords`) e "=" na posição quando há empate
   (`rank_tied`).
 - Trocar o alvo reordena a lista com uma animação curta, mantém o item selecionado e o rola até ficar
@@ -344,21 +380,27 @@ carregar, o card aparece sem ela. Clicar na foto (ou `Enter` com ela em foco) ab
 
 Conteúdo da aba (link `analog × target`), nesta ordem:
 
-1. **Por que é análogo:** `description`, `clipping` (recorte usado) e `data_notes`, se houver.
-2. **Veredito:** aderência (`X,XX / 3`), posição (`Nº de 14`, com aviso de empate se `rank_tied`),
-   `best_in_network_count` e, para dar escala, a aderência do 1º colocado daquele alvo. Se
-   `matches_listing` for `false`, um aviso (não um erro): "A equipe listou este local como análogo da Lua,
-   mas o modelo indica Marte."
-3. **Por categoria:** uma barra por `dimensions`, na ordem de `data.dimensions`, com a nota e quantas
-   utilidades a sustentam (`evaluated` de `total`). "Limitações universais" aparece separada, como fora
-   da nota.
-4. **Pontos fortes** (`strengths`).
-5. **Onde a analogia falha** (`limits`): sempre visível, nunca dentro de algo recolhível.
-6. **Ainda a medir** (`to_measure`).
-7. **Utilidades** (`utilities`), agrupadas por categoria: nota ou "a medir", selo "melhor da rede" e o
-   texto `reading` quando existir, com o rótulo "Leitura da equipe para esta utilidade (base v1.1)" (o
-   texto é por utilidade, igual nos 3 locais da base). Começa recolhida.
-8. **Uso na exploração** (`exploration_use`).
+1. **Veredito:** aderência (`X,XX / 3`) na cor do patamar, selo ("Forte analogia", "Analogia parcial",
+   "Baixa aderência"), posição (`Nº de 14`, com aviso de empate se `rank_tied`), `best_in_network_count`
+   e, para dar escala, a aderência do 1º colocado daquele alvo. Se `matches_listing` for `false`, um aviso
+   (não um erro): "A equipe listou este local como análogo da Lua, mas o modelo indica Marte."
+2. **Por que é análogo:** `narrative` (ou `description`), a justificativa da planilha, `clipping` e
+   `data_notes`.
+3. **Pontos fortes da analogia** (`strengths`), em bloco verde: um card por ponto com a nota, o que mede
+   (`meaning`), por que essa nota aqui (as variáveis com nota em `evidence`, com valor, faixas, valor no
+   alvo e observação) e a fonte (chips com link; dataset de referência em itálico).
+4. **Onde a analogia falha** (`limits`), em bloco coral, com o mesmo formato. O bloco fica sempre aberto,
+   com o título e a nota de cada falha à vista; só o detalhe de cada ponto recolhe.
+
+   Nos dois blocos cada ponto é um `<details>`: o resumo (nome, finalidade e nota) aparece sempre, o
+   detalhe abre no clique, e "Expandir todos / Recolher todos" abre ou fecha o bloco inteiro. O que o
+   usuário abriu continua aberto ao trocar de aba ou de local.
+5. **Ainda a medir** (`to_measure`).
+6. **Desempenho por categoria:** uma barra por `dimensions`, na cor do patamar, com a nota e quantas
+   utilidades a sustentam. "Limitações universais" aparece separada, como fora da nota.
+7. **Uso na exploração** (`exploration_use`).
+8. **Utilidades** (`utilities`), agrupadas por categoria e coloridas pelo patamar: nota ou "a medir", selo
+   "melhor da rede" e o texto `reading` quando existir. Começa recolhida.
 9. **Fontes dos dados deste local** (`sources`), com links; recolhida, com a contagem.
 
 Categoria ausente no JSON e utilidade com `adherence: null` aparecem como "a medir", não como zero.

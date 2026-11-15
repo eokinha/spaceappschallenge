@@ -1,5 +1,5 @@
 import { el, prefersReducedMotion } from './dom.js';
-import { barWidth, fmtFixed, targetOf, targetShort } from './format.js';
+import { barWidth, fmtFixed, levelInfo, targetOf, targetShort } from './format.js';
 
 // Painel lateral: seletor de alvo e lista dos análogos, ordenada pelo rank do link com o alvo ativo.
 // É também a lista acessível do projeto: tudo o que o clique no 3D faz, ela faz pelo teclado.
@@ -38,20 +38,22 @@ export function createList({ root, data, linkOf, selection, onPick }) {
           el('span', { class: 'sr-only' }, ' (coordenada aproximada)'))
       : null;
     const fill = el('span', { class: 'bar-fill' });
-    const adherence = el('span', { class: 'site-adh' });
+    const adherence = el('span', { class: 'site-adh lv-text' });
+    const status = el('span', { class: 'tag tag-status tag-sm' });
+    const score = el('span', { class: 'site-score' },
+      el('span', { class: 'bar', 'aria-hidden': 'true' }, fill),
+      el('span', { class: 'sr-only' }, 'aderência '), adherence, status);
     const li = el('li', { class: 'site', role: 'option', id: `site-opt-${analog.id}`, 'data-id': analog.id,
       'aria-selected': 'false' },
       el('span', { class: 'site-rank-cell' }, rank, tied),
       el('span', { class: 'site-main' },
         el('span', { class: 'site-name' }, analog.name, ' ', listed, approx),
         el('span', { class: 'site-country' }, analog.country)),
-      el('span', { class: 'site-score' },
-        el('span', { class: 'bar', 'aria-hidden': 'true' }, fill),
-        el('span', { class: 'sr-only' }, 'aderência '), adherence));
+      score);
     li.addEventListener('click', () => { setCursor(analog.id); selection.selectAnalog(analog.id); onPick?.(); });
     li.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'touch') selection.setHover(analog.id); });
     li.addEventListener('pointerleave', () => selection.setHover(null));
-    items.set(analog.id, { li, rank, tied, fill, adherence, listed });
+    items.set(analog.id, { li, rank, tied, fill, adherence, listed, score, status });
   }
 
   root.replaceChildren(
@@ -102,7 +104,10 @@ export function createList({ root, data, linkOf, selection, onPick }) {
         item.rank.title = link?.rank_tied ? 'Empate: outro local tem a mesma aderência' : '';
         item.tied.hidden = !link?.rank_tied;
         item.fill.style.width = barWidth(link?.score);
-        item.adherence.textContent = fmtFixed(link?.adherence, 1);
+        item.adherence.textContent = fmtFixed(link?.adherence, 2);
+        const lv = levelInfo(link?.level);
+        item.score.className = `site-score ${lv.cls}`;
+        item.status.textContent = lv.label;
         item.listed.hidden = !link?.listed_as_target;
         item.listed.title = `Listado pela equipe como análogo ${targetOf(target)}`;
         listbox.append(item.li);

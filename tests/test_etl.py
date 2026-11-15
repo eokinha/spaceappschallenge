@@ -139,3 +139,49 @@ def test_site_falha_sem_arquivo_de_imagem(etl, monkeypatch, tmp_path):
     monkeypatch.setattr(config, "IMAGENS_DIR", tmp_path)
     with pytest.raises(FileNotFoundError):
         site.build(model, res, "2026-11-15T00:00:00Z")
+
+
+def test_site_niveis_pontos_e_evidencias(etl):
+    _, model, res = etl
+    s = site.build(model, res, "2026-11-15T00:00:00Z")
+    load.validar_site(s)
+    for l in s["links"]:
+        assert l["level"] == config.nivel(l["adherence"])
+        for d in l["dimensions"].values():
+            assert d["level"] == config.nivel(d["adherence"])
+        us = {u["id"]: u for u in l["utilities"]}
+        for u in us.values():
+            assert u["level"] == config.nivel(u["adherence"])
+            assert u["meaning"]["purpose"] and u["evidence"], (l["analog"], l["target"], u["id"])
+            for e in u["evidence"]:
+                assert all(fid in s["source_index"] for fid in e["sources"])
+        # Pontos fortes e fracos apontam para utilidades do link, com o mesmo nível e o lado certo do limiar.
+        for p in l["strengths"]:
+            if p["kind"] == "utility":
+                assert us[p["id"]]["adherence"] >= config.LIMIAR_FORTE and p["level"] == "high"
+        for p in l["limits"]:
+            if p["kind"] == "utility":
+                assert us[p["id"]]["adherence"] <= config.LIMIAR_FRACO and p["level"] == "low"
+    # Nota 1,0 conta como fraca (mesmo limiar da aba Validação), nunca como parcial.
+    assert config.nivel(1.0) == "low" and config.nivel(1.5) == "moderate" and config.nivel(2.0) == "high"
+    assert config.nivel(None) is None
+    hau = next(l for l in s["links"] if (l["analog"], l["target"]) == ("haughton", "marte"))
+    u01 = next(u for u in hau["utilities"] if u["id"] == "U01")
+    assert u01["meaning"]["condition"] == "noites com solo a −83 °C"
+    temp = next(e for e in u01["evidence"] if e["variable"] == "Temperatura média")
+    assert temp["value"] == -16.0 and temp["note"] == 1 and temp["sources_scope"] == "catalogo"
+    assert temp["dataset_earth"] == "MODIS LST (MOD11)" and temp["dataset_target"] == "MEDA"
+    # Narrativas curadas: as 10 do dossiê; os outros locais ficam com null.
+    narr = {a["id"] for a in s["analogs"] if a["narrative"]}
+    assert narr == set(config.NARRATIVAS)
+
+
+def test_observacao_so_do_local():
+    obs = "McMurdo: solo cimentado por gelo a menos de 1 m. Islândia: geleira vizinha (Dyngjujökull)"
+    assert site._observacao_do_local(obs, "mcmurdo") == "solo cimentado por gelo a menos de 1 m."
+    assert site._observacao_do_local(obs, "askja") == "geleira vizinha (Dyngjujökull)"
+    assert site._observacao_do_local(obs, "rio-tinto") is None
+    assert site._observacao_do_local("Igual em toda a superfície da Terra", "vargeao") == \
+        "Igual em toda a superfície da Terra"
+    misto = "Cinder, Meteor e Askja: treino das equipes Apollo. McMurdo: estação ocupada o ano todo"
+    assert site._observacao_do_local(misto, "meteor-crater") == "treino das equipes Apollo."

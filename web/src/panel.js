@@ -1,7 +1,8 @@
 import { el } from './dom.js';
 import { openLightbox } from './lightbox.js';
 import {
-  A_MEDIR, barWidth, fmtNoteOutOf3, fmtOutOf3, fmtRank, plural, targetOf, targetShort, targetsOf,
+  A_MEDIR, barWidth, fmtNoteOutOf3, fmtOutOf3, fmtRank, fmtThresholds, fmtValue, levelInfo, plural, targetOf,
+  targetShort, targetsOf,
 } from './format.js';
 
 // Card de detalhes do local selecionado (direita; gaveta no celular). Não é modal.
@@ -21,6 +22,8 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
   const total = data.analogs.length;
   // Seções recolhíveis: lembram se o usuário abriu, mesmo trocando de local ou de aba.
   const open = { utilities: false, sources: false };
+  // Pontos fortes/fracos abertos pelo usuário (`strength:U06`): continuam abertos ao trocar de aba ou de local.
+  const openPoints = new Set();
 
   const title = el('h2', { id: 'panel-title' });
   const subtitle = el('p', { class: 'card-sub' });
@@ -71,30 +74,123 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
 
   const section = (heading, attrs, ...children) =>
     el('section', { class: 'sec', ...attrs }, el('h3', {}, heading), ...children);
-  const bullets = (texts, cls) => el('ul', { class: cls ?? 'bullets' }, texts.map((t) => el('li', {}, t)));
 
   /** Uma linha "rótulo · barra · nota · N de M utilidades"; categoria ausente = "a medir". */
   function dimensionRow(dim, value) {
-    return el('div', { class: `dim${value ? '' : ' is-unmeasured'}` },
+    return el('div', { class: `dim ${levelInfo(value?.level).cls}${value ? '' : ' is-unmeasured'}` },
       el('span', { class: 'dim-label' }, dim.label),
       el('span', { class: 'bar', 'aria-hidden': 'true' }, el('span', { class: 'bar-fill', style: `width:${barWidth(value?.score)}` })),
-      el('span', { class: 'dim-note' }, value ? fmtOutOf3(value.adherence) : A_MEDIR),
+      el('span', { class: 'dim-note lv-text' }, value ? fmtOutOf3(value.adherence) : A_MEDIR),
       el('span', { class: 'dim-count' },
         value ? `${value.evaluated} de ${value.total} ${plural(value.total, 'utilidade', 'utilidades')}` : 'nenhuma utilidade avaliada'));
   }
 
   function utilityRow(u) {
     const measured = u.adherence != null && u.status !== 'a_medir';
-    return el('li', { class: `util${measured ? '' : ' is-unmeasured'}` },
+    return el('li', { class: `util ${levelInfo(u.level).cls}${measured ? '' : ' is-unmeasured'}` },
       el('div', { class: 'util-line' },
         el('span', { class: 'util-id' }, u.id),
         el('span', { class: 'util-name' }, u.name),
         u.best_in_network ? el('span', { class: 'tag tag-best' }, 'melhor da rede') : null,
-        el('span', { class: 'util-note' }, measured ? fmtNoteOutOf3(u.adherence) : A_MEDIR)),
+        el('span', { class: 'util-note lv-text' }, measured ? fmtNoteOutOf3(u.adherence) : A_MEDIR)),
       u.reading
         ? el('p', { class: 'util-reading' },
             el('span', { class: 'util-reading-label' }, 'Leitura da equipe para esta utilidade (base v1.1): '), u.reading)
         : null);
+  }
+
+  const sourceIndex = data.source_index ?? {};
+
+  /** Chip de fonte: id + referência, com link quando existe. `compact` mostra só o id (referência no title). */
+  function sourceChip(id, compact = false) {
+    const src = sourceIndex[id];
+    const label = compact || !src ? id : `${id} · ${src.label}`;
+    const cls = `src-chip${compact ? ' is-compact' : ''}`;
+    return src?.url
+      ? el('a', { class: cls, href: src.url, target: '_blank', rel: 'noopener', title: src.label }, label)
+      : el('span', { class: cls, title: src?.label ?? '' }, label);
+  }
+
+  /** Uma variável que decidiu a nota: valor no local, nota, faixas, valor no alvo, fontes e dataset. */
+  function evidenceRow(e, target) {
+    const measured = e.value != null;
+    const thresholds = fmtThresholds(e.thresholds, e.direction, e.unit);
+    const datasets = [e.dataset_earth && `Terra: ${e.dataset_earth}`, e.dataset_target && `${targetShort(target)}: ${e.dataset_target}`]
+      .filter(Boolean).join(' · ');
+    return el('li', { class: `ev ${levelInfo(e.level).cls}` },
+      el('div', { class: 'ev-line' },
+        el('span', { class: 'ev-var' }, e.variable),
+        el('span', { class: 'ev-val' }, measured ? fmtValue(e.value, e.unit) : (e.value_note || A_MEDIR)),
+        e.note != null ? el('span', { class: 'ev-note lv-text' }, `nota ${e.note}`) : el('span', { class: 'ev-note' },
+          e.status === 'sem_faixas' ? 'sem faixa' : A_MEDIR)),
+      e.target_value && e.target_value !== '—' ? el('div', { class: 'ev-sub' }, `No alvo: ${e.target_value}`) : null,
+      thresholds ? el('div', { class: 'ev-sub' }, thresholds) : null,
+      e.observation ? el('div', { class: 'ev-sub' }, e.observation) : null,
+      // Nos lotes a fonte é a do local; na base, o Catálogo cita fontes por variável (valem para os 3 locais
+      // da base), então elas aparecem só pelo id, com a referência no title.
+      e.sources?.length
+        ? el('div', { class: 'ev-src' },
+            el('span', { class: 'ev-k' }, e.sources_scope === 'catalogo'
+              ? 'Fontes da variável no Catálogo da base (não só deste local):' : plural(e.sources.length, 'Fonte:', 'Fontes:')),
+            e.sources.map((id) => sourceChip(id, e.sources_scope === 'catalogo')))
+        : null,
+      datasets ? el('div', { class: 'ev-sub ev-ds' }, `Dataset de referência — ${datasets}`) : null);
+  }
+
+  /** Card de um ponto forte ou fraco: nota, o que mede, por que essa nota aqui e de onde vem o dado. */
+  function pointCard(pt, utilById, target, side) {
+    if (pt.kind === 'reading') {
+      return el('div', { class: `point-card is-reading is-${side}` },
+        el('div', { class: 'point-head' }, el('span', { class: 'point-title' }, `Leitura da equipe — ${pt.label}`)),
+        el('p', {}, pt.text));
+    }
+    const u = utilById.get(pt.id);
+    const lv = levelInfo(pt.level);
+    const m = u?.meaning ?? {};
+    // Só as variáveis com nota explicam a nota; as que ainda faltam aparecem resumidas.
+    const evidence = (u?.evidence ?? []).filter((e) => e.note != null);
+    const missing = (u?.evidence ?? []).filter((e) => e.note == null).map((e) => e.variable);
+    // Recolhível: o resumo (título, critério curto e nota) fica sempre à vista; o detalhe abre no clique.
+    const key = `${side}:${pt.id}`;
+    const card = el('details', { class: `point-card is-${side} ${lv.cls}`, open: openPoints.has(key) },
+      el('summary', { class: 'point-head' },
+        el('span', { class: 'point-chevron', 'aria-hidden': 'true' }),
+        el('span', { class: 'point-heading' },
+          el('span', { class: 'point-title' }, pt.name),
+          el('span', { class: 'point-sub' }, m.purpose && m.purpose !== pt.name ? m.purpose : pt.id)),
+        el('span', { class: 'tag tag-status point-score' }, fmtNoteOutOf3(pt.adherence),
+          el('span', { class: 'sr-only' }, ` (${lv.label.toLowerCase()})`))),
+      el('div', { class: 'point-body' },
+        el('section', { class: 'point-block' },
+          el('h4', {}, 'O que mede'),
+          m.condition ? el('p', {}, el('span', { class: 'point-k' }, `Em ${targetShort(target)}: `), m.condition) : null,
+          m.criterion ? el('p', {}, el('span', { class: 'point-k' }, 'Critério: '), m.criterion) : null),
+        el('section', { class: 'point-block' },
+          el('h4', {}, 'Por que essa nota aqui'),
+          evidence.length ? el('ul', { class: 'evidence' }, evidence.map((e) => evidenceRow(e, target)))
+            : el('p', { class: 'muted' }, 'Sem variável medida.'),
+          missing.length ? el('p', { class: 'muted ev-missing' }, `Ainda a medir: ${missing.join('; ')}.`) : null,
+          u?.reading ? el('p', { class: 'util-reading' },
+            el('span', { class: 'util-reading-label' }, 'Leitura da equipe (base v1.1): '), u.reading) : null)));
+    card.addEventListener('toggle', () => { if (card.open) openPoints.add(key); else openPoints.delete(key); });
+    return card;
+  }
+
+  /** Bloco de pontos (fortes ou fracos) com o botão "expandir todos / recolher todos". */
+  function pointsSection(title, cls, points, utilById, target, side, empty) {
+    const cards = points.map((pt) => pointCard(pt, utilById, target, side));
+    const details = cards.filter((c) => c.tagName === 'DETAILS');
+    const toggle = details.length > 1
+      ? el('button', { type: 'button', class: 'link-btn points-toggle', onclick: () => {
+          const openAll = !details.every((d) => d.open);
+          for (const d of details) d.open = openAll;
+          toggle.textContent = openAll ? 'Recolher todos' : 'Expandir todos';
+        } }, details.every((d) => d.open) ? 'Recolher todos' : 'Expandir todos')
+      : null;
+    return el('section', { class: `sec points ${cls}` },
+      el('div', { class: 'points-head' },
+        el('h3', {}, title, ' ', el('span', { class: 'count' }, String(details.length))), toggle),
+      cards.length ? el('div', { class: 'point-list' }, cards) : el('p', { class: 'muted' }, empty));
   }
 
   function renderBody(analog, target, link) {
@@ -109,29 +205,25 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
           `Ver ${targetShort(targetById.get(id))}`))));
     }
 
-    // 1. Por que é análogo
-    parts.push(section('Por que é análogo', {},
-      analog.description ? el('p', {}, analog.description) : null,
-      analog.clipping ? el('p', { class: 'kv' }, el('span', { class: 'k' }, 'Recorte usado: '), analog.clipping) : null,
-      analog.data_notes ? el('p', { class: 'kv' }, el('span', { class: 'k' }, 'Sobre os dados: '), analog.data_notes) : null));
-
-    // 2. Veredito
+    // 1. Veredito: nota com a cor do nível, selo e posição na rede.
     const best = data.links.find((l) => l.target === target.id && l.rank === 1);
     const bestAnalog = best ? analogById.get(best.analog) : null;
     const n = link.best_in_network_count;
-    parts.push(section(`Veredito para ${target.name}`, { class: 'sec verdict' },
+    const lv = levelInfo(link.level);
+    parts.push(section(`Veredito para ${target.name}`, { class: `sec verdict ${lv.cls}` },
       el('div', { class: 'verdict-row' },
         el('div', { class: 'verdict-main' },
-          el('span', { class: 'verdict-value' }, fmtOutOf3(link.adherence)),
+          el('span', { class: 'verdict-value lv-text' }, fmtOutOf3(link.adherence)),
           el('span', { class: 'verdict-cap' }, 'aderência')),
         el('div', { class: 'verdict-main' },
           el('span', { class: 'verdict-value' }, fmtRank(link.rank, total)),
-          el('span', { class: 'verdict-cap' }, 'posição na rede'))),
-      el('span', { class: 'bar bar-lg', 'aria-hidden': 'true' }, el('span', { class: 'bar-fill', style: `width:${barWidth(link.score)}` })),
+          el('span', { class: 'verdict-cap' }, 'posição na rede')),
+        el('span', { class: `tag tag-status ${lv.cls}` }, lv.tag)),
+      el('span', { class: `bar bar-lg ${lv.cls}`, 'aria-hidden': 'true' }, el('span', { class: 'bar-fill', style: `width:${barWidth(link.score)}` })),
       link.rank_tied
         ? el('p', { class: 'muted' }, 'Empate: outro local tem a mesma aderência para este alvo; a ordem entre eles segue a da planilha.')
         : null,
-      n != null ? el('p', {}, `Melhor da rede em ${n} ${plural(n, 'utilidade', 'utilidades')}.`) : null,
+      n ? el('p', {}, `Melhor da rede em ${n} ${plural(n, 'utilidade', 'utilidades')}.`) : null,
       best && bestAnalog
         ? el('p', { class: 'muted' },
             `Para referência: a escala vai de 0 a 3 e o 1º colocado para ${targetShort(target)} ` +
@@ -143,10 +235,33 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
             `${targetById.has(analog.model_indicates) ? targetShort(targetById.get(analog.model_indicates)) : analog.model_indicates}.`)
         : null));
 
-    // 3. Por categoria
+    // 2. Por que é análogo: parágrafo curado (etl/config.py › NARRATIVAS) ou a justificativa da planilha.
+    parts.push(section('Por que é análogo', {},
+      el('p', { class: 'narrative' }, analog.narrative || analog.description || ''),
+      analog.narrative && analog.description
+        ? el('p', { class: 'kv' }, el('span', { class: 'k' }, 'Na planilha: '), analog.description) : null,
+      analog.clipping ? el('p', { class: 'kv' }, el('span', { class: 'k' }, 'Recorte usado: '), analog.clipping) : null,
+      analog.data_notes ? el('p', { class: 'kv' }, el('span', { class: 'k' }, 'Sobre os dados: '), analog.data_notes) : null));
+
+    // 3. Pontos fortes e 4. onde a analogia falha (sempre aberta): um card explicativo por ponto.
+    const utilById = new Map((link.utilities ?? []).map((u) => [u.id, u]));
+    parts.push(pointsSection('Pontos fortes da analogia', 'points-strength', link.strengths ?? [], utilById, target,
+      'strength', 'Nenhuma utilidade com nota ≥ 2 para este alvo.'));
+    // "Onde a analogia falha" nunca some: o bloco fica sempre aberto e mostra o título e a nota de cada falha.
+    parts.push(pointsSection('Onde a analogia falha', 'points-limit limits', link.limits ?? [], utilById, target,
+      'limit', 'Nenhuma falha registrada.'));
+
+    // 5. Ainda a medir
+    if (link.to_measure?.length) {
+      parts.push(section('Ainda a medir', {},
+        el('ul', { class: 'chips' }, link.to_measure.map((t) => el('li', { class: 'chip-measure' }, t))),
+        el('p', { class: 'muted' }, 'Sem dado ainda: não entram na média e não valem zero.')));
+    }
+
+    // 6. Por categoria
     const inScore = data.dimensions.filter((d) => d.in_score);
     const outOfScore = data.dimensions.filter((d) => !d.in_score);
-    parts.push(section('Por categoria', {},
+    parts.push(section('Desempenho por categoria', {},
       el('div', { class: 'dims' }, inScore.map((d) => dimensionRow(d, link.dimensions?.[d.id]))),
       outOfScore.length
         ? el('div', { class: 'dims dims-out' },
@@ -155,21 +270,10 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
             el('p', { class: 'muted' }, 'Não entra na aderência: vale para qualquer lugar da Terra.'))
         : null));
 
-    // 4. Pontos fortes
-    parts.push(section('Pontos fortes', {},
-      link.strengths?.length ? bullets(link.strengths) : el('p', { class: 'muted' }, 'Nenhum ponto forte registrado para este alvo.')));
+    // 7. Uso na exploração
+    if (link.exploration_use) parts.push(section('Uso na exploração', {}, el('p', {}, link.exploration_use)));
 
-    // 5. Onde a analogia falha: sempre aberta, nunca recolhível.
-    parts.push(section('Onde a analogia falha', { class: 'sec limits' }, bullets(link.limits ?? [])));
-
-    // 6. Ainda a medir
-    if (link.to_measure?.length) {
-      parts.push(section('Ainda a medir', {},
-        el('ul', { class: 'chips' }, link.to_measure.map((t) => el('li', {}, t))),
-        el('p', { class: 'muted' }, 'Sem dado ainda: não entram na média e não valem zero.')));
-    }
-
-    // 7. Utilidades, agrupadas por categoria
+    // 8. Utilidades, agrupadas por categoria (auditoria completa)
     const groups = data.dimensions
       .map((d) => ({ dim: d, utils: (link.utilities ?? []).filter((u) => u.category === d.id) }))
       .filter((g) => g.utils.length);
@@ -181,10 +285,7 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
     utilities.addEventListener('toggle', () => { open.utilities = utilities.open; });
     parts.push(utilities);
 
-    // 8. Uso na exploração
-    if (link.exploration_use) parts.push(section('Uso na exploração', {}, el('p', {}, link.exploration_use)));
-
-    // 9. Fontes
+    // 9. Fontes gerais
     const sources = el('details', { class: 'sec fold', open: open.sources },
       el('summary', {}, el('h3', {}, 'Fontes dos dados deste local'), el('span', { class: 'count' }, String(link.sources?.length ?? 0))),
       el('ul', { class: 'sources' }, (link.sources ?? []).map((s) =>

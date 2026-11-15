@@ -169,3 +169,5 @@ Gerado junto, com o contrato descrito em `docs/instrucoes-desenvolvimento.md` (s
 `etl/analogs.schema.json`. Usa os mesmos ids (`analogs[].id` = `local_id`, `targets[].id` = `alvo_id`).
 `analogs[].image` (foto e crédito de cada local) não vem das planilhas: vem de `etl/config.py` › `IMAGENS`
 e dos arquivos em `web/images/analogs/`.
+Também não vêm das planilhas: `analogs[].narrative` (`NARRATIVAS`) e o mapeamento variável de pontuação →
+variável do Catálogo (`VARIAVEL_CATALOGO`), usado para achar as fontes e o dataset de cada evidência na base.
