@@ -1,4 +1,4 @@
-import { el } from './dom.js';
+import { el, prefersReducedMotion } from './dom.js';
 import { openLightbox } from './lightbox.js';
 import {
   A_MEDIR, barWidth, fmtNoteOutOf3, fmtOutOf3, fmtRank, fmtThresholds, fmtValue, levelInfo, plural, targetOf,
@@ -6,7 +6,10 @@ import {
 } from './format.js';
 import { t } from './i18n.js';
 
-// Card de detalhes do local selecionado (direita; gaveta no celular). Não é modal.
+// Card de detalhes do local selecionado: ocupa a área à direita da lista, sobre um fundo que cobre a cena
+// (#panel-backdrop, styles.css); gaveta no celular. Ao selecionar um local ele só abre depois de
+// `openDelay` ms, para a animação do foco aparecer antes; a cada troca de local ele fecha e reabre assim.
+// A lista continua usável ao lado; os elementos de `inertWhileOpen` (a cena) ficam inertes enquanto ele está aberto.
 // O cabeçalho e as abas são criados uma vez; só o corpo é refeito a cada mudança de seleção.
 // Textos visíveis passam por t() (i18n.js); o que vem do analogs.json já chega traduzido.
 
@@ -17,8 +20,10 @@ import { t } from './i18n.js';
  * @param {(analogId: string, targetId: string) => object | undefined} opts.linkOf
  * @param {ReturnType<import('./selection.js').createSelection>} opts.selection
  * @param {() => void} [opts.onLayout]  o card abriu, fechou ou mudou de tamanho
+ * @param {number} [opts.openDelay]     ms entre a seleção e a abertura do modal (0 com movimento reduzido)
+ * @param {HTMLElement[]} [opts.inertWhileOpen]  ficam inertes (fora do Tab) com o modal aberto
  */
-export function createPanel({ root, data, linkOf, selection, onLayout }) {
+export function createPanel({ root, data, linkOf, selection, onLayout, openDelay = 0, inertWhileOpen = [] }) {
   const analogById = new Map(data.analogs.map((a) => [a.id, a]));
   const targetById = new Map(data.targets.map((tgt) => [tgt.id, tgt]));
   const total = data.analogs.length;
@@ -39,7 +44,9 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
       expand.setAttribute('aria-label', expanded ? t('Recolher o card') : t('Expandir o card'));
     } }, '▴');
   expand.setAttribute('aria-label', t('Expandir o card'));
-  const close = el('button', { type: 'button', class: 'icon-btn', 'aria-label': t('Fechar o card'),
+  // ✕ no canto superior direito do card, por cima da foto (fica sempre à vista).
+  const close = el('button', { type: 'button', class: 'icon-btn card-close', 'aria-label': t('Fechar o card'),
+    title: t('Fechar o card'),
     onclick: () => selection.clear() }, '✕');
 
   const tabs = new Map();
@@ -69,10 +76,11 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
   root.hidden = true;
   const photo = el('figure', { class: 'card-photo', hidden: true });
   root.replaceChildren(
+    close,
     photo,
     el('div', { class: 'card-head' },
       el('div', { class: 'card-title' }, title, subtitle, approx),
-      el('div', { class: 'card-actions' }, expand, close)),
+      el('div', { class: 'card-actions' }, expand)),
     tablist, body);
 
   const section = (heading, attrs, ...children) =>
@@ -334,13 +342,32 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
     return frag;
   }
 
+  let openTimer = null;
+
+  function show() {
+    openTimer = null;
+    root.hidden = false;
+    document.body.classList.add('modal-open');
+    for (const node of inertWhileOpen) node.inert = true;
+    onLayout?.();
+  }
+
+  function hide() {
+    clearTimeout(openTimer);
+    openTimer = null;
+    const wasOpen = !root.hidden;
+    root.hidden = true;
+    document.body.classList.remove('modal-open');
+    for (const node of inertWhileOpen) node.inert = false;
+    if (root.contains(document.activeElement)) document.activeElement.blur();
+    if (wasOpen) onLayout?.();
+  }
+
   function render(state, prev) {
     const analog = state.analogId ? analogById.get(state.analogId) : null;
-    const wasHidden = root.hidden;
     if (!analog) {
-      root.hidden = true;
+      hide();
       body.replaceChildren();
-      if (!wasHidden) onLayout?.();
       return;
     }
     const target = targetById.get(state.targetId);
@@ -364,8 +391,14 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
       t('Sem ligação com {name} nos dados: {v}.', { name: target.name, v: A_MEDIR })));
     if (!prev || prev.analogId !== state.analogId || prev.targetId !== state.targetId) body.scrollTop = 0;
 
-    root.hidden = false;
-    if (wasHidden) onLayout?.();
+    // Outro local: o card fecha, a animação do foco roda de novo e ele reabre depois de openDelay.
+    // Trocar só o alvo (aba Lua | Marte) não fecha o card.
+    const analogChanged = prev?.analogId && prev.analogId !== state.analogId;
+    if (analogChanged && (!root.hidden || openTimer)) hide();
+    if (root.hidden && !openTimer) {
+      const ms = prefersReducedMotion() ? 0 : openDelay;
+      if (ms > 0) openTimer = setTimeout(show, ms); else show();
+    }
   }
 
   selection.subscribe(render);

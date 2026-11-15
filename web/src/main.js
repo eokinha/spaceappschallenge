@@ -51,6 +51,11 @@ const SCENE_HALF_HEIGHT = 1.4;
 // Folga em volta da Terra + globo do alvo quando há um local em foco.
 const FOCUS_MARGIN = 0.12;
 const INITIAL_TARGET = 'marte';
+// Ao selecionar um local (com o card fechado), o foco anima devagar — Terra e alvo girando, câmera
+// enquadrando — e o card abre logo depois. Vale para cada troca de local (o card fecha e reabre);
+// trocar só o alvo com o card aberto usa a velocidade normal.
+const FOCUS_ANIM_MS = 2600;
+const MODAL_DELAY_MS = 3000;
 const DIM_OPACITY = 0.15;
 // Sem seleção e sem ninguém mexer por este tempo, globos e câmera voltam à posição inicial.
 const IDLE_RESET_MS = 10000;
@@ -71,6 +76,7 @@ const listEl = document.getElementById('site-list');
 const panelEl = document.getElementById('panel');
 const legendEl = document.getElementById('legend');
 const tooltipEl = document.getElementById('tooltip');
+const backdropEl = document.getElementById('panel-backdrop');
 const listToggle = document.getElementById('list-toggle');
 const headerEl = document.querySelector('header');
 fitTitle(headerEl.querySelector('h1'));
@@ -117,7 +123,8 @@ let app = null; // { data, selection, targetById, ... } depois que o JSON carreg
 
 /**
  * Área da tela que sobra para os globos (px): abaixo do cabeçalho, à direita da lista e longe do card.
- * O card é medido: se ocupa a largura toda (gaveta embaixo) a área fica acima dele; senão (coluna à
+ * No desktop o card é um modal por cima da cena (fundo escurecido) e não entra na conta (cardOpen falso);
+ * no modo compacto ele é uma gaveta/coluna e é medido: se ocupa a largura toda (gaveta embaixo) a área fica acima dele; senão (coluna à
  * direita, no desktop ou no celular deitado) fica à esquerda. A câmera centraliza a cena nessa área com
  * setViewOffset (focus.js).
  */
@@ -164,7 +171,10 @@ function currentFrame() {
   const other = LAYOUT[body];
   const min = Math.min(-LAYOUT.earth.radius, other.x - other.radius);
   const max = Math.max(LAYOUT.earth.radius, other.x + other.radius);
-  const frame = frameFor((min + max) / 2, (max - min) / 2 + FOCUS_MARGIN, LAYOUT.earth.radius + FOCUS_MARGIN, true);
+  // Desktop: o modal abre por cima da cena depois da animação, então o enquadramento usa toda a área à
+  // direita da lista (é o que se vê durante a animação e quando o modal fecha). Compacto: a gaveta/coluna
+  // tira espaço da cena.
+  const frame = frameFor((min + max) / 2, (max - min) / 2 + FOCUS_MARGIN, LAYOUT.earth.radius + FOCUS_MARGIN, isMobile());
   // Com lista e card largos a área livre encolhe e a câmera se afasta o necessário para a Terra e o alvo
   // caberem inteiros (antes ela parava no enquadramento inicial e os globos ficavam sob os painéis).
   // Também não aproxima demais: no máximo FOCUS_MIN_RATIO da distância inicial, para manter os globos e o
@@ -312,16 +322,21 @@ async function loadData() {
     listToggle.setAttribute('aria-expanded', 'false');
   };
   listToggle.addEventListener('click', () => {
+    // Celular: com o card aberto o fundo cobre a folha da lista; "Locais" fecha o card e abre a lista.
+    if (selection.state.analogId) selection.clear();
     const openNow = listEl.classList.toggle('is-open');
     listToggle.setAttribute('aria-expanded', String(openNow));
   });
 
   // A ordem das assinaturas importa: lista e card primeiro (mudam o layout), cena depois (mede o layout).
   createList({ root: listEl, data, linkOf, selection, onPick: closeSheet });
-  createPanel({ root: panelEl, data, linkOf, selection });
-  // Bordas arrastáveis da lista e do card: a cada mudança, a câmera reenquadra os globos na área livre
+  createPanel({ root: panelEl, data, linkOf, selection, openDelay: MODAL_DELAY_MS,
+    inertWhileOpen: [canvas, legendEl] });
+  // Borda arrastável da lista: a cada mudança, a câmera reenquadra os globos na área livre
   // (e se afasta o quanto for preciso para eles não saírem de vista).
-  createPanelResizers({ listEl, panelEl, onChange: () => focus.jumpTo(currentFrame()) });
+  createPanelResizers({ listEl, onChange: () => focus.jumpTo(currentFrame()) });
+  // Clique no fundo escurecido (fora do modal de detalhes) fecha o card, como o clique no vazio da cena.
+  backdropEl.addEventListener('click', () => selection.clear());
   const legend = buildLegend();
 
   function syncScene(state, prev) {
@@ -343,11 +358,13 @@ async function loadData() {
     if (link) legend.value.textContent = `· ${analog.name} → ${target.short_name}: ${fmtOutOf3(link.adherence)} (${levelInfo(link.level).label.toLowerCase()})`;
 
     const frame = currentFrame();
+    // Outro local selecionado: animação lenta, antes de o card (re)abrir.
+    const ms = analog && analog.id !== prev?.analogId ? FOCUS_ANIM_MS : undefined;
     if (analog) {
-      focus.rotateGlobeTo(globes.earth, analog.lat, analog.lon, frame.position);
-      focus.rotateGlobeTo(globes[target.body], target.lat, target.lon, frame.position);
+      focus.rotateGlobeTo(globes.earth, analog.lat, analog.lon, frame.position, ms);
+      focus.rotateGlobeTo(globes[target.body], target.lat, target.lon, frame.position, ms);
     }
-    if (prev) focus.flyTo(frame); else focus.jumpTo(frame);
+    if (prev) focus.flyTo(frame, ms); else focus.jumpTo(frame);
   }
   selection.subscribe(syncScene);
   // Fechar a seleção deixa os globos virados para o último local: conta como "fora do padrão".

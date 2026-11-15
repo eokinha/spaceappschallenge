@@ -123,7 +123,6 @@ const EN = {
   'Foto ampliada': 'Enlarged photo',
   'Fechar a foto': 'Close the photo',
   'Largura da lista de locais': 'Width of the site list',
-  'Largura do card de detalhes': 'Width of the details card',
   '{label} (arraste, ou use as setas; duplo clique volta ao padrão)':
     '{label} (drag, or use the arrow keys; double-click resets to the default)',
   'Arraste para redimensionar · duplo clique volta ao padrão': 'Drag to resize · double-click resets to the default',
