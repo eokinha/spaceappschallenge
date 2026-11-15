@@ -34,7 +34,10 @@ a { color: #9fd3ff; }
 /* Três colunas: título à esquerda, logos no centro da tela (fora das colunas laterais) e status/idioma/botão à direita. */
 header { position: fixed; top: 0; left: 0; right: 0; height: var(--top); padding: var(--top-pad) 16px 0; pointer-events: none;
   display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; z-index: 3; }
-header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: auto; }
+/* Título em duas linhas, alinhado e com a mesma largura da lista logo abaixo (#site-list). */
+header h1 { justify-self: start; width: calc(var(--list-w) - var(--gap)); margin-left: calc(var(--gap) - 16px);
+  font-size: 12px; font-weight: 600; line-height: 1.35; text-wrap: balance; pointer-events: auto;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
 .header-right { justify-self: end; display: flex; align-items: center; gap: 12px; pointer-events: auto; }
 .logos { display: flex; align-items: center; gap: 12px; padding: 0 16px; }
 .logos img { display: block; width: auto; height: 68px; }
@@ -131,6 +134,19 @@ header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hi
 .resizer:hover::after, .resizer:focus-visible::after, .is-resizing .resizer::after { background: #9fd3ff; height: 64px; margin-top: -32px; }
 .resizer:focus-visible { outline: none; }
 .is-resizing, .is-resizing * { cursor: ew-resize !important; user-select: none; }
+
+/* Barras de rolagem (lista, card e demais roláveis): trilho transparente, polegar fino na cor da borda.
+   WebKit/Chromium usam os pseudo-elementos (permitem hover); Firefox usa as propriedades padrão. */
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  *:hover { scrollbar-color: #3d5282 transparent; }
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
+::-webkit-scrollbar-thumb { border-radius: 4px; background: var(--border); border: 1px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background-color: #3d5282; }
+::-webkit-scrollbar-thumb:active { background-color: #9fd3ff; }
+::-webkit-scrollbar-button { display: none; }
 
 /* ---------- Painel lateral: lista de locais ---------- */
 #site-list { position: fixed; z-index: 2; top: var(--top); left: var(--gap); bottom: var(--gap);
