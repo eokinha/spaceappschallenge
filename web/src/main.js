@@ -51,6 +51,9 @@ const SCENE_HALF_HEIGHT = 1.4;
 const FOCUS_MARGIN = 0.12;
 const INITIAL_TARGET = 'marte';
 const DIM_OPACITY = 0.15;
+// Sem seleção e sem ninguém mexer por este tempo, globos e câmera voltam à posição inicial.
+const IDLE_RESET_MS = 10000;
+const IDLE_RESET_ANIM_MS = 1400;
 
 // Pontos fáceis de reconhecer para conferir a projeção (ativar com ?debug=1).
 const DEBUG_POINTS = [
@@ -96,6 +99,7 @@ for (const [id, cfg] of Object.entries(LAYOUT)) {
   const globe = createGlobe({ id, radius: cfg.radius, texture: cfg.texture, renderer });
   globe.position.x = cfg.x;
   globe.rotation.set(...cfg.rotation);
+  globe.userData.homeQuaternion = globe.quaternion.clone(); // orientação padrão (ver resetView)
   createRing(globe);
   scene.add(globe);
   globes[id] = globe;
@@ -178,6 +182,58 @@ function resize() {
   focus.jumpTo(currentFrame());
 }
 window.addEventListener('resize', resize);
+
+/**
+ * Volta à posição padrão depois de IDLE_RESET_MS sem mexer na cena, só quando não há local selecionado:
+ * cada globo retorna à orientação inicial e a câmera ao enquadramento dos três globos.
+ * "Mexer" é arrastar (um globo ou a cena) ou dar zoom; passar o mouse não conta.
+ */
+let idleTimer = null;
+let viewDirty = false; // algo saiu do padrão desde a última volta
+const resetButton = document.getElementById('reset-view');
+/** O botão "Reset view" só aparece quando há o que desfazer: cena mexida ou local selecionado. */
+function setViewDirty(dirty) {
+  viewDirty = dirty;
+  resetButton.hidden = !(viewDirty || app?.selection.state.analogId);
+}
+function resetView() {
+  clearTimeout(idleTimer);
+  idleTimer = null;
+  if (!viewDirty || app?.selection.state.analogId) return;
+  setViewDirty(false);
+  for (const globe of Object.values(globes)) {
+    focus.rotateGlobeToQuaternion(globe, globe.userData.homeQuaternion, IDLE_RESET_ANIM_MS);
+  }
+  focus.flyTo(frameFor(0, SCENE_HALF_WIDTH, SCENE_HALF_HEIGHT, false), IDLE_RESET_ANIM_MS);
+}
+function scheduleIdleReset() {
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(resetView, IDLE_RESET_MS);
+}
+function touchView() { setViewDirty(true); scheduleIdleReset(); }
+/** Volta agora (duplo clique no vazio ou botão): fecha a seleção, se houver, e restaura globos e câmera. */
+function resetViewNow() {
+  app?.selection.clear();
+  setViewDirty(true);
+  resetView();
+}
+let dragStart = null; // só um arrasto de verdade (não um clique) conta como "mexer"
+canvas.addEventListener('pointerdown', (event) => {
+  dragStart = { x: event.clientX, y: event.clientY };
+  clearTimeout(idleTimer);
+  idleTimer = null;
+});
+function onPointerEnd(event) {
+  const moved = dragStart ? Math.hypot(event.clientX - dragStart.x, event.clientY - dragStart.y) : 0;
+  dragStart = null;
+  if (moved > 5) touchView(); else if (viewDirty) scheduleIdleReset();
+}
+canvas.addEventListener('pointerup', onPointerEnd);
+canvas.addEventListener('pointercancel', onPointerEnd);
+canvas.addEventListener('wheel', touchView, { passive: true });
+// Duplo clique no vazio (fora dos globos): volta na hora. O primeiro clique já limpou a seleção, se havia.
+canvas.addEventListener('dblclick', (event) => { if (!app?.interaction.pickGlobe(event)) resetViewNow(); });
+resetButton.addEventListener('click', resetViewNow);
 resize();
 
 /** Legenda: os patamares da escala (sempre visível) e, com seleção, o que o arco significa. */
@@ -292,15 +348,18 @@ async function loadData() {
     if (prev) focus.flyTo(frame); else focus.jumpTo(frame);
   }
   selection.subscribe(syncScene);
+  // Fechar a seleção deixa os globos virados para o último local: conta como "fora do padrão".
+  selection.subscribe((state) => { if (!state.analogId) touchView(); else { clearTimeout(idleTimer); setViewDirty(viewDirty); } });
   syncScene(selection.state, null);
+  setViewDirty(viewDirty); // seleção restaurada na carga: o botão de reset já aparece
 
   // Destaque passageiro: item da lista ↔ marcador no globo.
   selection.subscribeHover((id) => {
     for (const [markerId, marker] of analogMarkers) marker.scale.setScalar(markerId === id ? 1.9 : 1);
   });
 
-  createInteraction({
-    canvas, camera, globes, tooltip: tooltipEl,
+  app.interaction = createInteraction({
+    canvas, camera, globes, tooltip: tooltipEl, controls, focus,
     markers: [...analogMarkers.values(), ...targetMarkers.values()],
     onHover: (marker) => selection.setHover(marker?.userData.kind === 'analog' ? marker.userData.id : null),
     onClick: (marker) => {

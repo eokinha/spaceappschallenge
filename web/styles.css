@@ -14,7 +14,8 @@
   --lv-moderate: #fbbf24;
   --lv-low: #f87171;
   --lv-none: #94a3b8;
-  --top: 76px;
+  --top: 88px;
+  --top-pad: 12px; /* distância das logos/botões até a borda de cima */
   --gap: 12px;
 }
 * { box-sizing: border-box; }
@@ -31,16 +32,21 @@ a { color: #9fd3ff; }
 
 #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
 /* Três colunas: título à esquerda, logos no centro da tela (fora das colunas laterais) e status/idioma/botão à direita. */
-header { position: fixed; top: 0; left: 0; right: 0; height: var(--top); padding: 0 16px; pointer-events: none;
+header { position: fixed; top: 0; left: 0; right: 0; height: var(--top); padding: var(--top-pad) 16px 0; pointer-events: none;
   display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; z-index: 3; }
 header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: auto; }
 .header-right { justify-self: end; display: flex; align-items: center; gap: 12px; pointer-events: auto; }
 .logos { display: flex; align-items: center; gap: 12px; padding: 0 16px; }
-.logos img { display: block; width: auto; height: 60px; }
-.logos img + img { height: 50px; padding-left: 12px; border-left: 1px solid var(--border); box-sizing: content-box; }
+.logos img { display: block; width: auto; height: 68px; }
+.logos img + img { height: 58px; padding-left: 12px; border-left: 1px solid var(--border); box-sizing: content-box; }
 #status { color: var(--muted); font-size: 12px; white-space: nowrap; }
 #list-toggle { display: none; min-height: 44px; padding: 0 16px; border-radius: 8px;
   border: 1px solid var(--border); background: var(--panel); cursor: pointer; }
+
+/* Botão "Reset view", ao lado da troca de idioma; só aparece quando há o que desfazer. */
+#reset-view { min-height: 32px; padding: 0 10px; border-radius: 7px; border: 1px solid var(--border); background: var(--panel);
+  color: var(--fg); font-size: 12px; white-space: nowrap; cursor: pointer; }
+#reset-view:hover { border-color: #3d5282; }
 
 /* Troca de idioma EN | PT: o idioma ativo fica em destaque. */
 .lang { display: inline-flex; align-items: center; gap: 3px; }
@@ -314,11 +320,14 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
   header { grid-template-columns: auto minmax(0, 1fr); }
   header h1 { display: none; }
   .logos { justify-self: start; gap: 8px; padding: 0 4px; }
-  .logos img { height: 40px; }
-  .logos img + img { height: 32px; padding-left: 8px; }
+  .logos img { height: 46px; }
+  .logos img + img { height: 38px; padding-left: 8px; }
   .header-right { justify-self: end; gap: 8px; }
   .lang-btn { min-height: 44px; padding: 0 8px; }
   #list-toggle { display: block; }
+  /* Sem espaço para o texto ao lado do idioma + "Locais": fica só o ícone (o title e o leitor de tela dizem o resto). */
+  #reset-view { min-height: 44px; min-width: 44px; padding: 0 8px; font-size: 16px; }
+  #reset-view .reset-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .resizer { display: none; }
   .labels { left: 0; font-size: 11px; gap: 10px; }
   .has-selection .labels, .has-selection #legend { display: none; }
@@ -345,9 +354,9 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
 /* Celular deitado (pouca altura): cabeçalho mais baixo e o card numa coluna à direita, com a altura toda,
    em vez de uma gaveta que deixaria só uma faixa fina para os globos. */
 @media (max-height: 500px) and (min-width: 600px) {
-  :root { --top: 56px; }
-  .logos img { height: 32px; }
-  .logos img + img { height: 26px; }
+  :root { --top: 64px; --top-pad: 8px; }
+  .logos img { height: 40px; }
+  .logos img + img { height: 32px; }
   #site-list { right: auto; width: min(420px, calc(100% - 16px)); max-height: calc(100dvh - var(--top) - 8px); }
   #panel, #panel.is-expanded { top: var(--top); left: auto; right: 0; bottom: 0; width: min(55%, 440px); height: auto;
     border-radius: 14px 0 0 0; border-width: 1px 0 0 1px; }
@@ -359,10 +368,10 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
 
 /* Telas muito estreitas (320 px): logos e botões menores para o cabeçalho caber. */
 @media (max-width: 359px) {
-  header { padding: 0 8px; gap: 8px; }
+  header { padding: var(--top-pad) 8px 0; gap: 8px; }
   .logos { gap: 6px; padding: 0; }
-  .logos img { height: 32px; }
-  .logos img + img { height: 26px; padding-left: 6px; }
+  .logos img { height: 36px; }
+  .logos img + img { height: 30px; padding-left: 6px; }
   .header-right { gap: 4px; }
   .lang-btn { padding: 0 6px; }
   #list-toggle { padding: 0 12px; }

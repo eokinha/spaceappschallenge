@@ -8,7 +8,7 @@ Três frentes (todas em Python puro, sem navegador):
    ``web/data/analogs.json`` está no dicionário ``web/data/i18n-en.json``;
 3. ``test_nenhum_texto_portugues_solto`` — nenhum texto em português aparece "solto" no código da
    interface: ele precisa estar dentro de ``t(...)`` no JavaScript ou num atributo ``data-pt`` /
-   ``data-pt-aria-label`` no ``index.html``.
+   ``data-pt-aria-label`` / ``data-pt-title`` no ``index.html``.
 
 A lista ``DATA_KEYS`` é a mesma de ``web/src/i18n.js``; ``test_lista_de_campos_eh_a_mesma`` confere
 que as duas não divergiram.
@@ -250,7 +250,7 @@ def test_nenhum_texto_portugues_solto():
 
     html = (WEB / "index.html").read_text(encoding="utf-8")
     sem_comentarios = re.sub(r"<!--.*?-->", "", html, flags=re.S)
-    sem_data_pt = re.sub(r'data-pt(?:-aria-label)?="[^"]*"', "", sem_comentarios)
+    sem_data_pt = re.sub(r'data-pt(?:-aria-label|-title)?="[^"]*"', "", sem_comentarios)
     for text, _, _ in scan(sem_data_pt):
         if PT_CHARS.search(text) or PT_WORDS.search(text):
             achados.append(f"index.html: {text!r}")

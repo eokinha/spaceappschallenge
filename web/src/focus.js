@@ -57,8 +57,24 @@ export function createFocus({ camera, controls, canvas }) {
       tween(`globe-${globe.name}`, ms, (k) => globe.quaternion.slerpQuaternions(start, end, k));
     },
 
+    /** Gira o globo até uma orientação dada (volta à posição padrão depois de um tempo parado). */
+    rotateGlobeToQuaternion(globe, end, ms = 600) {
+      const start = globe.quaternion.clone();
+      tween(`globe-${globe.name}`, ms, (k) => globe.quaternion.slerpQuaternions(start, end, k));
+    },
+
+    /** Interrompe o giro automático de um globo (o usuário começou a arrastá-lo). */
+    cancelGlobe(globe) { tweens.delete(`globe-${globe.name}`); },
+
     /** Leva a câmera até o enquadramento { position, target, offset } com animação. */
     flyTo(frame, ms = 700) {
+      // Gasta a inércia que sobrou do último arrasto (damping do OrbitControls): sem isso ela ficaria
+      // guardada durante o voo e voltaria a girar a câmera depois da chegada.
+      if (controls.enableDamping) {
+        controls.enableDamping = false;
+        controls.update();
+        controls.enableDamping = true;
+      }
       const p0 = camera.position.clone();
       const t0 = controls.target.clone();
       const o0 = { ...offset };

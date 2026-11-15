@@ -342,6 +342,10 @@ redesenhar lista e card.
   que o marcador, e maior ainda no toque) e contra os globos, que escondem os marcadores da face de trás.
 - Hover mostra um tooltip com o nome e destaca o item da lista; passar o mouse num item destaca o marcador.
 - Só conta como clique o gesto que andou menos de 5 px; arrastar para girar a cena não limpa a seleção.
+- Arrastar em cima de um globo gira só aquele globo (pelos eixos da câmera, com a superfície acompanhando
+  o ponteiro); arrastar no vazio é do `OrbitControls`: a câmera orbita e os três giram juntos. Durante o
+  arrasto de um globo o `OrbitControls` fica desligado; dois dedos continuam sendo a pinça de zoom.
+  Selecionar um local reorienta a Terra e o alvo, mesmo que tenham sido girados à mão.
 - Ao selecionar um local (`web/src/focus.js`):
   - a Terra gira (slerp de quaternion, 600 ms) até o análogo ficar virado para a câmera, com o norte para
     cima; o globo do alvo ativo faz o mesmo com o alvo;
@@ -359,6 +363,13 @@ redesenhar lista e card.
   - os outros marcadores ficam com opacidade 0,15 e um anel de destaque aparece no análogo e no alvo;
   - o card abre.
 - Limpar a seleção devolve a câmera ao enquadramento dos três globos (o cálculo de `resize()`).
+- Sem local selecionado, depois de 10 s sem mexer na cena (arrastar ou dar zoom; passar o mouse não conta),
+  cada globo volta à orientação inicial e a câmera ao enquadramento dos três globos, com uma animação de
+  1,4 s (`IDLE_RESET_MS` e `resetView()` em `main.js`). Com um local selecionado nada volta sozinho.
+  Duplo clique no vazio (fora dos globos) faz essa volta na hora; se havia seleção, o primeiro clique já a
+  limpou.
+  O botão "Reset view" (`#reset-view`, no cabeçalho, ao lado do `EN | PT`) faz o mesmo e também fecha a
+  seleção; ele só aparece quando a cena foi mexida ou há um local selecionado.
 - Com `prefers-reduced-motion`, tudo salta direto para a posição final.
 
 ### Painel lateral: lista de locais (`#site-list`, esquerda)
