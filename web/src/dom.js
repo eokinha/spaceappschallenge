@@ -21,4 +21,7 @@ export function el(tag, attrs = {}, ...children) {
 }
 
 export const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-export const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+// Modo compacto (lista em folha, card em gaveta): telas estreitas (celular, tablet em retrato) ou baixas
+// (celular deitado). Precisa ficar igual à media query "Modo compacto" do styles.css.
+export const COMPACT_QUERY = '(max-width: 1023px), (max-height: 500px)';
+export const isMobile = () => window.matchMedia(COMPACT_QUERY).matches;

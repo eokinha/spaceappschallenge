@@ -67,6 +67,7 @@ const panelEl = document.getElementById('panel');
 const legendEl = document.getElementById('legend');
 const tooltipEl = document.getElementById('tooltip');
 const listToggle = document.getElementById('list-toggle');
+const headerEl = document.querySelector('header');
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -107,18 +108,21 @@ const arcs = createArcLayer(scene);
 let app = null; // { data, selection, targetById, ... } depois que o JSON carrega
 
 /**
- * Área da tela que sobra para os globos (px): à direita da lista e à esquerda do card; no celular,
- * acima da gaveta. A câmera centraliza a cena nessa área com setViewOffset (focus.js).
+ * Área da tela que sobra para os globos (px): abaixo do cabeçalho, à direita da lista e longe do card.
+ * O card é medido: se ocupa a largura toda (gaveta embaixo) a área fica acima dele; senão (coluna à
+ * direita, no desktop ou no celular deitado) fica à esquerda. A câmera centraliza a cena nessa área com
+ * setViewOffset (focus.js).
  */
 function freeArea(cardOpen) {
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
-  let left = 0, right = w, top = 76, bottom = h - 40;
-  if (isMobile()) {
-    if (cardOpen) bottom = Math.round(h * 0.4); // a gaveta ocupa ~60% da altura
-  } else {
-    left = listEl.getBoundingClientRect().right;
-    if (cardOpen) right = panelEl.getBoundingClientRect().left;
+  let left = 0, right = w, top = headerEl.getBoundingClientRect().bottom, bottom = h - 40;
+  if (!isMobile()) left = listEl.getBoundingClientRect().right;
+  if (cardOpen) {
+    const r = panelEl.getBoundingClientRect();
+    if (!r.width) { if (isMobile()) bottom = Math.round(h * 0.4); } // card ainda oculto: gaveta de ~60%
+    else if (r.left <= 1) bottom = Math.min(bottom, r.top);
+    else right = r.left;
   }
   if (right - left < 120) { left = 0; right = w; }
   if (bottom - top < 80) { top = 0; bottom = h; }
@@ -180,7 +184,7 @@ function buildLegend() {
   const arc = el('div', { class: 'legend-arc', hidden: true },
     el('span', { class: 'legend-title' }, t('Arco:')),
     el('span', { class: 'legend-ramp', 'aria-hidden': 'true', style: `--min:${ARC_WIDTH.min}px;--max:${ARC_WIDTH.max}px` }),
-    el('span', {}, t('cor = patamar · espessura = nota')),
+    el('span', { class: 'legend-explain' }, t('cor = patamar · espessura = nota')),
     value);
   legendEl.replaceChildren(
     el('div', { class: 'legend-tiers' },
