@@ -131,7 +131,7 @@ e refletidas em `etl/analogs.schema.json`. Os ids são os mesmos de `data/proces
           "evidence": [{ "variable": "Gelo no subsolo (0–3)", "unit": "escala 0–3", "value": 3, "value_note": null,
                          "note": 3, "level": "high", "status": "avaliada", "direction": "maior",
                          "thresholds": { "3": 3, "2": 2, "1": 1 }, "target_value": "Gelo raso em altas latitudes",
-                         "observation": null, "sources": ["F10", "F14"], "sources_scope": "catalogo",
+                         "observation": null, "sources": ["F10", "F2"], "sources_scope": "catalogo",
                          "dataset_earth": "SMAP, mapas de permafrost", "dataset_target": "Odyssey GRS, SHARAD" }] }
       ],
       "level": "moderate",
@@ -143,7 +143,7 @@ e refletidas em `etl/analogs.schema.json`. Os ids são os mesmos de `data/proces
       "to_measure": ["Ciclagem térmica", "Mobilidade em encostas"],
       "best_in_network_count": 6,
       "exploration_use": "...",
-      "sources": [{ "id": "F2", "label": "Lee & Osinski 2005, ...", "url": "https://..." }]
+      "sources": [{ "id": "F2", "label": "Lee & Osinski 2005, ...", "url": "https://...", "kind": "peer_reviewed" }]
     }
   ],
   "network": {
@@ -187,7 +187,14 @@ Regras:
   Catálogo (`sources_scope: "catalogo"`), que valem para os 3 locais da base; o card avisa isso.
   `dataset_earth` / `dataset_target` saem da coluna "Dataset para extrair" do Catálogo: são o dataset de
   referência da variável, não necessariamente a origem do valor. As referências dos ids ficam em
-  `source_index` (topo do JSON). `observation` traz só o trecho da observação da planilha que fala do local.
+  `source_index` (topo do JSON). `observation` traz só o trecho da observação da planilha que fala do local
+  e, quando o valor foi corrigido na curadoria das fontes, o motivo ("Revisão das fontes: …").
+- Fontes: só ficam NASA (e portais do desafio: Earthdata, Worldview, PDS, LRO/Diviner; parceiros CSA,
+  ESA/Copernicus, JAXA), artigos revisados e órgãos públicos. Wikipedia, imprensa e sites sem revisão são
+  descartados no ETL (`etl/config.py` › `FONTES_DESCARTADAS`, ver `etl/SCHEMA.md`) e nunca chegam ao JSON.
+  `source_index[id].kind` e `links[].sources[].kind` dizem a classe: `nasa`, `nasa_mission`,
+  `peer_reviewed`, `agency` ou `team`; o card mostra a etiqueta (NASA, Missão NASA, Artigo revisado, Órgão
+  público, Planilha) e o front não decide a classe.
 - `narrative` é o parágrafo de "Por que é análogo" escrito a partir do dossiê
   (`docs/referencia-analogos-pitch.md`) e das planilhas, só com números das planilhas
   (`etl/config.py` › `NARRATIVAS`); `null` nos locais sem texto curado, que usam `description`.
@@ -382,8 +389,8 @@ Conteúdo da aba (link `analog × target`), nesta ordem:
 
 1. **Veredito:** aderência (`X,XX / 3`) na cor do patamar, selo ("Forte analogia", "Analogia parcial",
    "Baixa aderência"), posição (`Nº de 14`, com aviso de empate se `rank_tied`), `best_in_network_count`
-   e, para dar escala, a aderência do 1º colocado daquele alvo. Se `matches_listing` for `false`, um aviso
-   (não um erro): "A equipe listou este local como análogo da Lua, mas o modelo indica Marte."
+   e, para dar escala, a aderência do 1º colocado daquele alvo. O card não confronta o "listado como" da
+   equipe com o `model_indicates` (`matches_listing` segue no JSON, mas não é exibido).
 2. **Por que é análogo:** `narrative` (ou `description`), a justificativa da planilha, `clipping` e
    `data_notes`.
 3. **Pontos fortes da analogia** (`strengths`), em bloco verde: um card por ponto com a nota, o que mede
@@ -401,7 +408,8 @@ Conteúdo da aba (link `analog × target`), nesta ordem:
 7. **Uso na exploração** (`exploration_use`).
 8. **Utilidades** (`utilities`), agrupadas por categoria e coloridas pelo patamar: nota ou "a medir", selo
    "melhor da rede" e o texto `reading` quando existir. Começa recolhida.
-9. **Fontes dos dados deste local** (`sources`), com links; recolhida, com a contagem.
+9. **Fontes dos dados deste local** (`sources`), com links e a etiqueta da classe (`kind`); recolhida, com
+   a contagem.
 
 Categoria ausente no JSON e utilidade com `adherence: null` aparecem como "a medir", não como zero.
 O front só formata (vírgula decimal, `1º de 14`); nenhum número é recalculado.

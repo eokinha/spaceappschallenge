@@ -415,7 +415,7 @@ FONTES_DESCARTADAS = {
     "F9": ("Release de imprensa (EurekAlert)", ["F7"]),
     "F14": ("Revista profissional, sem revisão", ["F2"]),
     "F15": ("Wikipedia", ["N2", "N3"]),
-    "F19": ("Site de TV (PBS)", ["F18"]),
+    "F19": ("Site de TV (PBS)", []),
     "F21": ("Site de notícias (National Parks Traveler); 'umidade abaixo de 1%' não foi confirmada", []),
     "F22": ("Wikipedia; os 38 mm de Badwater não foram confirmados (ver VALORES_CORRIGIDOS)", []),
     "F23": ("Site de notícias (Phys.org)", ["N4"]),
@@ -427,7 +427,7 @@ FONTES_DESCARTADAS = {
     "F31": ("Site de notícias (Space.com)", ["N8"]),
     "F33": ("Site agregador sem revisão (WorldSpecies); valor trocado pelo NASA POWER (VALORES_CORRIGIDOS)", []),
     "G2": ("Wikipedia", ["N10"]),
-    "G4": ("Site de notícias (NBC/Space.com)", ["N11"]),
+    "G4": ("Site de notícias (NBC/Space.com)", ["N11", "N10"]),
     "G5": ("Site de museu", ["N10"]),
     "G12": ("Wikipedia; a média de −19,8 °C não foi confirmada (ver VALORES_CORRIGIDOS)", []),
     "H9": ("Site de notícias (FAPESP/Phys.org)", ["N13"]),
@@ -459,6 +459,14 @@ OBSERVACOES_CORRIGIDAS = {
     "McMurdo: estação do vale Wright (o pixel do POWER inclui o planalto e dá −27,2)":
         "McMurdo: estações do fundo dos vales (N12)",
     "Meteor Crater: ~225 mil visitantes por ano": "Meteor Crater: aberta à visitação, com estrada",
+    "Toca: caverna hipogênica (fluidos subindo)":
+        "Toca: dissolvida por ácido sulfúrico da oxidação de sulfetos e por fluidos que subiram (N14, N15)",
+}
+
+# Fontes oficiais acrescentadas a um valor da planilha porque confirmam o mesmo dado.
+FONTES_EXTRAS = {
+    ("toca-da-boa-vista", "alteracao-hidrotermal-documentada-0-3"): ["N14", "N15"],
+    ("toca-da-boa-vista", "cavidade-subterranea-acessivel-0-3"): ["N14"],
 }
 
 # "Dataset de referência" do Catálogo: só portais da NASA e dos parceiros do desafio.

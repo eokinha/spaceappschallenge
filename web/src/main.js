@@ -95,7 +95,7 @@ let app = null; // { data, selection, targetById, ... } depois que o JSON carreg
 function freeArea(cardOpen) {
   const w = canvas.clientWidth;
   const h = canvas.clientHeight;
-  let left = 0, right = w, top = 48, bottom = h - 40;
+  let left = 0, right = w, top = 76, bottom = h - 40;
   if (isMobile()) {
     if (cardOpen) bottom = Math.round(h * 0.4); // a gaveta ocupa ~60% da altura
   } else {

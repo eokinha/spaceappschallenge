@@ -1,4 +1,4 @@
-# Análogos Terra · Lua · Marte — NASA Space Apps 2026
+# LACITE - Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars — NASA Space Apps 2026
 
 Visualizador 3D (Three.js) de locais na Terra análogos aos locais candidatos a base na Lua e em Marte,
 com o que cada analogia tem de parecido e onde ela falha.

@@ -230,11 +230,6 @@ export function createPanel({ root, data, linkOf, selection, onLayout }) {
         ? el('p', { class: 'muted' },
             `Para referência: a escala vai de 0 a 3 e o 1º colocado para ${targetShort(target)} ` +
             `(${bestAnalog.name}) tem ${fmtOutOf3(best.adherence)}.`)
-        : null,
-      analog.matches_listing === false && listed.length
-        ? el('p', { class: 'notice' },
-            `A equipe listou este local como análogo ${targetsOf(listed, targetById)}, mas o modelo indica ` +
-            `${targetById.has(analog.model_indicates) ? targetShort(targetById.get(analog.model_indicates)) : analog.model_indicates}.`)
         : null));
 
     // 2. Por que é análogo: parágrafo curado (etl/config.py › NARRATIVAS) ou a justificativa da planilha.

@@ -99,6 +99,9 @@ def aplicar(model):
             if v["observacao"] and velho in v["observacao"]:
                 v["observacao"] = v["observacao"].replace(velho, novo).replace(". .", ".").strip(" .") or None
         key = (v["local_id"], v["variavel_id"])
+        for extra in config.FONTES_EXTRAS.get(key, []):
+            if extra not in v["fonte_ids"]:
+                v["fonte_ids"].append(extra)
         if key in config.VALORES_CORRIGIDOS:
             cor = config.VALORES_CORRIGIDOS[key]
             corrigidos.append({"local_id": key[0], "variavel_id": key[1], "valor_planilha": v["valor"],

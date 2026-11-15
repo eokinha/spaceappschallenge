@@ -10,7 +10,7 @@ Gerado por `python -m etl build` a partir das planilhas em `data/raw/`. Este arq
 - **Ids estáveis** em slug: `local_id` (`vale-da-morte`), `alvo_id` (`lua`, `marte`), `categoria_id`
   (`pouso-e-mobilidade`), `variavel_id` (`temperatura-media`), `conjunto_id` (`base-v1-1`, `lotes-v1-1`).
   Utilidades mantêm o código da planilha (`U01`–`U19`). Fontes mantêm o código com prefixo por planilha
-  (`F`, `G`, `H`, `R`).
+  (`F`, `G`, `H`, `R`); `N` são as fontes acrescentadas na curadoria (`etl/config.py` › `FONTES_NOVAS`).
 - **`null` = ausente / a medir**. Nunca é zero e não entra em média.
 - Números são números (ponto decimal no JSON e no CSV). Textos em português ficam como na planilha.
 - Escala das notas: **0 a 3** (0 = não serve, 3 = forte).
@@ -161,7 +161,30 @@ só nos 3 locais da base).
   os dados saíram.
 - `relatorio_validacao.json`: cada célula do Excel comparada com o recalculado (`comparadas`,
   `divergencias`, `por_aba`, `lista_divergencias`), tolerância 1e-9.
-- `relatorio_validacao.md`: o mesmo em texto, mais o resumo do que ficou `null`.
+- `relatorio_validacao.md`: o mesmo em texto, mais o resumo do que ficou `null` e a curadoria das fontes.
+- `curadoria_fontes.json`: fontes por classe, fontes descartadas (motivo e substitutas), valores corrigidos
+  (valor da planilha → valor novo, com o motivo) e notas que mudaram em relação à planilha.
+
+## Curadoria das fontes
+
+A conferência com o Excel (acima) usa as planilhas como estão. Depois dela, `etl/curadoria.py` aplica as
+regras de `etl/config.py`:
+
+- `FONTES_CLASSE`: classe de cada fonte mantida — `nasa` (documento, dado ou página oficial da NASA ou dos
+  portais do desafio), `nasa_mission` (artigo revisado com dados de missão da NASA), `peer_reviewed`,
+  `agency` (órgão público ou repositório científico) e `team` (planilhas). Fonte sem classe = erro.
+- `FONTES_DESCARTADAS`: Wikipedia, imprensa, enciclopédia, blog e site sem revisão, com o motivo e as
+  substitutas. A substituta precisa confirmar o mesmo dado; se a fonte oficial der outro número, a lista
+  fica vazia e o valor vai para `VALORES_CORRIGIDOS`. Os ids descartados são trocados em `fonte_ids` e nos
+  textos (`(H10, H11)` → `(H11, N14)`); `fontes.json` guarda a fonte descartada com `classe: "descartada"`,
+  `descarte` e `substituida_por`, mas ela nunca vai para o site.
+- `FONTES_NOVAS` e `FONTES_LINK`: fontes novas (`N…`) e notícias trocadas pelo artigo original.
+- `VALORES_CORRIGIDOS`: valores que perderam a fonte; `valores.json` ganha `correcao` (o motivo). Erro se
+  um valor com dado ficar sem nenhuma fonte válida.
+- `OBSERVACOES_CORRIGIDAS` e `DATASETS_REMOVIDOS`: trechos de observação que citavam dado descartado e
+  datasets fora dos portais (ERA5, CHIRPS, Mars Climate Database).
+
+As notas são recalculadas depois da curadoria; as do site são essas.
 
 ## Site (`web/data/analogs.json`)
 
@@ -171,3 +194,4 @@ Gerado junto, com o contrato descrito em `docs/instrucoes-desenvolvimento.md` (s
 e dos arquivos em `web/images/analogs/`.
 Também não vêm das planilhas: `analogs[].narrative` (`NARRATIVAS`) e o mapeamento variável de pontuação →
 variável do Catálogo (`VARIAVEL_CATALOGO`), usado para achar as fontes e o dataset de cada evidência na base.
+`source_index[id].kind` e `links[].sources[].kind` são a classe da fonte (`FONTES_CLASSE`).

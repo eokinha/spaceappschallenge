@@ -14,7 +14,7 @@
   --lv-moderate: #fbbf24;
   --lv-low: #f87171;
   --lv-none: #94a3b8;
-  --top: 48px;
+  --top: 76px;
   --gap: 12px;
 }
 * { box-sizing: border-box; }
@@ -30,9 +30,14 @@ a { color: #9fd3ff; }
 .muted { color: var(--muted); font-size: 12px; }
 
 #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+/* Três colunas: título à esquerda, logos no centro da tela (fora das colunas laterais) e status/botão à direita. */
 header { position: fixed; top: 0; left: 0; right: 0; height: var(--top); padding: 0 16px; pointer-events: none;
-  display: flex; justify-content: space-between; gap: 12px; align-items: center; z-index: 3; }
-header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; z-index: 3; }
+header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: auto; }
+header #status, header #list-toggle { justify-self: end; }
+.logos { display: flex; align-items: center; gap: 12px; padding: 0 16px; }
+.logos img { display: block; width: auto; height: 60px; }
+.logos img + img { height: 50px; padding-left: 12px; border-left: 1px solid var(--border); box-sizing: content-box; }
 #status { color: var(--muted); font-size: 12px; white-space: nowrap; }
 #list-toggle { display: none; pointer-events: auto; min-height: 44px; padding: 0 16px; border-radius: 8px;
   border: 1px solid var(--border); background: var(--panel); cursor: pointer; }
@@ -201,8 +206,6 @@ header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hi
 .verdict-main { display: flex; flex-direction: column; }
 .verdict-value { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .verdict-cap { color: var(--muted); font-size: 12px; }
-.notice { margin-top: 8px; padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(159, 211, 255, 0.35);
-  background: rgba(159, 211, 255, 0.08); }
 .dims { display: grid; gap: 8px; }
 .dim { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: baseline; }
 .dim .bar { grid-column: 1 / -1; order: 3; }
@@ -288,6 +291,9 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
 /* ---------- Celular ---------- */
 @media (max-width: 767px) {
   #status { display: none; }
+  .logos { gap: 8px; padding: 0 4px; }
+  .logos img { height: 40px; }
+  .logos img + img { height: 32px; padding-left: 8px; }
   #list-toggle { display: block; }
   .resizer { display: none; }
   .labels { left: 0; font-size: 11px; gap: 10px; }

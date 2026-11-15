@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at": "2026-11-15T17:29:14Z",
+  "generated_at": "2026-11-15T17:32:16Z",
   "model": {
     "name": "Base de referência v1.1 – 14/11/2026",
     "data_date": "2026-11-14",
@@ -594,8 +594,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -828,8 +827,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -925,8 +923,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -1679,12 +1676,6 @@
           "kind": "nasa_mission"
         },
         {
-          "id": "N17",
-          "label": "NASA POWER – climatologia no ponto 36,25 N, −116,75 (MERRA-2)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "N18",
           "label": "NASA Science – Mars 2020 Perseverance",
           "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
@@ -1784,8 +1775,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -2042,8 +2032,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -2139,8 +2128,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -3057,12 +3045,6 @@
           "kind": "nasa_mission"
         },
         {
-          "id": "N17",
-          "label": "NASA POWER – climatologia no ponto 36,25 N, −116,75 (MERRA-2)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "N18",
           "label": "NASA Science – Mars 2020 Perseverance",
           "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
@@ -3162,8 +3144,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -3396,8 +3377,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -3493,8 +3473,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -4221,12 +4200,6 @@
           "kind": "agency"
         },
         {
-          "id": "N17",
-          "label": "NASA POWER – climatologia no ponto 36,25 N, −116,75 (MERRA-2)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "N18",
           "label": "NASA Science – Mars 2020 Perseverance",
           "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
@@ -4326,8 +4299,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -4584,8 +4556,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -4681,8 +4652,7 @@
                 "F1",
                 "F2",
                 "F7",
-                "N5",
-                "N17"
+                "N5"
               ],
               "sources_scope": "catalogo",
               "dataset_earth": "MODIS LST (MOD11)",
@@ -5580,12 +5550,6 @@
           "label": "NPS – Death Valley: Weather",
           "url": "https://www.nps.gov/deva/planyourvisit/weather.htm",
           "kind": "agency"
-        },
-        {
-          "id": "N17",
-          "label": "NASA POWER – climatologia no ponto 36,25 N, −116,75 (MERRA-2)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
         },
         {
           "id": "N18",
@@ -6754,12 +6718,6 @@
           "label": "NPS – Death Valley: Weather",
           "url": "https://www.nps.gov/deva/planyourvisit/weather.htm",
           "kind": "agency"
-        },
-        {
-          "id": "N17",
-          "label": "NASA POWER – climatologia no ponto 36,25 N, −116,75 (MERRA-2)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
         },
         {
           "id": "N18",
@@ -8101,12 +8059,6 @@
           "kind": "agency"
         },
         {
-          "id": "N17",
-          "label": "NASA POWER – climatologia no ponto 36,25 N, −116,75 (MERRA-2)",
-          "url": "https://power.larc.nasa.gov/",
-          "kind": "nasa"
-        },
-        {
           "id": "N18",
           "label": "NASA Science – Mars 2020 Perseverance",
           "url": "https://science.nasa.gov/mission/mars-2020-perseverance/",
@@ -8696,8 +8648,8 @@
               "observation": null,
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -9136,12 +9088,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -9750,8 +9696,8 @@
               "observation": null,
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -9841,7 +9787,6 @@
               "observation": null,
               "sources": [
                 "G7",
-                "N12",
                 "G13"
               ],
               "sources_scope": "local",
@@ -10327,12 +10272,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -10918,8 +10857,8 @@
               "observation": "aberta à visitação, com estrada",
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -11358,12 +11297,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -11972,8 +11905,8 @@
               "observation": "aberta à visitação, com estrada",
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -12063,7 +11996,6 @@
               "observation": null,
               "sources": [
                 "G7",
-                "N12",
                 "G13"
               ],
               "sources_scope": "local",
@@ -12541,12 +12473,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -13132,8 +13058,8 @@
               "observation": "acesso sazonal.",
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -13572,12 +13498,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -14186,8 +14106,8 @@
               "observation": "acesso sazonal.",
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -14277,7 +14197,6 @@
               "observation": "lago da caldeira e lagos represados por lava",
               "sources": [
                 "G7",
-                "N12",
                 "G13"
               ],
               "sources_scope": "local",
@@ -14763,12 +14682,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -15354,8 +15267,8 @@
               "observation": null,
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -15802,12 +15715,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -16416,8 +16323,8 @@
               "observation": null,
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -16507,7 +16414,6 @@
               "observation": null,
               "sources": [
                 "G7",
-                "N12",
                 "G13"
               ],
               "sources_scope": "local",
@@ -17001,12 +16907,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -17592,8 +17492,8 @@
               "observation": "sem estrada.",
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -18644,8 +18544,8 @@
               "observation": "sem estrada.",
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -18735,7 +18635,6 @@
               "observation": "milhares de lagos e lagoas.",
               "sources": [
                 "G7",
-                "N12",
                 "G13"
               ],
               "sources_scope": "local",
@@ -19818,8 +19717,8 @@
               "observation": null,
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -20265,12 +20164,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -20879,8 +20772,8 @@
               "observation": null,
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -20970,7 +20863,6 @@
               "observation": "depósitos de ferro e sulfato (jarosita, hematita).",
               "sources": [
                 "G7",
-                "N12",
                 "G13"
               ],
               "sources_scope": "local",
@@ -21464,12 +21356,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -22055,8 +21941,8 @@
               "observation": "acesso sazonal.",
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -22503,12 +22389,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -23117,8 +22997,8 @@
               "observation": "acesso sazonal.",
               "sources": [
                 "N11",
-                "G7",
-                "N12"
+                "N10",
+                "G7"
               ],
               "sources_scope": "local",
               "dataset_earth": "Literatura",
@@ -23208,7 +23088,6 @@
               "observation": "lago da caldeira e lagos represados por lava",
               "sources": [
                 "G7",
-                "N12",
                 "G13"
               ],
               "sources_scope": "local",
@@ -23694,12 +23573,6 @@
           "label": "USGS Astrogeology – Meteor Crater Sample Collection",
           "url": "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
           "kind": "agency"
-        },
-        {
-          "id": "N12",
-          "label": "Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
-          "url": "https://pubs.usgs.gov/publication/70024247",
-          "kind": "peer_reviewed"
         }
       ]
     },
@@ -31242,6 +31115,12 @@
           "label": "Klimchouk et al. 2016, Geomorphology 253",
           "url": "https://doi.org/10.1016/j.geomorph.2015.11.002",
           "kind": "peer_reviewed"
+        },
+        {
+          "id": "N15",
+          "label": "Auler & Smart 2003, Earth Surface Processes and Landforms 28",
+          "url": "https://doi.org/10.1002/esp.443",
+          "kind": "peer_reviewed"
         }
       ]
     },
@@ -32204,12 +32083,14 @@
                 "1": 1.0
               },
               "target_value": "Minerais hidratados em crateras",
-              "observation": "caverna hipogênica (fluidos subindo)",
+              "observation": "dissolvida por ácido sulfúrico da oxidação de sulfetos e por fluidos que subiram (N14, N15)",
               "sources": [
                 "H2",
                 "H3",
                 "H4",
-                "H11"
+                "H11",
+                "N14",
+                "N15"
               ],
               "sources_scope": "local",
               "dataset_earth": "ASTER, EMIT",
@@ -32407,6 +32288,12 @@
           "id": "N14",
           "label": "Klimchouk et al. 2016, Geomorphology 253",
           "url": "https://doi.org/10.1016/j.geomorph.2015.11.002",
+          "kind": "peer_reviewed"
+        },
+        {
+          "id": "N15",
+          "label": "Auler & Smart 2003, Earth Surface Processes and Landforms 28",
+          "url": "https://doi.org/10.1002/esp.443",
           "kind": "peer_reviewed"
         }
       ]
@@ -32651,6 +32538,11 @@
     "N14": {
       "label": "Klimchouk et al. 2016, Geomorphology 253",
       "url": "https://doi.org/10.1016/j.geomorph.2015.11.002",
+      "kind": "peer_reviewed"
+    },
+    "N15": {
+      "label": "Auler & Smart 2003, Earth Surface Processes and Landforms 28",
+      "url": "https://doi.org/10.1002/esp.443",
       "kind": "peer_reviewed"
     },
     "N16": {
