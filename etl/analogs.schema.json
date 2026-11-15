@@ -667,7 +667,8 @@
               "required": [
                 "id",
                 "label",
-                "url"
+                "url",
+                "kind"
               ],
               "properties": {
                 "id": {
@@ -680,6 +681,9 @@
                 "url": {
                   "type": "string",
                   "format": "uri"
+                },
+                "kind": {
+                  "$ref": "#/$defs/source_kind"
                 }
               }
             }
@@ -802,7 +806,8 @@
         "additionalProperties": false,
         "required": [
           "label",
-          "url"
+          "url",
+          "kind"
         ],
         "properties": {
           "label": {
@@ -815,6 +820,9 @@
               "null"
             ],
             "format": "uri"
+          },
+          "kind": {
+            "$ref": "#/$defs/source_kind"
           }
         }
       }
@@ -912,6 +920,16 @@
           }
         }
       ]
+    },
+    "source_kind": {
+      "enum": [
+        "nasa",
+        "nasa_mission",
+        "peer_reviewed",
+        "agency",
+        "team"
+      ],
+      "description": "Classe da fonte (etl/config.py › FONTES_CLASSE): NASA, artigo com dados de missão da NASA, artigo revisado, órgão público/repositório, planilha da equipe"
     }
   }
 }

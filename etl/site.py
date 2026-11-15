@@ -26,7 +26,7 @@ def fmt(x):
 
 
 def _ordem_fonte(fid):
-    return ("FGHR".index(fid[0]), int(fid[1:]))
+    return ("FGHRN".index(fid[0]), int(fid[1:]))
 
 
 def _fontes_do_local(local, model):
@@ -46,8 +46,8 @@ def _fontes_do_local(local, model):
     out = []
     for fid in sorted(ids, key=_ordem_fonte):
         f = por_id.get(fid)
-        if f and f["link"] and f["link"].startswith("http"):
-            out.append({"id": fid, "label": f["referencia"], "url": f["link"]})
+        if f and f.get("classe") != "descartada" and f["link"] and f["link"].startswith("http"):
+            out.append({"id": fid, "label": f["referencia"], "url": f["link"], "kind": f["classe"]})
     return out
 
 
@@ -102,6 +102,14 @@ def _observacao_do_local(texto, local_id):
     return out or None
 
 
+def _com_correcao(obs, val):
+    """Acrescenta à observação o motivo da correção feita na curadoria das fontes (se houver)."""
+    cor = (val or {}).get("correcao")
+    if not cor:
+        return obs
+    return f"{obs}. Revisão das fontes: {cor}" if obs else f"Revisão das fontes: {cor}"
+
+
 def _evidencias(local, alvo_id, utilidade_id, ctx):
     """Uma linha por variável que entra na nota da utilidade: valor no local, valor no alvo, faixas,
     nota da variável, fontes e dataset de referência. Tudo vem das planilhas."""
@@ -116,6 +124,8 @@ def _evidencias(local, alvo_id, utilidade_id, ctx):
             fonte_ids, escopo = (cat["fonte_ids"] if cat else []), "catalogo"
         else:
             fonte_ids, escopo = (val["fonte_ids"] if val else []), "local"
+        if val and val.get("correcao"):
+            fonte_ids, escopo = val["fonte_ids"], "local"  # valor corrigido na curadoria: a fonte é deste local
         datasets = _por_corpo(ctx["dataset"].get(cat_id)) if cat_id else {}
         fontes = [fid for fid in fonte_ids if fid in ctx["fontes"]]
         ctx["usadas"].update(fontes)
@@ -131,8 +141,8 @@ def _evidencias(local, alvo_id, utilidade_id, ctx):
             "thresholds": None if faixas.get("nota_3") is None else
                 {"3": faixas["nota_3"], "2": faixas["nota_2"], "1": faixas["nota_1"]},
             "target_value": c["valor_no_alvo"],
-            "observation": _observacao_do_local((val or {}).get("observacao"), local["id"])
-                if local["lote"] != "base-v1-1" else None,
+            "observation": _com_correcao(_observacao_do_local((val or {}).get("observacao"), local["id"])
+                                         if local["lote"] != "base-v1-1" else None, val),
             "sources": fontes, "sources_scope": escopo,
             "dataset_earth": datasets.get("terra"), "dataset_target": datasets.get(alvo_id),
         })
@@ -175,7 +185,7 @@ def build(model, res, gerado_em):
         "valores": {(v["local_id"], v["variavel_id"]): v for v in model["valores"]},
         "catalogo": {(c["entidade_id"], c["variavel_id"]): c for c in model["catalogo_referencia"]},
         "dataset": dataset,
-        "fontes": {f["id"]: f for f in model["fontes"]},
+        "fontes": {f["id"]: f for f in model["fontes"] if f.get("classe") != "descartada"},
         "usadas": set(),
     }
 
@@ -285,7 +295,8 @@ def build(model, res, gerado_em):
         "analogs": analogs,
         "links": links,
         "source_index": {fid: {"label": ctx["fontes"][fid]["referencia"],
-                               "url": ctx["fontes"][fid]["link"] if (ctx["fontes"][fid]["link"] or "").startswith("http") else None}
+                               "url": ctx["fontes"][fid]["link"] if (ctx["fontes"][fid]["link"] or "").startswith("http") else None,
+                               "kind": ctx["fontes"][fid]["classe"]}
                          for fid in sorted(ctx["usadas"], key=_ordem_fonte)},
         "network": {
             "coverage": [{"target": c["alvo_id"], "evaluated": c["avaliadas"], "covered": c["cobertas"],

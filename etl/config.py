@@ -313,3 +313,148 @@ NARRATIVAS = {
         "controlado. A diferença está na origem: é uma caverna hipogênica, escavada por fluidos que subiram das "
         "profundezas e dissolveram a rocha, enquanto as cavernas da Lua e de Marte são tubos de lava."),
 }
+
+
+# ---------------------------------------------------------------------------------------------------------
+# Curadoria das fontes (revisão de 2026-11-15)
+#
+# Regra: fica a fonte que é (a) da NASA ou de um dos portais indicados pelo desafio (Earthdata, Worldview,
+# PDS, LRO/Diviner; parceiros CSA, ESA/Copernicus, JAXA), (b) artigo revisado por pares (com ou sem dados de
+# missão da NASA) ou (c) órgão público/repositório científico. Wikipedia, imprensa, enciclopédia, blog e site
+# sem revisão saem: a fonte descartada nunca aparece no site e é trocada pela fonte oficial que confirma o
+# mesmo dado. Quando nenhuma fonte válida confirma o valor, ele vira "a medir" (VALORES_CORRIGIDOS).
+#
+# A conferência com o Excel continua valendo para as planilhas como estão (0 divergência); a curadoria é
+# aplicada depois, e o ETL recalcula as notas e lista o que mudou (etl/curadoria.py).
+# ---------------------------------------------------------------------------------------------------------
+
+# Classe de cada fonte mantida. kind: nasa | nasa_mission | peer_reviewed | agency | team
+FONTES_CLASSE = {
+    # NASA (documento, dado ou página oficial)
+    "F1": "nasa", "F3": "nasa", "F26": "nasa", "G1": "nasa", "G8": "nasa", "G14": "nasa", "H1": "nasa",
+    "H8": "nasa",
+    # artigo revisado com dados de missão da NASA (MEDA, LCROSS, RAD, CRISM, Phoenix)
+    "F7": "nasa_mission", "F10": "nasa_mission", "F12": "nasa_mission", "F16": "nasa_mission",
+    "F17": "nasa_mission", "F34": "nasa_mission",
+    # artigo revisado por pares (ou tese acadêmica, H2)
+    "F2": "peer_reviewed", "F6": "peer_reviewed", "F11": "peer_reviewed", "F13": "peer_reviewed",
+    "F32": "peer_reviewed", "F35": "peer_reviewed", "G7": "peer_reviewed", "G9": "peer_reviewed",
+    "G10": "peer_reviewed", "G11": "peer_reviewed", "G13": "peer_reviewed", "H2": "peer_reviewed",
+    "H3": "peer_reviewed", "H4": "peer_reviewed", "H5": "peer_reviewed", "H7": "peer_reviewed",
+    "H11": "peer_reviewed",
+    # órgão público ou repositório científico (NPS, USGS, Serviço Geológico do Brasil, PANGAEA)
+    "F18": "agency", "F20": "agency", "F30": "agency", "G3": "agency", "G6": "agency", "H6": "agency",
+    # planilhas da equipe
+    "G15": "team", "H12": "team", "R1": "team", "R2": "team", "R3": "team",
+}
+
+# Fontes novas, que substituem as descartadas. Mesmo formato da aba Fontes.
+FONTES_NOVAS = {
+    "N1": ("Erickson et al. 2021, Geochimica et Cosmochimica Acta 304", "https://doi.org/10.1016/j.gca.2021.04.008",
+           "Haughton: idade de ~31 Ma (40Ar/39Ar 31,04 ± 0,37 Ma; U-Pb 31,8 ± 1,7 Ma)", "peer_reviewed"),
+    "N2": ("Zuber et al. 2012, Nature 486 (LRO/LOLA)", "https://ntrs.nasa.gov/citations/20120013758",
+           "Shackleton: ~21 km de diâmetro e ~4,1 km de profundidade, medidos pelo LOLA", "nasa_mission"),
+    "N3": ("Spudis et al. 2008, Geophysical Research Letters 35", "https://doi.org/10.1029/2008GL034468",
+           "Shackleton: idade imbriana, ~3,6 bilhões de anos", "peer_reviewed"),
+    "N4": ("NASA JPL – NASA's First Weather Report From Jezero Crater on Mars (2021)",
+           "https://www.jpl.nasa.gov/news/nasas-first-weather-report-from-jezero-crater-on-mars/",
+           "Jezero: pressão de 718 Pa medida pelo MEDA", "nasa"),
+    "N5": ("Paige et al. 2010, Science 330 (LRO/Diviner)", "https://doi.org/10.1126/science.1187726",
+           "Temperaturas das armadilhas frias do polo sul lunar, incluindo Cabeus", "nasa_mission"),
+    "N6": ("Newman et al. 2022, Science Advances 8 (MEDA/Perseverance)", "https://doi.org/10.1126/sciadv.abn3783",
+           "Jezero: pelo menos um redemoinho de poeira por dia perto do rover", "nasa_mission"),
+    "N7": ("NASA – Candidate regions for Artemis III landing (2022)",
+           "https://www.nasa.gov/news-release/nasa-identifies-candidate-regions-for-landing-next-americans-on-moon/",
+           "13 regiões candidatas perto do polo sul, incluindo Connecting Ridge", "nasa"),
+    "N8": ("NPS – Death Valley: Ubehebe Crater", "https://www.nps.gov/deva/planyourvisit/ubehebe-crater.htm",
+           "Ubehebe: maar de ~180 m de profundidade e ~0,8 km de largura, formado por explosão de vapor", "agency"),
+    "N9": ("NPS – Death Valley: Weather", "https://www.nps.gov/deva/planyourvisit/weather.htm",
+           "Furnace Creek: chuva média de 1,94 pol. (49 mm) por ano; recordes de 57 °C e −10 °C", "agency"),
+    "N10": ("Phinney 2015, NASA SP-2015-626 – Science Training History of the Apollo Astronauts",
+            "https://ntrs.nasa.gov/citations/20190026783",
+            "Treino de geologia na Islândia (Askja) em julho de 1965 e julho de 1967", "nasa"),
+    "N11": ("USGS Astrogeology – Meteor Crater Sample Collection",
+            "https://www.usgs.gov/centers/astrogeology-science-center/science/meteor-crater-sample-collection",
+            "Meteor Crater: ~1,2 km de diâmetro e ~180 m de profundidade", "agency"),
+    "N12": ("Doran et al. 2002, Journal of Geophysical Research 107 (D24)",
+            "https://pubs.usgs.gov/publication/70024247",
+            "Vales secos de McMurdo: médias anuais de −14,8 a −30,0 °C nas estações do fundo dos vales", "peer_reviewed"),
+    "N13": ("Assis et al. 2020, Geophysical Research Letters 47", "https://doi.org/10.1029/2020GL089464",
+            "Barcanas em laboratório para prever a evolução das dunas dos Lençóis e de Marte", "peer_reviewed"),
+    "N14": ("Klimchouk et al. 2016, Geomorphology 253", "https://doi.org/10.1016/j.geomorph.2015.11.002",
+            "Toca da Boa Vista: origem hipogênica (fluidos ascendentes), ~107 km mapeados em 2016", "peer_reviewed"),
+    "N15": ("Auler & Smart 2003, Earth Surface Processes and Landforms 28", "https://doi.org/10.1002/esp.443",
+            "Cavernas de Campo Formoso: ácido sulfúrico da oxidação de sulfetos na rocha", "peer_reviewed"),
+    "N16": ("Hecht et al. 2009, Science 325 (Phoenix/WCL)", "https://doi.org/10.1126/science.1172466",
+            "Perclorato no solo do sítio do Phoenix", "nasa_mission"),
+    "N17": ("NASA POWER – climatologia no ponto 36,25 N, −116,75 (MERRA-2)", "https://power.larc.nasa.gov/",
+            "Vale da Morte: temperatura média de 19,2 °C no pixel (~50 km, altitude média de 846 m)", "nasa"),
+    "N18": ("NASA Science – Mars 2020 Perseverance", "https://science.nasa.gov/mission/mars-2020-perseverance/",
+            "Perseverance em Jezero desde fevereiro de 2021", "nasa"),
+}
+
+# Correções de link/referência de fontes mantidas (notícia trocada pelo artigo original).
+FONTES_LINK = {
+    "F11": ("Zhang et al. 2020, Science Advances 6 (Chang'e-4 LND)", "https://doi.org/10.1126/sciadv.aaz1334"),
+    "F12": ("Hassler et al. 2014, Science 343 (Curiosity RAD)", "https://doi.org/10.1126/science.1244797"),
+    "H12": ("Base de referência v1.1 – dose de radiação (F11, F12)", None),
+    "H7": ("Luna et al. 2012, Geomorphology 159 (preprint arXiv 1109.0278)", "https://arxiv.org/abs/1109.0278"),
+}
+
+# Fonte descartada: motivo e fontes que a substituem (lista vazia = o dado fica sem fonte e é revisto).
+FONTES_DESCARTADAS = {
+    "F4": ("Wikipedia", ["N1", "F2"]),
+    "F5": ("Enciclopédia (Britannica)", ["N9"]),
+    "F8": ("Resumo de congresso, sem revisão", ["N6"]),
+    "F9": ("Release de imprensa (EurekAlert)", ["F7"]),
+    "F14": ("Revista profissional, sem revisão", ["F2"]),
+    "F15": ("Wikipedia", ["N2", "N3"]),
+    "F19": ("Site de TV (PBS)", ["F18"]),
+    "F21": ("Site de notícias (National Parks Traveler); 'umidade abaixo de 1%' não foi confirmada", []),
+    "F22": ("Wikipedia", ["N9"]),
+    "F23": ("Site de notícias (Phys.org)", ["N4"]),
+    "F24": ("Site de notícias (ScienceDaily)", ["F11"]),
+    "F25": ("Wikipedia", ["F16", "N18"]),
+    "F27": ("Release de imprensa (EurekAlert)", ["N5"]),
+    "F28": ("Cópia em arquivo aberto sem referência verificável", ["N16"]),
+    "F29": ("Blog de jornalista", ["N7"]),
+    "F31": ("Site de notícias (Space.com)", ["N8"]),
+    "F33": ("Site agregador sem revisão (WorldSpecies)", ["N17"]),
+    "G2": ("Wikipedia", ["N10"]),
+    "G4": ("Site de notícias (NBC/Space.com)", ["N11"]),
+    "G5": ("Site de museu", ["N10"]),
+    "G12": ("Wikipedia", ["N12"]),
+    "H9": ("Site de notícias (FAPESP/Phys.org)", ["N13"]),
+    "H10": ("Wikipedia", ["H11", "N14"]),
+}
+
+# Valores trocados porque a fonte original saiu. A nota é recalculada com o novo valor.
+VALORES_CORRIGIDOS = {
+    ("mcmurdo", "temperatura-media"): {
+        "valor": -14.8, "fonte_ids": ["N12"],
+        "motivo": "o valor de −19,8 °C da planilha vinha de fonte não validada. A fonte revisada (Doran et al. "
+                  "2002) dá médias de −14,8 a −30,0 °C nas estações do fundo dos vales; usado o limite mais quente "
+                  "(conservador: não aumenta nenhuma nota). O pixel do NASA POWER (−27,2 °C) inclui o planalto.",
+    },
+    ("vale-da-morte", "temperatura-media"): {
+        "valor": 19.2, "fonte_ids": ["N17"],
+        "motivo": "o valor de 18,5 °C da planilha vinha de site sem revisão; trocado pelo NASA POWER no mesmo "
+                  "ponto (19,2 °C).",
+    },
+    ("vale-da-morte", "precipitacao-anual"): {
+        "valor": 49.0, "fonte_ids": ["N9"],
+        "motivo": "o valor de 38 mm (Badwater) da planilha vinha de fonte não validada; o NPS dá 49 mm/ano em "
+                  "Furnace Creek, a estação oficial do vale.",
+    },
+}
+
+# Trechos de observação das planilhas que citam dado de fonte descartada: texto antigo -> novo ('' remove).
+OBSERVACOES_CORRIGIDAS = {
+    "McMurdo: estação do vale Wright (o pixel do POWER inclui o planalto e dá −27,2)":
+        "McMurdo: estações do fundo dos vales (N12)",
+    "Meteor Crater: ~225 mil visitantes por ano": "Meteor Crater: aberta à visitação, com estrada",
+}
+
+# "Dataset de referência" do Catálogo: só portais da NASA e dos parceiros do desafio.
+# ERA5 (ECMWF), CHIRPS (UCSB) e Mars Climate Database (LMD) não estão nesses portais e saem do texto.
+DATASETS_REMOVIDOS = ["ERA5", "CHIRPS", "Mars Climate Database"]

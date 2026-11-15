@@ -123,6 +123,24 @@ def relatorio_md(meta, validacao, model, res):
     L += ["", "Valores a medir por local (local × variável): " +
           ", ".join(f"{nomes[k]} {n}" for k, n in nulos.items()) + "."]
 
+    cur = model.get("_curadoria")
+    if cur:
+        L += ["", "## Curadoria das fontes (etl/config.py)", "",
+              "A conferência acima usa as planilhas como estão. Depois dela, as fontes sem validação (Wikipedia, "
+              "imprensa, sites sem revisão) saem e são trocadas por fontes da NASA, artigos revisados ou órgãos "
+              "públicos; os valores que perderam a fonte são corrigidos e as notas, recalculadas.", "",
+              "Fontes por classe: " + ", ".join(f"{k} {v}" for k, v in sorted(cur["por_classe"].items())) + ".", "",
+              "| Fonte descartada | Motivo | Substituída por |", "|---|---|---|"]
+        for d in cur["descartadas"]:
+            L.append(f"| {d['id']} {d['referencia']} | {d['motivo']} | {', '.join(d['substituida_por']) or '—'} |")
+        L += ["", "Valores corrigidos:", ""]
+        for v in cur["valores_corrigidos"]:
+            L.append(f"- {v['local_id']} › {v['variavel_id']}: {v['valor_planilha']} → "
+                     f"{'a medir' if v['valor'] is None else v['valor']} ({', '.join(v['fonte_ids'])}). {v['motivo']}")
+        L += ["", "Notas que mudaram em relação à planilha:", ""]
+        for n in cur["notas_alteradas"]:
+            L.append(f"- {nomes[n['local_id']]} › {n['item']} ({n['alvo_id']}): {n['planilha']} → {n['curadoria']}")
+
     L += ["", "## Decisões e observações preservadas", ""]
     for l in model["locais"]:
         if l["coordenada_aproximada"]:
@@ -162,6 +180,8 @@ def write_all(model, res, validacao, site, gerado_em, out_dir=config.PROCESSED_D
     arquivos["relatorio_validacao.json"] = _dumps(validacao)
     arquivos["relatorio_validacao.md"] = relatorio_md(meta, validacao, model, res)
     arquivos["metadata.json"] = _dumps(meta)
+    if "_curadoria" in model:
+        arquivos["curadoria_fontes.json"] = _dumps(model["_curadoria"])
 
     # Recria a pasta de saída do zero para não sobrar arquivo de uma versão anterior.
     if out_dir.exists():

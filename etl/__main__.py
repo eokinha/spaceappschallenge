@@ -11,14 +11,18 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from . import config, extract, load, scoring, site, transform, validate
+from . import config, curadoria, extract, load, scoring, site, transform, validate
 
 
 def run(raw_dir, out_dir, site_path, write, allow_divergences):
     books, arquivos = extract.load(raw_dir)
     model = transform.build(books, arquivos)
     res = scoring.compute(model)
-    val = validate.run(books, model, res)
+    val = validate.run(books, model, res)  # confere as planilhas como estão, antes da curadoria
+    cur = curadoria.aplicar(model)          # troca fontes descartadas e corrige valores (etl/config.py)
+    res_planilha, res = res, scoring.compute(model)
+    cur["notas_alteradas"] = curadoria.notas_alteradas(res_planilha, res)
+    model["_curadoria"] = cur
     gerado_em = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     site_json = site.build(model, res, gerado_em)
     load.validar_site(site_json)
@@ -29,6 +33,8 @@ def run(raw_dir, out_dir, site_path, write, allow_divergences):
     print(f"Recalculado × Excel: {val['comparadas']} células, {val['divergencias']} divergência(s)")
     for d in val["lista_divergencias"][:10]:
         print(f"  ✗ {d['aba']} | {d['chave']} | {d['campo']}: Excel={d['excel']!r} recalculado={d['recalculado']!r}")
+    print(f"Curadoria das fontes: {len(cur['descartadas'])} descartadas, "
+          f"{len(cur['valores_corrigidos'])} valores corrigidos, {len(cur['notas_alteradas'])} notas recalculadas")
     for a in model["avisos"]:
         print(f"  aviso: {a}")
     aprox = [l["nome"] for l in model["locais"] if l["coordenada_aproximada"]]
