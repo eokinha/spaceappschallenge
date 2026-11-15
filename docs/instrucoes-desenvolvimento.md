@@ -71,6 +71,7 @@ ETL Python (etl/) ──gera──▶ data/processed/  (tabelas normalizadas, CS
 │   ├── src/
 │   │   ├── main.js           # orquestrador: cena, câmera, render loop, liga os módulos ao estado
 │   │   ├── globe.js          # criação de um globo, marcadores, anel de destaque, conversão lat/lon
+│   │   ├── stars.js          # fundo de estrelas (só cenário: pontos numa esfera em volta da câmera)
 │   │   ├── selection.js      # estado da seleção { analogId, targetId } e eventos
 │   │   ├── focus.js          # animação de rotação dos globos e da câmera
 │   │   ├── arcs.js           # arcos entre corpos (Line2)

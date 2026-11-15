@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { createGlobe, addMarker, createRing, setRing } from './globe.js';
+import { createStars } from './stars.js';
 import { createSelection } from './selection.js';
 import { createFocus } from './focus.js';
 import { createArcLayer, ARC_WIDTH } from './arcs.js';
@@ -75,6 +76,7 @@ renderer.outputColorSpace = THREE.SRGBColorSpace;
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x05070d);
+const stars = createStars(scene, renderer.getPixelRatio()); // fundo de estrelas (stars.js)
 
 const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
 camera.position.set(0, 0, 9);
@@ -323,6 +325,7 @@ renderer.setAnimationLoop(() => {
   focus.update();
   if (!focus.cameraBusy) controls.update();
   arcs.update();
+  stars.follow(camera);
   renderer.render(scene, camera);
 });
 
