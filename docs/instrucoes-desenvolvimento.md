@@ -13,13 +13,19 @@ candidatos na Lua e em Marte e explica por que eles se parecem e onde a analogia
 - **Layout:** a Terra fica grande no centro, com a Lua e Marte como globos menores dos lados.
 - **Locais:** os dois alvos — Lua (polo sul, Shackleton) e Marte (cratera Jezero) — aparecem como pontos
   nos globos deles. Os 14 análogos na Terra também são pontos.
-- **Arcos:** saem de cada análogo na Terra até cada alvo (14 × 2 ligações).
-  A espessura e a cor do arco mostram a aderência do análogo àquele alvo.
-- **Seleção:** ao clicar num local, os três globos destacam o grupo dele e um painel explica a
-  aderência por categoria de utilidade (Engenharia, Ciência, Recursos, Pouso e mobilidade, Operações
-  humanas e Limitações universais) e por utilidade (U01–U19).
+- **Painel lateral (esquerda):** a lista dos 14 análogos, com um seletor de alvo `Lua | Marte`, ordenada
+  pelo `rank` do link com o alvo ativo. É também a lista acessível (teclado) do projeto.
+- **Seleção:** ao clicar num local (na lista ou no globo), a Terra gira até ele, o globo do alvo ativo gira
+  até o alvo, a câmera enquadra os dois e um **arco** liga o análogo ao alvo. A espessura e a cor do arco
+  mostram a aderência do análogo àquele alvo.
+- **Card (direita):** os detalhes do local selecionado para o alvo ativo: por que é análogo, a aderência
+  por categoria de utilidade (Engenharia, Ciência, Recursos, Pouso e mobilidade, Operações humanas e
+  Limitações universais) e por utilidade (U01–U19), os pontos fortes e onde a analogia falha.
+- **Rede completa (próxima fase):** os 28 arcos (14 × 2 ligações) desenhados ao mesmo tempo. Hoje aparece só
+  o arco do link ativo; `web/src/arcs.js` já aceita uma lista de links.
 
-O desafio exige dizer **onde a analogia falha**. O painel precisa mostrar isso, não só os pontos fortes.
+O desafio exige dizer **onde a analogia falha**. O card precisa mostrar isso sempre visível, não só os
+pontos fortes.
 
 ## 2. Arquitetura
 
@@ -61,12 +67,18 @@ ETL Python (etl/) ──gera──▶ data/processed/  (tabelas normalizadas, CS
 │   └── processed/            # saída do ETL (fora do git; regenerável)
 ├── web/
 │   ├── index.html
+│   ├── styles.css            # todo o CSS (lista, card, legenda, celular)
 │   ├── src/
-│   │   ├── main.js           # cena, câmera, render loop
-│   │   ├── globe.js          # criação de um globo + conversão lat/lon
-│   │   ├── arcs.js           # arcos entre corpos
-│   │   ├── interaction.js    # raycasting, hover, clique, seleção
-│   │   └── panel.js          # painel lateral
+│   │   ├── main.js           # orquestrador: cena, câmera, render loop, liga os módulos ao estado
+│   │   ├── globe.js          # criação de um globo, marcadores, anel de destaque, conversão lat/lon
+│   │   ├── selection.js      # estado da seleção { analogId, targetId } e eventos
+│   │   ├── focus.js          # animação de rotação dos globos e da câmera
+│   │   ├── arcs.js           # arcos entre corpos (Line2)
+│   │   ├── interaction.js    # raycasting, hover, clique, tooltip
+│   │   ├── list.js           # painel lateral: seletor de alvo e lista de locais
+│   │   ├── panel.js          # card de detalhes
+│   │   ├── format.js         # formatação pt-BR, "a medir" e rótulos
+│   │   └── dom.js            # criação de elementos sem innerHTML
 │   ├── textures/             # earth.jpg, moon.jpg, mars.jpg
 │   └── data/analogs.json     # gerado pelo ETL (vai pro git: é o que a Vercel publica)
 └── docs/
@@ -101,7 +113,7 @@ e refletidas em `etl/analogs.schema.json`. Os ids são os mesmos de `data/proces
   "links": [
     {
       "analog": "haughton", "target": "marte",
-      "score": 0.5128, "adherence": 1.5385, "rank": 1, "listed_as_target": true,
+      "score": 0.5128, "adherence": 1.5385, "rank": 1, "rank_tied": false, "listed_as_target": true,
       "dimensions": { "ciencia": { "score": 0.8, "adherence": 2.4, "evaluated": 5, "total": 5 } },
       "utilities": [
         { "id": "U06", "name": "Prospecção de gelo", "category": "recursos", "adherence": 2, "score": 0.6667,
@@ -135,11 +147,15 @@ Regras:
 - Utilidade sem nota tem `adherence: null` e `status: "a_medir"`; mostre "a medir", nunca zero.
   Categoria sem nenhuma utilidade avaliada fica fora do objeto `dimensions`. Nunca invente valor.
 - Todo análogo tem um link para cada alvo (Lua e Marte). `rank` é a posição do análogo entre os 14 para
-  aquele alvo.
+  aquele alvo. É uma posição única: aderências iguais são desempatadas pela ordem da rede, e `rank_tied`
+  é `true` em todo link que divide a aderência com outro local do mesmo alvo (o front mostra a marca de
+  empate a partir desse campo, sem comparar notas).
 - `strengths` = utilidades com nota ≥ 2 (e, nos 3 locais da base, o "é similar em" da Leitura preliminar).
   `limits` = utilidades com nota ≤ 1 (e o "é diferente em"); é obrigatório e nunca vazio, porque a radiação
   (U15) é uma limitação universal.
-- `sources` traz as fontes com link citadas nos dados daquele análogo.
+- `sources` traz as fontes com link citadas nos dados daquele análogo. É a mesma lista nos dois links do
+  análogo e, como as planilhas citam a fonte por variável (não por local), ela é quase a lista inteira do
+  lote. Pendência do ETL: separar as fontes gerais do lote das específicas do local.
 
 ## 4. ETL Python
 
@@ -236,74 +252,136 @@ de longitude e é preciso girar a esfera, não a fórmula.
 ### Arcos
 
 - Cada link vira um arco entre o ponto na Terra e o ponto no alvo, em coordenadas do mundo
-  (`object.localToWorld`).
-- Curva: `CubicBezierCurve3` com os pontos de controle afastados da superfície, para o arco não atravessar
-  os globos. Altura proporcional à distância entre os pontos.
-- Espessura: `linewidth` de `LineBasicMaterial` é ignorado no WebGL. Use `Line2` + `LineMaterial` dos addons
-  (largura em pixels) ou `TubeGeometry`.
+  (`getWorldPosition` dos marcadores).
+- **Hoje só o arco do link ativo é desenhado** (análogo selecionado × alvo ativo). A rede inteira (28 arcos)
+  é a próxima fase: `createArcLayer().setLinks([...])` em `arcs.js` já recebe uma lista.
+- Curva: Bézier cúbica com os pontos de controle afastados da superfície (ao longo da normal de cada
+  ponta), para o arco não atravessar os globos. Altura proporcional à distância entre os pontos.
+- Espessura: `linewidth` de `LineBasicMaterial` é ignorado no WebGL. Usamos `Line2` + `LineMaterial` dos
+  addons (largura em pixels).
 - Escala visual da nota (`score` 0–1):
   - largura de 1 px (0) a 6 px (1);
-  - cor numa rampa contínua, ex.: cinza-azulado para fraco e amarelo-laranja para forte;
-  - mostre uma legenda com essa escala na tela.
-- Se os globos giram, as pontas mudam: atualize as posições dos arcos a cada frame (`setPositions` no
-  `LineGeometry`), sem recriar a geometria.
-- Arcos que saem da face escondida de um globo: reduza a opacidade ou esconda, para não cruzarem a esfera.
-- Rotação automática: desligada por padrão, com um botão para ligar.
+  - cor numa rampa contínua, do cinza-azulado (fraco) ao amarelo-laranja (forte);
+  - a legenda (`#legend`) mostra essa escala e a nota do link ativo; só aparece quando há seleção.
+- Os globos giram, então as pontas mudam: as posições são reescritas a cada frame no buffer que já existe,
+  sem recriar a geometria.
+- Para a rede completa: arcos que saem da face escondida de um globo precisam perder opacidade ou sumir,
+  para não cruzarem a esfera. No arco único isso não acontece, porque as duas pontas ficam de frente.
+- Rotação automática: não implementada (se entrar, desligada por padrão, com um botão para ligar).
 
-### Interação
+### Estado da seleção e sincronia
 
-- `Raycaster` nos marcadores para hover (tooltip com o nome) e clique.
-- Clique num alvo: seleciona o grupo do alvo e todos os análogos ligados a ele.
-  Clique num análogo: seleciona o análogo e todos os alvos ligados a ele.
-- Ao selecionar:
-  - os elementos fora do grupo ficam com opacidade ~0,15;
-  - cada globo gira suavemente (slerp de quaternion, ~600 ms) até o ponto selecionado ficar virado para
-    a câmera;
-  - um anel de destaque aparece em volta de cada ponto do grupo;
-  - o painel lateral abre.
-- Clique no vazio ou `Esc` limpa a seleção.
+`web/src/selection.js` guarda `{ analogId, targetId }` (começa em `{ null, 'marte' }`) e notifica a lista,
+o card e a cena. Os três não conversam entre si. Existe **um só alvo ativo**: ele define a ordem da lista,
+a aba do card, o arco e o globo do alvo em foco. Lista e card nunca mostram alvos diferentes.
 
-### Painel lateral
+| Ação do usuário | `analogId` | `targetId` |
+|---|---|---|
+| Clica num item da lista (ou `Enter`) | o item | não muda |
+| Clica num análogo no 3D | o marcador | o alvo para o qual o local foi listado (`listed_as`); listado para os dois = não muda |
+| Clica num alvo no 3D (Lua/Marte) | não muda | o alvo clicado |
+| Troca o seletor da lista ou a aba do card | não muda | o alvo escolhido |
+| `Esc`, ✕ ou clique no vazio | `null` | não muda |
 
-Para o link selecionado (se o grupo tiver vários, mostre uma lista ordenada por nota e deixe trocar):
+O destaque passageiro (mouse sobre um item ou um marcador) vai por um canal separado (`setHover`), para não
+redesenhar lista e card.
 
-1. Nome do análogo na Terra → nome do alvo, com a aderência (0–3) e a posição na rede (`rank`).
-2. Uma barra por categoria (`dimensions`), com a nota e quantas utilidades a sustentam
-   (`evaluated` de `total`). "Limitações universais" aparece separada, como fora do score.
-3. A lista de utilidades (`utilities`), com nota, "a medir" e destaque quando o local é o melhor da rede.
+### Interação e foco
+
+- `Raycaster`: o raio do ponteiro é testado contra uma esfera de toque em volta de cada marcador (maior
+  que o marcador, e maior ainda no toque) e contra os globos, que escondem os marcadores da face de trás.
+- Hover mostra um tooltip com o nome e destaca o item da lista; passar o mouse num item destaca o marcador.
+- Só conta como clique o gesto que andou menos de 5 px; arrastar para girar a cena não limpa a seleção.
+- Ao selecionar um local (`web/src/focus.js`):
+  - a Terra gira (slerp de quaternion, 600 ms) até o análogo ficar virado para a câmera, com o norte para
+    cima; o globo do alvo ativo faz o mesmo com o alvo;
+  - a câmera enquadra a Terra e o globo do alvo ativo na área livre da tela (entre a lista e o card; no
+    celular, acima da gaveta), usando `camera.setViewOffset` para deslocar o centro. O foco nunca afasta a
+    câmera além do enquadramento inicial: em telas largas ele aproxima; em telas estreitas a distância
+    fica igual e a cena só é recentralizada;
+  - durante a animação da câmera o `OrbitControls` fica desligado e volta para o usuário no fim;
+  - os outros marcadores ficam com opacidade 0,15 e um anel de destaque aparece no análogo e no alvo;
+  - o card abre.
+- Limpar a seleção devolve a câmera ao enquadramento dos três globos (o cálculo de `resize()`).
+- Com `prefers-reduced-motion`, tudo salta direto para a posição final.
+
+### Painel lateral: lista de locais (`#site-list`, esquerda)
+
+- No topo, o seletor de alvo `Lua | Marte` (começa em Marte).
+- Os 14 análogos, ordenados pelo `rank` do link com o alvo ativo. Cada item mostra a posição, o nome, o
+  país, uma mini barra (largura = `score`; o trilho inteiro é a escala 0–3) e a aderência com uma casa.
+- Marcas: "listado" (`listed_as_target`), "≈ aprox." (`approximate_coords`) e "=" na posição quando há empate
+  (`rank_tied`).
+- Trocar o alvo reordena a lista com uma animação curta, mantém o item selecionado e o rola até ficar
+  visível, sem roubar o foco do teclado.
+- Teclado: a lista é um `listbox`; setas (e `Home`/`End`) movem o cursor, `Enter` seleciona, `Esc` limpa.
+  O item ativo tem `aria-selected`.
+
+### Card de detalhes (`#panel`, direita)
+
+Não é modal: não escurece o fundo nem bloqueia o globo. Fecha com ✕ ou `Esc`. O cabeçalho (nome completo,
+país, lote e aviso de coordenada aproximada) e as abas ficam fixos; o corpo rola.
+
+As abas `Lua | Marte` são o mesmo controle do seletor da lista. A aba do alvo em que a equipe listou o
+local leva a marca "listado"; se o card estiver no outro alvo, uma linha discreta avisa e oferece a troca.
+
+Conteúdo da aba (link `analog × target`), nesta ordem:
+
+1. **Por que é análogo:** `description`, `clipping` (recorte usado) e `data_notes`, se houver.
+2. **Veredito:** aderência (`X,XX / 3`), posição (`Nº de 14`, com aviso de empate se `rank_tied`),
+   `best_in_network_count` e, para dar escala, a aderência do 1º colocado daquele alvo. Se
+   `matches_listing` for `false`, um aviso (não um erro): "A equipe listou este local como análogo da Lua,
+   mas o modelo indica Marte."
+3. **Por categoria:** uma barra por `dimensions`, na ordem de `data.dimensions`, com a nota e quantas
+   utilidades a sustentam (`evaluated` de `total`). "Limitações universais" aparece separada, como fora
+   da nota.
 4. **Pontos fortes** (`strengths`).
-5. **Onde a analogia falha** (`limits`), sempre visível.
-6. Uso na exploração (`exploration_use`).
-7. Fontes dos dados, com links.
+5. **Onde a analogia falha** (`limits`): sempre visível, nunca dentro de algo recolhível.
+6. **Ainda a medir** (`to_measure`).
+7. **Utilidades** (`utilities`), agrupadas por categoria: nota ou "a medir", selo "melhor da rede" e o
+   texto `reading` quando existir, com o rótulo "Leitura da equipe para esta utilidade (base v1.1)" (o
+   texto é por utilidade, igual nos 3 locais da base). Começa recolhida.
+8. **Uso na exploração** (`exploration_use`).
+9. **Fontes dos dados deste local** (`sources`), com links; recolhida, com a contagem.
 
 Categoria ausente no JSON e utilidade com `adherence: null` aparecem como "a medir", não como zero.
+O front só formata (vírgula decimal, `1º de 14`); nenhum número é recalculado.
 
 ### Acessibilidade e desempenho
 
-- Uma lista de locais em HTML ao lado do canvas, navegável por teclado, que faz a mesma seleção do clique.
+- A lista de locais é o caminho por teclado para tudo o que o clique no 3D faz.
 - Meta de 60 fps num notebook comum. Limite `renderer.setPixelRatio(Math.min(devicePixelRatio, 2))`.
-- Em tela de celular, o painel vira uma gaveta embaixo e os globos ficam menores.
+- Celular (largura < 768 px): a lista vira uma folha sobreposta aberta pelo botão "Locais" (fecha ao
+  escolher um item) e o card vira uma gaveta embaixo, com ~60% da altura e um botão para expandir. Alvos
+  de toque com pelo menos 44 px e sem rolagem horizontal.
 
 ## 6. Ordem de implementação
 
 1. Schema do JSON + um `analogs.json` de exemplo feito à mão (desbloqueia o front-end no primeiro dia).
 2. Cena com os três globos texturizados e o teste de posição lat/lon.
 3. Marcadores a partir do JSON.
-4. Arcos com largura e cor pela nota, mais a legenda.
-5. Clique, destaque do grupo e rotação dos globos.
-6. Painel lateral.
+4. Arco do link ativo com largura e cor pela nota, mais a legenda.
+5. Clique, foco (rotação dos globos e câmera) e destaque.
+6. Lista de locais (painel lateral) e card de detalhes.
 7. ETL Python gerando o JSON real a partir das planilhas (em paralelo aos passos 2–6).
-8. Lista acessível, ajustes de celular e polimento visual.
-9. README com como rodar, fontes de dados e créditos das texturas.
+8. Ajustes de celular e polimento visual.
+9. Rede completa: os 28 arcos ao mesmo tempo (pendente).
+10. README com como rodar, fontes de dados e créditos das texturas.
 
 ## 7. Critérios de pronto
 
 - [ ] `python -m etl build` gera um JSON válido contra o schema, com 0 divergência em relação ao Excel.
 - [ ] A página abre com `python -m http.server` sem erros no console.
-- [ ] Os pontos de teste caem no lugar certo nos três globos.
-- [ ] Todo link do JSON aparece como arco, com largura e cor coerentes com a legenda.
-- [ ] Clicar num alvo ou análogo destaca o grupo nos três globos e abre o painel.
-- [ ] O painel mostra as categorias, as utilidades, os pontos fortes, os limites e as fontes.
-- [ ] Toda a interação funciona também pela lista de locais.
+- [ ] Os pontos de teste caem no lugar certo nos três globos (`?debug=1`).
+- [ ] Os 14 locais aparecem na lista (esquerda), ordenados pelo `rank` do alvo ativo.
+- [ ] Clicar num item, num marcador ou dar `Enter` gira a Terra e o alvo, desenha o arco do link ativo com
+      largura e cor coerentes com a legenda, esmaece o resto, enquadra a câmera e abre o card (direita).
+- [ ] Lista e card mostram sempre o mesmo alvo; o clique no 3D segue a tabela de sincronia da seção 5.
+- [ ] O card mostra as categorias, as utilidades, os pontos fortes, os limites (sempre visíveis) e as
+      fontes; "a medir" nunca aparece como 0 e nenhum número é calculado no front.
+- [ ] `Esc`, ✕ e clique no vazio limpam a seleção e devolvem a câmera ao enquadramento inicial.
+- [ ] Toda a interação funciona também pela lista de locais, pelo teclado.
+- [ ] Funciona a 375 px de largura (lista recolhida, card em gaveta, sem rolagem horizontal).
+- [ ] *Pendente (próxima fase):* todo link do JSON aparece como arco (rede de 28 arcos).
 - [ ] README cita todos os datasets e texturas usados.
 - [ ] O deploy na Vercel abre sem erros no console e mostra o mesmo que a versão local.

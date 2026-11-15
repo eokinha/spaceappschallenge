@@ -87,3 +87,7 @@ TEXTOS_SEM_VALOR = ("a extrair", "a medir", "a verificar", "a confirmar", "—",
 # São os mesmos da aba Validação da base: "Alta (≥ 2)" e "Baixa (≤ 1)".
 LIMIAR_FORTE = 2.0
 LIMIAR_FRACO = 1.0
+
+# Duas aderências que diferem menos que isto contam como empate no rank. O rank continua sendo uma
+# posição única (desempate pela ordem da rede); o empate só é sinalizado (`rank_empatado` / `rank_tied`).
+TOLERANCIA_EMPATE = 1e-9

@@ -86,3 +86,28 @@ export function addMarker(globe, lat, lon, kind, data = {}) {
   globe.userData.markers.add(mesh);
   return mesh;
 }
+
+const ringGeometry = new THREE.RingGeometry(MARKER_SIZE * 2.1, MARKER_SIZE * 2.7, 40);
+
+/** Anel de destaque do globo (um por globo, escondido até haver seleção). */
+export function createRing(globe) {
+  const ring = new THREE.Mesh(
+    ringGeometry,
+    new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, transparent: true, opacity: 0.9 })
+  );
+  ring.name = `${globe.userData.id}-ring`;
+  ring.visible = false;
+  globe.add(ring);
+  globe.userData.ring = ring;
+  return ring;
+}
+
+/** Põe o anel do globo em volta de um marcador (ou o esconde, com marker = null). */
+export function setRing(globe, marker) {
+  const ring = globe.userData.ring;
+  if (!ring) return;
+  ring.visible = Boolean(marker);
+  if (!marker) return;
+  ring.position.copy(marker.position);
+  ring.quaternion.copy(marker.quaternion);
+}

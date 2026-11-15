@@ -124,6 +124,7 @@ def build(model, res, gerado_em):
                 "score": _r(row["aderencia"] / 3),
                 "adherence": _r(row["aderencia"]),
                 "rank": row["rank"],
+                "rank_tied": row["rank_empatado"],
                 "listed_as_target": a in l["listado_como"],
                 "dimensions": dims,
                 "utilities": us,

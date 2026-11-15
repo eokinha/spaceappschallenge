@@ -139,7 +139,8 @@ só nos 3 locais da base).
 | `n_melhor_em` | Utilidades do alvo em que o local é (ou empata como) o melhor da rede, com nota ≥ 2 |
 | `modelo_indica` | `lua`, `marte` ou `empate` (compara as duas aderências do local) |
 | `bate` | `modelo_indica` está em `listado_como`? |
-| `rank` | Posição do local entre os 14 para este alvo (1 = maior aderência) |
+| `rank` | Posição do local entre os 14 para este alvo (1 = maior aderência). Posição única: empates são desempatados pela ordem da rede |
+| `rank_empatado` | `true` se outro local tem a mesma aderência para este alvo (tolerância `TOLERANCIA_EMPATE` em `etl/config.py`). No `analogs.json` vira `links[].rank_tied` |
 
 ### `melhor_por_utilidade.json` — utilidade × alvo (rede)
 `utilidade_id`, `alvo_id`, `categoria_id`, `melhor_nota`, `melhor_local_id` (primeiro na ordem da rede),

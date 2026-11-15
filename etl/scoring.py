@@ -156,12 +156,17 @@ def compute(model, pesos_variavel=None):
             row["modelo_indica"] = indica
             row["bate"] = None if indica is None else indica in l["listado_como"]
             row["rank"] = None
+            row["rank_empatado"] = False
             aderencia.append(row)
     for a in config.ALVOS:
         rows = sorted((r for r in aderencia if r["alvo_id"] == a and r["aderencia"] is not None),
                       key=lambda r: -r["aderencia"])
         for i, r in enumerate(rows, 1):
             r["rank"] = i
+            # O rank é posição única (o sort é estável: empates ficam na ordem da rede). Quem divide a
+            # mesma aderência com outro local fica marcado, para a interface não sugerir uma ordem que não existe.
+            r["rank_empatado"] = any(o is not r and abs(o["aderencia"] - r["aderencia"]) <= config.TOLERANCIA_EMPATE
+                                     for o in rows)
 
     cobertura = []
     for a in config.ALVOS:

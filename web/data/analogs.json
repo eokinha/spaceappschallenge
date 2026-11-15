@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at": "2026-11-15T14:46:59Z",
+  "generated_at": "2026-11-15T15:29:48Z",
   "model": {
     "name": "Base de referência v1.1 – 14/11/2026",
     "data_date": "2026-11-14",
@@ -326,6 +326,7 @@
       "score": 0.1364,
       "adherence": 0.4091,
       "rank": 12,
+      "rank_tied": false,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -735,6 +736,7 @@
       "score": 0.3214,
       "adherence": 0.9643,
       "rank": 5,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -1170,6 +1172,7 @@
       "score": 0.3939,
       "adherence": 1.1818,
       "rank": 1,
+      "rank_tied": false,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -1563,6 +1566,7 @@
       "score": 0.5128,
       "adherence": 1.5385,
       "rank": 1,
+      "rank_tied": false,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -1984,6 +1988,7 @@
       "score": 0.303,
       "adherence": 0.9091,
       "rank": 2,
+      "rank_tied": false,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -2389,6 +2394,7 @@
       "score": 0.375,
       "adherence": 1.125,
       "rank": 2,
+      "rank_tied": false,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -2820,6 +2826,7 @@
       "score": 0.2083,
       "adherence": 0.625,
       "rank": 5,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -3137,6 +3144,7 @@
       "score": 0.2381,
       "adherence": 0.7143,
       "rank": 12,
+      "rank_tied": true,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -3480,6 +3488,7 @@
       "score": 0.2083,
       "adherence": 0.625,
       "rank": 6,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -3797,6 +3806,7 @@
       "score": 0.2738,
       "adherence": 0.8214,
       "rank": 9,
+      "rank_tied": true,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -4139,6 +4149,7 @@
       "score": 0.2083,
       "adherence": 0.625,
       "rank": 7,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -4456,6 +4467,7 @@
       "score": 0.2857,
       "adherence": 0.8571,
       "rank": 7,
+      "rank_tied": true,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -4799,6 +4811,7 @@
       "score": 0.1667,
       "adherence": 0.5,
       "rank": 11,
+      "rank_tied": false,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -5117,6 +5130,7 @@
       "score": 0.2738,
       "adherence": 0.8214,
       "rank": 10,
+      "rank_tied": true,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -5461,6 +5475,7 @@
       "score": 0.2639,
       "adherence": 0.7917,
       "rank": 3,
+      "rank_tied": true,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -5782,6 +5797,7 @@
       "score": 0.3571,
       "adherence": 1.0714,
       "rank": 3,
+      "rank_tied": false,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -6130,6 +6146,7 @@
       "score": 0.1111,
       "adherence": 0.3333,
       "rank": 13,
+      "rank_tied": false,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -6447,6 +6464,7 @@
       "score": 0.2738,
       "adherence": 0.8214,
       "rank": 11,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -6791,6 +6809,7 @@
       "score": 0.1944,
       "adherence": 0.5833,
       "rank": 10,
+      "rank_tied": false,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -7109,6 +7128,7 @@
       "score": 0.2857,
       "adherence": 0.8571,
       "rank": 8,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -7452,6 +7472,7 @@
       "score": 0.2083,
       "adherence": 0.625,
       "rank": 8,
+      "rank_tied": true,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -7755,6 +7776,7 @@
       "score": 0.3214,
       "adherence": 0.9643,
       "rank": 6,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -8084,6 +8106,7 @@
       "score": 0.2639,
       "adherence": 0.7917,
       "rank": 4,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -8382,6 +8405,7 @@
       "score": 0.3452,
       "adherence": 1.0357,
       "rank": 4,
+      "rank_tied": false,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -8706,6 +8730,7 @@
       "score": 0.0972,
       "adherence": 0.2917,
       "rank": 14,
+      "rank_tied": false,
       "listed_as_target": false,
       "dimensions": {
         "engenharia": {
@@ -9014,6 +9039,7 @@
       "score": 0.1786,
       "adherence": 0.5357,
       "rank": 14,
+      "rank_tied": false,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -9348,6 +9374,7 @@
       "score": 0.2083,
       "adherence": 0.625,
       "rank": 9,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {
@@ -9651,6 +9678,7 @@
       "score": 0.2381,
       "adherence": 0.7143,
       "rank": 13,
+      "rank_tied": true,
       "listed_as_target": true,
       "dimensions": {
         "engenharia": {

@@ -84,7 +84,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["analog", "target", "score", "adherence", "rank", "listed_as_target", "dimensions", "utilities",
+        "required": ["analog", "target", "score", "adherence", "rank", "rank_tied", "listed_as_target", "dimensions", "utilities",
                      "strengths", "limits", "to_measure", "best_in_network_count", "exploration_use", "sources"],
         "properties": {
           "analog": { "$ref": "#/$defs/id" },
@@ -92,6 +92,7 @@
           "score": { "$ref": "#/$defs/score" },
           "adherence": { "$ref": "#/$defs/adherence" },
           "rank": { "type": "integer", "minimum": 1 },
+          "rank_tied": { "type": "boolean" },
           "listed_as_target": { "type": "boolean" },
           "dimensions": {
             "type": "object",

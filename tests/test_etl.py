@@ -111,3 +111,10 @@ def test_site_json_valido_e_ligado_aos_dados(etl):
     assert hau["score"] == pytest.approx(1.5385 / 3, abs=5e-5)
     assert hau["rank"] == 1 and hau["limits"] and hau["sources"]
     assert all(l["limits"] for l in s["links"])
+    # rank_tied marca exatamente os links que dividem a aderência com outro local do mesmo alvo.
+    for l in s["links"]:
+        iguais = [o for o in s["links"] if o["target"] == l["target"] and o["adherence"] == l["adherence"]]
+        assert l["rank_tied"] == (len(iguais) > 1), (l["analog"], l["target"])
+    assert hau["rank_tied"] is False
+    empatados_lua = {l["analog"] for l in s["links"] if l["target"] == "lua" and l["rank_tied"]}
+    assert {"cinder-lake", "meteor-crater", "holuhraun", "vargeao", "toca-da-boa-vista"} <= empatados_lua
