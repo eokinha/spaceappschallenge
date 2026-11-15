@@ -64,7 +64,16 @@ header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hi
   background: rgba(8, 11, 20, 0.95); border: 1px solid var(--border); font-size: 12px; white-space: nowrap; }
 
 #legend { position: fixed; bottom: 38px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center;
-  gap: 4px; padding: 0 16px; font-size: 12px; color: var(--muted); pointer-events: none; }
+  gap: 4px; padding: 0 16px; font-size: 12px; color: var(--muted); pointer-events: none;
+  container-type: inline-size; container-name: legend; }
+/* A largura da legenda é a faixa livre entre lista e card: estreita, ela perde a explicação do arco e o
+   texto do link; estreita demais, some (em vez de empilhar numa coluna por cima dos globos). */
+@container legend (max-width: 440px) {
+  .legend-explain, .legend-value { display: none; }
+}
+@container legend (max-width: 240px) {
+  .legend-tiers, .legend-arc { display: none !important; }
+}
 .has-selection #legend { left: calc(var(--list-w) + var(--gap)); right: calc(var(--card-w) + var(--gap)); bottom: 14px; }
 .legend-tiers, .legend-arc { display: flex; justify-content: center; align-items: center; gap: 4px 12px; flex-wrap: wrap; }
 .legend-tier { display: inline-flex; align-items: center; gap: 5px; color: #c3cad8; }
@@ -89,7 +98,6 @@ header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hi
   background: rgba(255, 255, 255, 0.04); }
 .tag-sm { padding: 0 6px; font-size: 10.5px; }
 .tag-listed { color: var(--accent); border-color: rgba(93, 255, 160, 0.45); background: rgba(93, 255, 160, 0.12); }
-.tag-approx { color: var(--warn); border-color: rgba(255, 179, 71, 0.45); background: rgba(255, 179, 71, 0.12); }
 .tag-best { color: var(--warn); border-color: rgba(255, 179, 71, 0.5); background: rgba(255, 179, 71, 0.12); }
 
 /* Patamar de aderência: cada bloco com .lv-* define --lv; barras, textos e selos herdam a cor. */
@@ -296,8 +304,11 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
   vertical-align: 1px; white-space: nowrap; color: var(--muted); border: 1px solid var(--border); }
 .src-kind.kind-nasa, .src-kind.kind-nasa_mission { color: #9fd3ff; border-color: rgba(159, 211, 255, 0.45); }
 
-/* ---------- Celular ---------- */
-@media (max-width: 767px) {
+/* ---------- Modo compacto: celular, tablet em retrato e telas baixas ----------
+   Mesma condição de COMPACT_QUERY em src/dom.js. Abaixo de 1024 px não cabem lista + globos + card lado a
+   lado (sobravam ~110 px para a cena num iPad em retrato), e com até 500 px de altura o card em coluna não
+   mostrava nada além da foto. */
+@media (max-width: 1023px), (max-height: 500px) {
   #status { display: none; }
   /* O título não cabe ao lado do idioma + "Locais": some, e as logos ficam à esquerda. */
   header { grid-template-columns: auto minmax(0, 1fr); }
@@ -313,7 +324,7 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
   .has-selection .labels, .has-selection #legend { display: none; }
   #legend { left: 0; right: 0; }
   /* A lista vira uma folha sobreposta, aberta pelo botão "Locais". */
-  #site-list { display: none; left: 8px; right: 8px; width: auto; bottom: auto; max-height: min(72vh, 560px); z-index: 4; }
+  #site-list { display: none; left: 8px; right: 8px; width: auto; bottom: auto; max-height: min(72vh, 560px); max-height: min(72dvh, 560px); z-index: 4; }
   #site-list.is-open { display: flex; }
   .seg-btn, .tab { min-height: 44px; }
   /* O card vira uma gaveta embaixo (~60% da altura), com botão de expandir. */
@@ -324,6 +335,37 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
   .card-expand { display: block; }
   .link-btn { min-height: 44px; }
   .fold summary { min-height: 44px; }
+}
+
+/* Tablet em retrato: a folha da lista não precisa ocupar a largura toda. */
+@media (min-width: 600px) and (max-width: 1023px) and (min-height: 501px) {
+  #site-list { right: auto; width: min(420px, calc(100% - 16px)); }
+}
+
+/* Celular deitado (pouca altura): cabeçalho mais baixo e o card numa coluna à direita, com a altura toda,
+   em vez de uma gaveta que deixaria só uma faixa fina para os globos. */
+@media (max-height: 500px) and (min-width: 600px) {
+  :root { --top: 56px; }
+  .logos img { height: 32px; }
+  .logos img + img { height: 26px; }
+  #site-list { right: auto; width: min(420px, calc(100% - 16px)); max-height: calc(100dvh - var(--top) - 8px); }
+  #panel, #panel.is-expanded { top: var(--top); left: auto; right: 0; bottom: 0; width: min(55%, 440px); height: auto;
+    border-radius: 14px 0 0 0; border-width: 1px 0 0 1px; }
+  .card-photo { height: 96px; }
+  .card-expand { display: none; }
+  #legend { bottom: 30px; }
+  .labels { bottom: 8px; }
+}
+
+/* Telas muito estreitas (320 px): logos e botões menores para o cabeçalho caber. */
+@media (max-width: 359px) {
+  header { padding: 0 8px; gap: 8px; }
+  .logos { gap: 6px; padding: 0; }
+  .logos img { height: 32px; }
+  .logos img + img { height: 26px; padding-left: 6px; }
+  .header-right { gap: 4px; }
+  .lang-btn { padding: 0 6px; }
+  #list-toggle { padding: 0 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

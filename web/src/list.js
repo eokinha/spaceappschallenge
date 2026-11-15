@@ -1,5 +1,5 @@
 import { el, prefersReducedMotion } from './dom.js';
-import { barWidth, fmtFixed, levelInfo, targetOf, targetShort } from './format.js';
+import { barWidth, fmtFixed, levelInfo, targetShort } from './format.js';
 import { ordinal, t } from './i18n.js';
 
 // Painel lateral: seletor de alvo e lista dos análogos, ordenada pelo rank do link com o alvo ativo.
@@ -16,7 +16,7 @@ import { ordinal, t } from './i18n.js';
  */
 export function createList({ root, data, linkOf, selection, onPick }) {
   const targetById = new Map(data.targets.map((tgt) => [tgt.id, tgt]));
-  const items = new Map(); // analogId → { li, rank, tied, fill, adherence, listed }
+  const items = new Map(); // analogId → { li, rank, tied, fill, adherence, score, status }
   let cursorId = null;     // item sob o cursor do teclado (aria-activedescendant)
 
   const targetButtons = new Map();
@@ -34,28 +34,23 @@ export function createList({ root, data, linkOf, selection, onPick }) {
   for (const analog of data.analogs) {
     const rank = el('span', { class: 'site-rank' });
     const tied = el('span', { class: 'sr-only', hidden: true }, t(' (empate)'));
-    const listed = el('span', { class: 'tag tag-listed', hidden: true }, t('listado'));
-    const approx = analog.approximate_coords
-      ? el('span', { class: 'tag tag-approx', title: t('Coordenada aproximada') }, t('≈ aprox.'),
-          el('span', { class: 'sr-only' }, t(' (coordenada aproximada)')))
-      : null;
     const fill = el('span', { class: 'bar-fill' });
     const adherence = el('span', { class: 'site-adh lv-text' });
     const status = el('span', { class: 'tag tag-status tag-sm' });
     const score = el('span', { class: 'site-score' },
       el('span', { class: 'bar', 'aria-hidden': 'true' }, fill),
-      el('span', { class: 'sr-only' }, t('aderência '), adherence, status));
+      el('span', { class: 'sr-only' }, t('aderência ')), adherence, status);
     const li = el('li', { class: 'site', role: 'option', id: `site-opt-${analog.id}`, 'data-id': analog.id,
       'aria-selected': 'false' },
       el('span', { class: 'site-rank-cell' }, rank, tied),
       el('span', { class: 'site-main' },
-        el('span', { class: 'site-name' }, analog.name, ' ', listed, approx),
+        el('span', { class: 'site-name' }, analog.name),
         el('span', { class: 'site-country' }, analog.country)),
       score);
     li.addEventListener('click', () => { setCursor(analog.id); selection.selectAnalog(analog.id); onPick?.(); });
     li.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'touch') selection.setHover(analog.id); });
     li.addEventListener('pointerleave', () => selection.setHover(null));
-    items.set(analog.id, { li, rank, tied, fill, adherence, listed, score, status });
+    items.set(analog.id, { li, rank, tied, fill, adherence, score, status });
   }
 
   root.replaceChildren(
@@ -110,8 +105,6 @@ export function createList({ root, data, linkOf, selection, onPick }) {
         const lv = levelInfo(link?.level);
         item.score.className = `site-score ${lv.cls}`;
         item.status.textContent = lv.label;
-        item.listed.hidden = !link?.listed_as_target;
-        item.listed.title = t('Listado pela equipe como análogo {of}', { of: targetOf(target) });
         listbox.append(item.li);
       }
 

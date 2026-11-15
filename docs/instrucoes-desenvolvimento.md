@@ -366,8 +366,8 @@ redesenhar lista e card.
 - Os 14 análogos, ordenados pelo `rank` do link com o alvo ativo. Cada item mostra a posição, o nome, o
   país, uma mini barra (largura = `score`; o trilho inteiro é a escala 0–3), a aderência com duas casas e um
   selo do patamar (Forte / Parcial / Fraca), tudo na cor do `level`.
-- Marcas: "listado" (`listed_as_target`), "≈ aprox." (`approximate_coords`) e "=" na posição quando há empate
-  (`rank_tied`).
+- Marca: "=" na posição quando há empate (`rank_tied`). "listado" e a coordenada aproximada
+  (`approximate_coords`) não aparecem na lista: ficam só no card.
 - Trocar o alvo reordena a lista com uma animação curta, mantém o item selecionado e o rola até ficar
   visível, sem roubar o foco do teclado.
 - Teclado: a lista é um `listbox`; setas (e `Home`/`End`) movem o cursor, `Enter` seleciona, `Esc` limpa.
@@ -434,9 +434,14 @@ A página abre em inglês; o botão `EN | PT` no canto superior direito troca pa
 
 - A lista de locais é o caminho por teclado para tudo o que o clique no 3D faz.
 - Meta de 60 fps num notebook comum. Limite `renderer.setPixelRatio(Math.min(devicePixelRatio, 2))`.
-- Celular (largura < 768 px): a lista vira uma folha sobreposta aberta pelo botão "Locais" (fecha ao
-  escolher um item) e o card vira uma gaveta embaixo, com ~60% da altura e um botão para expandir. Alvos
-  de toque com pelo menos 44 px e sem rolagem horizontal.
+- Modo compacto (largura < 1024 px ou altura ≤ 500 px; `COMPACT_QUERY` em `dom.js`, igual à media query
+  do `styles.css`): a lista vira uma folha sobreposta aberta pelo botão "Locais" (fecha ao escolher um
+  item) e o card vira uma gaveta embaixo, com ~60% da altura e um botão para expandir. Com pouca altura
+  (celular deitado) o card fica numa coluna à direita com a altura toda. A cena mede o card para achar a
+  área livre (acima da gaveta ou à esquerda da coluna). Alvos de toque com pelo menos 44 px e sem
+  rolagem horizontal, até 320 px de largura.
+- A legenda é um container query: com a faixa livre estreita ela perde a explicação do arco e, abaixo de
+  ~270 px (240 px de conteúdo), some.
 
 ## 6. Ordem de implementação
 
