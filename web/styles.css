@@ -30,17 +30,25 @@ a { color: #9fd3ff; }
 .muted { color: var(--muted); font-size: 12px; }
 
 #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
-/* Três colunas: título à esquerda, logos no centro da tela (fora das colunas laterais) e status/botão à direita. */
+/* Três colunas: título à esquerda, logos no centro da tela (fora das colunas laterais) e status/idioma/botão à direita. */
 header { position: fixed; top: 0; left: 0; right: 0; height: var(--top); padding: 0 16px; pointer-events: none;
   display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; z-index: 3; }
 header h1 { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: auto; }
-header #status, header #list-toggle { justify-self: end; }
+.header-right { justify-self: end; display: flex; align-items: center; gap: 12px; pointer-events: auto; }
 .logos { display: flex; align-items: center; gap: 12px; padding: 0 16px; }
 .logos img { display: block; width: auto; height: 60px; }
 .logos img + img { height: 50px; padding-left: 12px; border-left: 1px solid var(--border); box-sizing: content-box; }
 #status { color: var(--muted); font-size: 12px; white-space: nowrap; }
-#list-toggle { display: none; pointer-events: auto; min-height: 44px; padding: 0 16px; border-radius: 8px;
+#list-toggle { display: none; min-height: 44px; padding: 0 16px; border-radius: 8px;
   border: 1px solid var(--border); background: var(--panel); cursor: pointer; }
+
+/* Troca de idioma EN | PT: o idioma ativo fica em destaque. */
+.lang { display: inline-flex; align-items: center; gap: 3px; }
+.lang-btn { min-height: 32px; padding: 0 9px; border: 1px solid transparent; border-radius: 7px;
+  background: transparent; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .04em; cursor: pointer; }
+.lang-btn:hover { color: var(--fg); }
+.lang-btn[aria-pressed="true"] { color: var(--fg); background: var(--panel); border-color: var(--border); }
+.lang-sep { color: var(--border); user-select: none; }
 
 .labels { position: fixed; bottom: 14px; left: calc(var(--list-w) + var(--gap)); right: 0; display: flex;
   justify-content: center; gap: 16px; font-size: 12px; color: var(--muted); pointer-events: none;
@@ -291,9 +299,14 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
 /* ---------- Celular ---------- */
 @media (max-width: 767px) {
   #status { display: none; }
-  .logos { gap: 8px; padding: 0 4px; }
+  /* O título não cabe ao lado do idioma + "Locais": some, e as logos ficam à esquerda. */
+  header { grid-template-columns: auto minmax(0, 1fr); }
+  header h1 { display: none; }
+  .logos { justify-self: start; gap: 8px; padding: 0 4px; }
   .logos img { height: 40px; }
   .logos img + img { height: 32px; padding-left: 8px; }
+  .header-right { justify-self: end; gap: 8px; }
+  .lang-btn { min-height: 44px; padding: 0 8px; }
   #list-toggle { display: block; }
   .resizer { display: none; }
   .labels { left: 0; font-size: 11px; gap: 10px; }

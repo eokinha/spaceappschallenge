@@ -11,9 +11,27 @@ import { isLightboxOpen } from './lightbox.js';
 import { createPanelResizers } from './resize-panels.js';
 import { el, isMobile } from './dom.js';
 import { LEVELS, fmtOutOf3, levelInfo } from './format.js';
+import { applyStaticTexts, lang, t, setLang, takeRestore, translateData } from './i18n.js';
 
 // Orquestrador: monta a cena, carrega o JSON e liga os módulos ao estado da seleção (selection.js).
 // Lista (list.js), card (panel.js) e cena não se chamam: cada um assina o estado e reage.
+// Idioma (i18n.js): os textos fixos do HTML já estão em inglês; applyStaticTexts() aplica o português
+// quando é o ativo, loadData() troca os textos do analogs.json pelo dicionário e o botão EN | PT do
+// cabeçalho guarda a seleção, troca o idioma e recarrega.
+
+applyStaticTexts();
+
+/** Botão EN | PT: guarda a seleção atual, grava o idioma e recarrega (i18n.js › setLang). */
+function wireLanguageSwitch() {
+  for (const button of document.querySelectorAll('.lang-btn')) {
+    button.setAttribute('aria-pressed', String(button.dataset.lang === lang));
+    button.addEventListener('click', () => {
+      const state = app?.selection.state;
+      setLang(button.dataset.lang, state ? { analogId: state.analogId, targetId: state.targetId } : undefined);
+    });
+  }
+}
+wireLanguageSwitch();
 
 // Layout dos globos. Raios e posições configuráveis (ver docs/instrucoes-desenvolvimento.md, seção 5).
 // Rotação inicial: yaw para mostrar uma face útil e inclinação para deixar o polo sul lunar visível.
@@ -160,13 +178,13 @@ resize();
 function buildLegend() {
   const value = el('span', { class: 'legend-value' });
   const arc = el('div', { class: 'legend-arc', hidden: true },
-    el('span', { class: 'legend-title' }, 'Arco:'),
+    el('span', { class: 'legend-title' }, t('Arco:')),
     el('span', { class: 'legend-ramp', 'aria-hidden': 'true', style: `--min:${ARC_WIDTH.min}px;--max:${ARC_WIDTH.max}px` }),
-    el('span', {}, 'cor = patamar · espessura = nota'),
+    el('span', {}, t('cor = patamar · espessura = nota')),
     value);
   legendEl.replaceChildren(
     el('div', { class: 'legend-tiers' },
-      el('span', { class: 'legend-title' }, 'Aderência (0 a 3):'),
+      el('span', { class: 'legend-title' }, t('Aderência (0 a 3):')),
       ['high', 'moderate', 'low', 'none'].map((k) => el('span', { class: `legend-tier ${LEVELS[k].cls}` },
         el('span', { class: 'legend-dot', 'aria-hidden': 'true' }), `${LEVELS[k].label} `,
         el('span', { class: 'legend-range' }, `(${LEVELS[k].range})`)))),
@@ -175,22 +193,41 @@ function buildLegend() {
   return { value, arc };
 }
 
+/**
+ * Dicionário dos textos do analogs.json (português → inglês). Só em inglês: em português o JSON já
+ * é o texto original. Falha no dicionário não derruba a página — os textos ficam em português.
+ */
+async function loadDictionary() {
+  if (lang !== 'en') return null;
+  try {
+    const res = await fetch('data/i18n-en.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn('Dicionário i18n-en.json indisponível; textos do JSON ficam em português.', err);
+    return null;
+  }
+}
+
 async function loadData() {
-  const res = await fetch('data/analogs.json');
+  const [res, dictionary] = await Promise.all([fetch('data/analogs.json'), loadDictionary()]);
   if (!res.ok) throw new Error(`Falha ao carregar analogs.json: HTTP ${res.status}`);
   const data = await res.json();
+  // Antes de criar marcadores, lista e card: os textos do JSON saem traduzidos uma única vez.
+  if (dictionary) translateData(data, dictionary);
 
   // Alvos (Lua – Shackleton, Marte – Jezero) e os 14 análogos da Terra vêm do ETL (python -m etl build).
   // Os ids dos marcadores são os mesmos de data/processed: alvo_id ('lua', 'marte') e local_id.
   const targetMarkers = new Map();
   const analogMarkers = new Map();
-  for (const t of data.targets) targetMarkers.set(t.id, addMarker(globes[t.body], t.lat, t.lon, 'target', t));
+  for (const tgt of data.targets) targetMarkers.set(tgt.id, addMarker(globes[tgt.body], tgt.lat, tgt.lon, 'target', tgt));
   for (const a of data.analogs) analogMarkers.set(a.id, addMarker(globes.earth, a.lat, a.lon, 'analog', a));
 
   document.getElementById('status').textContent =
-    `${data.targets.length} alvos · ${data.analogs.length} análogos · ${data.links.length} ligações`;
+    t('{t} alvos · {a} análogos · {l} ligações',
+      { t: data.targets.length, a: data.analogs.length, l: data.links.length });
 
-  const targetById = new Map(data.targets.map((t) => [t.id, t]));
+  const targetById = new Map(data.targets.map((tgt) => [tgt.id, tgt]));
   const analogById = new Map(data.analogs.map((a) => [a.id, a]));
   const linkIndex = new Map(data.links.map((l) => [`${l.analog}|${l.target}`, l]));
   const linkOf = (analogId, targetId) => linkIndex.get(`${analogId}|${targetId}`);
@@ -200,6 +237,10 @@ async function loadData() {
     targets: data.targets,
     initialTarget: targetById.has(INITIAL_TARGET) ? INITIAL_TARGET : data.targets[0].id,
   });
+  // Seleção guardada na troca de idioma (takeRestore a consome; só existe uma vez).
+  const restore = takeRestore();
+  if (restore?.targetId) selection.setTarget(restore.targetId);
+  if (restore?.analogId) selection.selectAnalog(restore.analogId);
   app = { data, selection, targetById, analogById, linkOf, targetMarkers, analogMarkers };
 
   const closeSheet = () => {
@@ -229,7 +270,7 @@ async function loadData() {
     for (const [id, marker] of analogMarkers) marker.material.opacity = !analog || id === analog.id ? 1 : DIM_OPACITY;
     for (const [id, marker] of targetMarkers) marker.material.opacity = !analog || id === target.id ? 1 : DIM_OPACITY;
     setRing(globes.earth, analog ? analogMarkers.get(analog.id) : null);
-    for (const t of data.targets) setRing(globes[t.body], analog && t.id === target.id ? targetMarkers.get(t.id) : null);
+    for (const tgt of data.targets) setRing(globes[tgt.body], analog && tgt.id === target.id ? targetMarkers.get(tgt.id) : null);
 
     // Só o arco do link ativo (a rede inteira seria arcs.setLinks com os 28 links).
     arcs.setLinks(link ? [{ score: link.score, level: link.level, from: analogMarkers.get(analog.id), to: targetMarkers.get(target.id) }] : []);
@@ -286,5 +327,5 @@ window.__app = { scene, camera, controls, globes, renderer };
 
 loadData().catch((err) => {
   console.error(err);
-  document.getElementById('status').textContent = 'Erro ao carregar os dados. Veja o console.';
+  document.getElementById('status').textContent = t('Erro ao carregar os dados. Veja o console.');
 });

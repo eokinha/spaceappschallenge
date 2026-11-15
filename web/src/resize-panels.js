@@ -1,4 +1,5 @@
 import { el, isMobile } from './dom.js';
+import { t } from './i18n.js';
 
 // Arrastar a borda interna da lista (esquerda) e do card (direita) para mudar a largura deles.
 // A largura vira as variáveis CSS --list-w / --card-w no :root, que a lista, o card e a legenda já usam;
@@ -52,12 +53,12 @@ export function createPanelResizers({ listEl, panelEl, onChange }) {
   }
 
   function makeHandle(kind, host) {
-    const label = kind === 'list' ? 'Largura da lista de locais' : 'Largura do card de detalhes';
+    const label = kind === 'list' ? t('Largura da lista de locais') : t('Largura do card de detalhes');
     const handle = el('div', {
       class: `resizer resizer-${kind}`, role: 'separator', tabindex: '0', 'aria-orientation': 'vertical',
-      'aria-label': `${label} (arraste, ou use as setas; duplo clique volta ao padrão)`,
+      'aria-label': t('{label} (arraste, ou use as setas; duplo clique volta ao padrão)', { label }),
       'aria-valuemin': String(LIMITS[kind].min), 'aria-valuemax': String(LIMITS[kind].max),
-      title: 'Arraste para redimensionar · duplo clique volta ao padrão',
+      title: t('Arraste para redimensionar · duplo clique volta ao padrão'),
     });
     // Lista: a borda direita cresce para a direita. Card: a borda esquerda cresce para a esquerda.
     const sign = kind === 'list' ? 1 : -1;

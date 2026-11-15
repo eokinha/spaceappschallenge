@@ -190,11 +190,11 @@ export function takeRestore() {
 /**
  * Textos fixos do index.html: o HTML já vem em inglês (o padrão), com o português em `data-pt`
  * (texto) e `data-pt-aria-label`. Aqui só se aplica o português quando ele é o idioma ativo.
+ * O título da aba é o nome do desafio, igual nos dois idiomas, então não é traduzido.
  */
 export function applyStaticTexts() {
   document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
   if (lang !== 'pt') return;
-  document.title = 'Análogos Terra · Lua · Marte';
   for (const node of document.querySelectorAll('[data-pt]')) node.textContent = node.dataset.pt;
   for (const node of document.querySelectorAll('[data-pt-aria-label]')) node.setAttribute('aria-label', node.dataset.ptAriaLabel);
 }

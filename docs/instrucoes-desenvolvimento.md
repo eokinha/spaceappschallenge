@@ -78,12 +78,14 @@ ETL Python (etl/) ──gera──▶ data/processed/  (tabelas normalizadas, CS
 │   │   ├── list.js           # painel lateral: seletor de alvo e lista de locais
 │   │   ├── lightbox.js       # modal da foto ampliada
 │   │   ├── resize-panels.js  # bordas arrastáveis da lista e do card
+│   │   ├── i18n.js           # idioma (EN padrão, PT-BR): t(), tradução dos dados, troca
 │   │   ├── panel.js          # card de detalhes
 │   │   ├── format.js         # formatação pt-BR, "a medir" e rótulos
 │   │   └── dom.js            # criação de elementos sem innerHTML
 │   ├── textures/             # earth.jpg, moon.jpg, mars.jpg
 │   ├── images/analogs/       # foto de cada local (crédito em etl/config.py › IMAGENS)
-│   └── data/analogs.json     # gerado pelo ETL (vai pro git: é o que a Vercel publica)
+│   ├── data/analogs.json     # gerado pelo ETL (vai pro git: é o que a Vercel publica)
+│   └── data/i18n-en.json     # dicionário português → inglês dos textos do analogs.json
 └── docs/
 ```
 
@@ -413,6 +415,20 @@ Conteúdo da aba (link `analog × target`), nesta ordem:
 
 Categoria ausente no JSON e utilidade com `adherence: null` aparecem como "a medir", não como zero.
 O front só formata (vírgula decimal, `1º de 14`); nenhum número é recalculado.
+
+### Idioma (EN | PT)
+
+A página abre em inglês; o botão `EN | PT` no canto superior direito troca para pt-BR. A escolha fica no
+`localStorage` e a troca recarrega a página, mantendo o local e o alvo selecionados.
+
+- **Interface:** os textos nascem em português no código e passam por `t()` (`web/src/i18n.js`), que em
+  inglês consulta o mapa `EN`. Os textos fixos do `index.html` já vêm em inglês, com o português em
+  `data-pt` / `data-pt-aria-label`. Números e ordinais seguem o idioma (`1.54`, `1st of 14` × `1,54`, `1º de 14`).
+- **Dados:** o `analogs.json` continua só em português (o contrato não muda). Em inglês, o front carrega
+  `web/data/i18n-en.json` (texto em português → texto em inglês) e troca os campos de texto listados em
+  `DATA_KEYS`. Texto sem entrada no dicionário aparece em português.
+- **Ao mudar planilhas ou curadoria:** rode `python -m etl build` e depois os testes; `tests/test_i18n.py`
+  acusa texto novo sem tradução (na interface e nos dados). Acrescente a tradução em `i18n-en.json`.
 
 ### Acessibilidade e desempenho
 

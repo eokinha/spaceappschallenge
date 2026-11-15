@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="pt-BR">
+<!-- Textos fixos em inglês (idioma padrão); o português fica em data-pt / data-pt-aria-label e é
+     aplicado por applyStaticTexts() em src/i18n.js quando o idioma ativo é pt. -->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,22 +16,30 @@
   </script>
 </head>
 <body>
-  <canvas id="scene" aria-label="Globos 3D da Lua, da Terra e de Marte"></canvas>
+  <canvas id="scene" aria-label="3D globes of the Moon, Earth and Mars"
+    data-pt-aria-label="Globos 3D da Lua, da Terra e de Marte"></canvas>
   <header>
     <h1 title="LACITE - Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars">LACITE - Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars</h1>
     <div class="logos">
       <img src="images/logos/lacite.png" alt="LACITE" width="160" height="192">
       <img src="images/logos/nasa-space-apps.png" alt="NASA Space Apps Challenge" width="440" height="172">
     </div>
-    <span id="status">Carregando…</span>
-    <button type="button" id="list-toggle" aria-controls="site-list" aria-expanded="false">Locais</button>
+    <div class="header-right">
+      <span id="status" data-pt="Carregando…">Loading…</span>
+      <div class="lang" role="group" aria-label="Language" data-pt-aria-label="Idioma">
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+        <span class="lang-sep" aria-hidden="true">|</span>
+        <button type="button" class="lang-btn" data-lang="pt" aria-pressed="false">PT</button>
+      </div>
+      <button type="button" id="list-toggle" aria-controls="site-list" aria-expanded="false" data-pt="Locais">Sites</button>
+    </div>
   </header>
   <div class="labels" aria-hidden="true">
-    <span style="--c:#9fd3ff">Alvo na Lua</span>
-    <span class="analog" style="--c:#5dffa0">Análogo na Terra</span>
-    <span style="--c:#ff7a45">Alvo em Marte</span>
+    <span style="--c:#9fd3ff" data-pt="Alvo na Lua">Target on the Moon</span>
+    <span class="analog" style="--c:#5dffa0" data-pt="Análogo na Terra">Analog on Earth</span>
+    <span style="--c:#ff7a45" data-pt="Alvo em Marte">Target on Mars</span>
   </div>
-  <nav id="site-list" aria-label="Lista de locais"></nav>
+  <nav id="site-list" aria-label="Site list" data-pt-aria-label="Lista de locais"></nav>
   <aside id="panel" hidden></aside>
   <div id="legend" hidden></div>
   <div id="tooltip" role="tooltip" hidden></div>
