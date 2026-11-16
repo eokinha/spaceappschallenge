@@ -9,6 +9,7 @@ import { createInteraction } from './interaction.js';
 import { createList } from './list.js';
 import { createPanel } from './panel.js';
 import { isLightboxOpen } from './lightbox.js';
+import { isHelpOpen, wireHelp } from './help.js';
 import { fitTitle } from './title-fit.js';
 import { el, isMobile } from './dom.js';
 import { LEVELS, fmtOutOf3, levelInfo } from './format.js';
@@ -33,6 +34,7 @@ function wireLanguageSwitch() {
   }
 }
 wireLanguageSwitch();
+wireHelp();
 
 // Layout dos globos. Raios e posições configuráveis (ver docs/instrucoes-desenvolvimento.md, seção 5).
 // Rotação inicial: yaw para mostrar uma face útil e inclinação para deixar o polo sul lunar visível.
@@ -389,7 +391,7 @@ async function loadData() {
 
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
-    if (isLightboxOpen()) return; // o <dialog> da foto fecha sozinho; o card continua aberto
+    if (isLightboxOpen() || isHelpOpen()) return; // o <dialog> (foto ou ajuda) fecha sozinho; o card continua aberto
     if (listEl.classList.contains('is-open')) closeSheet();
     else selection.clear();
   });

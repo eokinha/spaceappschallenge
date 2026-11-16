@@ -375,6 +375,12 @@ redesenhar lista e card.
   limpou.
   O botão "Reset view" (`#reset-view`, no cabeçalho, ao lado do `EN | PT`) faz o mesmo e também fecha a
   seleção; ele só aparece quando a cena foi mexida ou há um local selecionado.
+- Ctrl, Shift ou ⌘ + arrastar (ou o botão direito) desloca a cena, mesmo começando em cima de um globo
+  (`interaction.js` não inicia o giro do globo com essas teclas e deixa o gesto para o `OrbitControls`).
+- Ajuda "Como navegar": o botão `?` (`#help-btn`, à direita do `EN | PT`) abre um `<dialog>`
+  (`web/src/help.js`) com os comandos. Com ponteiro de toque (`pointer: coarse`) mostra os gestos (um dedo,
+  pinça de zoom, dois dedos para deslocar, toque duplo) e os botões da gaveta; senão, mouse e atalhos de
+  teclado. Fecha com ✕, `Esc` (sem fechar o card) ou clique fora. Ao mudar um gesto ou atalho, atualize a ajuda.
 - Com `prefers-reduced-motion`, tudo salta direto para a posição final.
 
 ### Painel lateral: lista de locais (`#site-list`, esquerda)

@@ -134,6 +134,7 @@ export function createInteraction({ canvas, camera, globes, markers, tooltip, on
     if (event.pointerType === 'touch') touches.add(event.pointerId);
     if (drag) { if (touches.size > 1) endDrag(); return; } // segundo dedo: o gesto vira pinça
     if (event.button !== 0 || touches.size > 1 || focus.cameraBusy) return;
+    if (event.ctrlKey || event.shiftKey || event.metaKey) return; // Ctrl/Shift/⌘ + arrastar: o OrbitControls desloca a cena
     const globe = pickGlobe(event);
     if (!globe) return;
     drag = { globe, x: event.clientX, y: event.clientY, id: event.pointerId };

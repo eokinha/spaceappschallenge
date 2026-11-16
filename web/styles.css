@@ -65,6 +65,28 @@ header h1.is-fitting { display: block; }
 .lang-btn[aria-pressed="true"] { color: var(--fg); background: var(--panel); border-color: var(--border); }
 .lang-sep { color: var(--border); user-select: none; }
 
+/* Botão "?" de ajuda, à direita do EN | PT; abre o <dialog> de src/help.js. */
+#help-btn { min-width: 32px; min-height: 32px; padding: 0; border-radius: 50%; border: 1px solid var(--border);
+  background: var(--panel); color: var(--fg); font-size: 14px; font-weight: 700; cursor: pointer; }
+#help-btn:hover { border-color: #3d5282; }
+.help { width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid var(--border);
+  border-radius: 14px; background: var(--panel); color: var(--fg); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
+.help::backdrop { background: rgba(3, 5, 10, 0.6); }
+.help-box { position: relative; padding: 18px 20px 16px; }
+.help h2 { font-size: 17px; font-weight: 600; margin: 0 48px 12px 0; }
+.help h3 { margin: 14px 0 6px; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.help-close { position: absolute; top: 8px; right: 8px; }
+.help-list { display: grid; grid-template-columns: minmax(0, 44%) minmax(0, 1fr); gap: 8px 14px; margin: 0; font-size: 13px; }
+.help-list dt { color: var(--fg); font-weight: 500; }
+.help-list dd { margin: 0; color: #c3cad8; }
+.help kbd { display: inline-block; min-width: 1.6em; padding: 0 5px; border: 1px solid var(--border); border-bottom-width: 2px;
+  border-radius: 5px; background: rgba(255, 255, 255, 0.05); font: 600 12px/1.6 ui-monospace, monospace; text-align: center; }
+.help-note { margin-top: 14px; }
+@media (max-width: 479px) {
+  .help-list { grid-template-columns: 1fr; gap: 2px; }
+  .help-list dd { margin-bottom: 8px; }
+}
+
 .labels { position: fixed; bottom: 14px; left: calc(var(--list-w) + var(--gap)); right: 0; display: flex;
   justify-content: center; gap: 16px; font-size: 12px; color: var(--muted); pointer-events: none;
   flex-wrap: wrap; padding: 0 16px; }
@@ -351,6 +373,7 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
   .header-right { justify-self: end; gap: 8px; }
   .lang-btn { min-height: 44px; padding: 0 8px; }
   #list-toggle { display: block; }
+  #help-btn { min-width: 44px; min-height: 44px; }
   /* Sem espaço para o texto ao lado do idioma + "Locais": fica só o ícone (o title e o leitor de tela dizem o resto). */
   #reset-view { min-height: 44px; min-width: 44px; padding: 0 8px; font-size: 16px; }
   #reset-view .reset-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -392,16 +415,28 @@ a.src-chip:hover { background: rgba(159, 211, 255, 0.2); }
   .labels { bottom: 8px; }
 }
 
-/* Telas muito estreitas (320 px): logos e botões menores para o cabeçalho caber. */
-@media (max-width: 359px) {
+/* Celulares em retrato (até 480 px): logos e botões menores para o cabeçalho caber
+   (⟲, EN | PT, ? e "Locais" ao lado das logos). */
+@media (max-width: 479px) {
   :root { --head-h: 44px; } /* botões de 44 px são o mais alto */
   header { padding: var(--top-pad) 8px; gap: 8px; }
   .logos { gap: 6px; padding: 0; }
   .logos img { height: 36px; }
   .logos img + img { height: 30px; padding-left: 6px; }
   .header-right { gap: 4px; }
-  .lang-btn { padding: 0 6px; }
-  #list-toggle { padding: 0 12px; }
+  .lang { gap: 0; }
+  .lang-btn { padding: 0 4px; }
+  #list-toggle { padding: 0 10px; }
+}
+
+/* Telas muito estreitas (320 px). */
+@media (max-width: 359px) {
+  .lang-sep { display: none; }
+  .logos img + img { height: 26px; }
+  header { gap: 4px; }
+  .header-right { gap: 2px; }
+  .logos img { height: 30px; }
+  #list-toggle { padding: 0 8px; }
   /* A faixa dos marcadores quebra em duas linhas: a legenda sobe e perde as faixas numéricas. */
   .legend-range { display: none; }
   #legend { bottom: 58px; }
