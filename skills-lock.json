@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "skills": {
+    "pitch-deck": {
+      "source": "ailabs-393/ai-labs-claude-skills",
+      "commit": "1a12bc7aadcc7b211f77a7455db454b77a71f827",
+      "sourceType": "github",
+      "skillPath": "packages/skills/pitch-deck/SKILL.md",
+      "computedHash": "b7305aac656f91e75ed18f6cd0d7615994c9944909d1792a7774cc17e5da504e"
+    },
+    "pitch-narrative-builder": {
+      "source": "aaron-he-zhu/aaron-marketing-skills",
+      "commit": "7932adf5176a9a3ba0e8995be0b3bdee97a330ff",
+      "sourceType": "github",
+      "skillPath": "narrative/land/pitch-narrative-builder/SKILL.md",
+      "computedHash": "98cd927120ba86c71f5ec7e3bf3358d7fd3511b40d3cb1ae0de1600af8cdad61"
+    }
+  }
+}
