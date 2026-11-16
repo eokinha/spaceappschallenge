@@ -77,14 +77,23 @@ termina (seção 10): quanto mais curta a narração, mais tempo os logos ficam 
 
 ## 4. O círculo e o layout
 
-- Círculo de **260 px de diâmetro** (na tela 1920x1080), com borda de 4 px na cor #2a9d8f, um brilho externo suave e
-  fundo de céu estrelado escuro (#0b1020 com estrelas pequenas, sem animação infinita: use `R.rng`).
-- Posição: **canto inferior esquerdo da área dos globos**, à direita da lista lateral, acima da legenda de cores da
-  parte de baixo. Ele **não pode cobrir** a lista, o card de detalhes, o arco entre os globos, o marcador de
-  Araguainha no globo da Terra nem a legenda do vídeo.
-  Confira em snapshots de cada trecho e ajuste a posição se algo for coberto.
+**Layout da plataforma na gravação (1920x1080, desktop):**
+- Sem local selecionado (trecho A): lista à esquerda (x 0–480) e cena 3D no resto da tela (x 480–1920).
+- Com local selecionado (trechos B–D), a tela fica em três faixas fixas: **lista** (x 0–480), **cena 3D** (x 480–960,
+  com a Terra, o alvo e o arco) e **card de detalhes** (x 960–1920).
+
+**O círculo do astronauta:**
+- **220 px de diâmetro**, com borda de 4 px na cor #2a9d8f, um brilho externo suave e fundo de céu estrelado escuro
+  (#0b1020 com estrelas pequenas, sem animação infinita: use `R.rng`).
+- Posição: **canto inferior esquerdo, sobre a parte de baixo da lista** (centro em torno de x 150, y 900). Ali ficam
+  os últimos colocados da lista, que o vídeo não usa. Araguainha (4º em Marte) e os itens do topo continuam visíveis.
+- Ele **nunca entra** na faixa da cena 3D (x 480–960) nem no card (x 960–1920). Também não pode cobrir o marcador de
+  Araguainha, o arco nem a legenda do vídeo. Confira em snapshots de cada trecho e ajuste a posição se algo for
+  coberto.
 - Entrada: o círculo cresce do zero em 0,3 s no quadro 0 (o astronauta já está falando no 0,2 s). Fica até o fade do cartão final.
-- Legenda palavra por palavra na parte de baixo, centralizada, sem cobrir o círculo.
+- Legenda palavra por palavra na parte de baixo, centralizada na tela, com fundo escuro semitransparente e sem
+  cobrir o círculo. Ela fica sobre a base do card. Por isso, nos trechos B e C, a gravação deve manter os itens em
+  destaque (Geologia de impacto, Frio extremo e o bloco "Por que essa nota aqui") **acima dos 160 px de baixo** da tela.
 - Trilha: pad grátis do kit, calmo e baixo (`volume_lufs` -27). Sem efeitos sonoros, exceto um `click.wav` baixinho
   quando o vídeo mostra um clique na plataforma.
 
@@ -173,7 +182,7 @@ versão em inglês. Adicione essas palavras ao `modelos/palavras-problema.json` 
 - O título oficial fica **em inglês nas duas versões**, exatamente como está escrito acima. É o nome oficial do
   desafio, igual ao título da página da plataforma.
 - Visual: painel escuro semitransparente (#0b1020 com 80% de opacidade), cantos arredondados e borda fina
-  #2a9d8f, com até 1100 px de largura, centralizado na horizontal e na parte de cima da área dos globos. Ele não
+  #2a9d8f, com até 1100 px de largura, centralizado na área da cena 3D (x 480–1920, centro em x 1200) e na parte de cima dela. Ele não
   cobre a lista da esquerda nem o globo da Terra inteiro.
 - **Já aparece no quadro 0**, sem fade do preto, porque esse é o quadro de capa. Em 3,6 s, ele sobe 20 px e some em
   0,4 s, e a etiqueta `14 análogos · 2 alvos` entra.
@@ -219,7 +228,7 @@ Com a narração no limite de 28,0 s, T = 28,1 s e os logos ficam totalmente vis
 - [ ] O cartão final entra logo após a voz, com fade rápido e os logos visíveis por no mínimo 1,4 s, com os dois logos nítidos, sem emenda do fundo do jpeg e sem
       distorção.
 - [ ] Boca do astronauta sincronizada, sem ficar parada durante a fala, e o rosto visível o tempo todo.
-- [ ] O círculo não cobre a lista, o card, o arco nem a legenda em nenhum quadro (snapshots em 3, 10, 18 e 27 s). No trecho C, ele também não pode cobrir o bloco "Por que essa nota aqui".
+- [ ] O círculo fica só sobre a parte de baixo da lista e não cobre a cena 3D, o card, o arco, Araguainha na lista nem a legenda em nenhum quadro (snapshots em 3, 10, 18 e 27 s). No trecho C, ele também não pode cobrir o bloco "Por que essa nota aqui".
 - [ ] Todo número na tela é igual ao que aparece na gravação da plataforma naquele momento.
 - [ ] O cartão do desafio aparece no quadro 0, com o título oficial exatamente igual ao deste pedido.
 - [ ] Nenhum logotipo da NASA, nenhum CTA, nenhuma frase fora do roteiro.
